@@ -1,0 +1,4 @@
+main/application/domain/student/Student.class
+main/application/repository/student/StudentRepository.class
+main/application/controller/student/StudentController.class
+main/application/Application.class
