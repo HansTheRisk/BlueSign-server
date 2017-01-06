@@ -19,19 +19,19 @@ import java.util.List;
 public class StudentController {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private StudentRepository studentService;
 
     @RequestMapping(value="/student", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Student>> test() {
-        return new ResponseEntity<List<Student>>(studentRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<List<Student>>(studentService.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value="/student/{id}/{pin}", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Boolean> exists(@PathVariable String id,
                                           @PathVariable String pin) {
-        Student student = studentRepository.findByUniversityIdAndPin(id, pin);
+        Student student = studentService.findByUniversityIdAndPin(id, pin);
         if (student != null)
             return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
         else
