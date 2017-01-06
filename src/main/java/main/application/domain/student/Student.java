@@ -4,12 +4,16 @@ import main.application.domain.entity.identifiable.IdentifiableEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="student")
-public class Student extends IdentifiableEntity {
+public class Student implements IdentifiableEntity {
 
+    @Id
+    @Column(name="id")
+    private Long id;
     @Column(name="university_id")
     private String universityId;
     @Column(name="name")
@@ -59,5 +63,15 @@ public class Student extends IdentifiableEntity {
 
     public void setPin(String pin) {
         this.pin = pin;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 }

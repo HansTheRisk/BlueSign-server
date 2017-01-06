@@ -2,6 +2,7 @@ package main.application.controller.student;
 
 import main.application.domain.student.Student;
 import main.application.repository.student.StudentRepository;
+import main.application.service.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import java.util.List;
 public class StudentController {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private StudentService studentRepository;
 
     @RequestMapping(value="/student", method= RequestMethod.GET)
     @ResponseBody
@@ -31,8 +32,8 @@ public class StudentController {
     @ResponseBody
     public ResponseEntity<Boolean> exists(@PathVariable String id,
                                           @PathVariable String pin) {
-        Student student = studentRepository.findByUniversityIdAndPin(id, pin);
-        if (student != null)
+        Boolean isIt = studentRepository.universityIdAndPinCombinationExist(id, pin);
+        if (isIt)
             return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
         else
             return new ResponseEntity<Boolean>(Boolean.FALSE, HttpStatus.OK);
