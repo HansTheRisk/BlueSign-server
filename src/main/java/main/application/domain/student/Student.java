@@ -1,5 +1,7 @@
 package main.application.domain.student;
 
+import main.application.domain.entity.identifiable.IdentifiableEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,11 +9,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="student")
-public class Student {
+public class Student implements IdentifiableEntity {
 
     @Id
     @Column(name="id")
-    private String id;
+    private Long id;
     @Column(name="university_id")
     private String universityId;
     @Column(name="name")
@@ -29,14 +31,6 @@ public class Student {
         this.universityId = universityId;
         this.name = name;
         this.surname = surname;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getUniversityId() {
@@ -69,5 +63,15 @@ public class Student {
 
     public void setPin(String pin) {
         this.pin = pin;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 }

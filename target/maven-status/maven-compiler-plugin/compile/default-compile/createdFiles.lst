@@ -1,4 +1,11 @@
-main/application/domain/student/Student.class
+main/application/domain/entity/naturallyIdentifiable/NaturallyIdentifiableEntity.class
+main/application/service/student/StudentService.class
+main/application/service/IdentifiableEntityService.class
 main/application/repository/student/StudentRepository.class
+main/application/repository/IdentifiableRepository.class
 main/application/controller/student/StudentController.class
 main/application/Application.class
+main/application/domain/entity/identifiable/IdentifiableEntity.class
+main/application/service/NaturallyIdentifiableService.class
+main/application/domain/student/Student.class
+main/application/repository/NaturallyIdentifiableRepository.class
