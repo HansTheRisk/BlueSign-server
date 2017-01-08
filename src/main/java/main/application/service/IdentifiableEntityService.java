@@ -1,6 +1,6 @@
 package main.application.service;
 
-import main.application.domain.entity.identifiable.IdentifiableEntity;
+import main.application.domain.entity.IdentifiableEntity;
 import main.application.repository.IdentifiableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,6 @@
 package main.application.repository;
 
-import main.application.domain.entity.identifiable.IdentifiableEntity;
+import main.application.domain.entity.IdentifiableEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

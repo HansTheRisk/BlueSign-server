@@ -1,6 +1,6 @@
 package main.application.repository;
 
-import main.application.domain.entity.naturallyIdentifiable.NaturallyIdentifiableEntity;
+import main.application.domain.entity.NaturallyIdentifiableEntity;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean

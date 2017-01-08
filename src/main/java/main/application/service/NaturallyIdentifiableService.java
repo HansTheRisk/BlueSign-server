@@ -1,6 +1,6 @@
 package main.application.service;
 
-import main.application.domain.entity.naturallyIdentifiable.NaturallyIdentifiableEntity;
+import main.application.domain.entity.NaturallyIdentifiableEntity;
 import main.application.repository.NaturallyIdentifiableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 

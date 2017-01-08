@@ -1,6 +1,6 @@
 package main.application.domain.student;
 
-import main.application.domain.entity.identifiable.IdentifiableEntity;
+import main.application.domain.entity.IdentifiableEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
