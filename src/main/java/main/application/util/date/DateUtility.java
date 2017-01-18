@@ -1,0 +1,71 @@
+package main.application.util.date;
+
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+public class DateUtility {
+
+    public Long countDays(Date startDate, Date endDate, DayOfWeek day) {
+
+        long count = 0;
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        start.setTime(startDate);
+        end.setTime(endDate);
+
+        while (start.getTimeInMillis() < end.getTimeInMillis()) {
+            if (start.get(Calendar.DAY_OF_WEEK) == convertDayOfWeekToCalendarDay(day))
+                count++;
+            start.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        return count;
+    }
+
+    public List<Date> listDays(Date startDate, Date endDate, DayOfWeek day) {
+
+        List<Date> dates = new ArrayList<>();
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        start.setTime(startDate);
+        end.setTime(endDate);
+
+        while (start.getTimeInMillis() < end.getTimeInMillis()) {
+            if (start.get(Calendar.DAY_OF_WEEK) == convertDayOfWeekToCalendarDay(day))
+                dates.add(start.getTime());
+            start.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        return dates;
+    }
+
+    private int convertDayOfWeekToCalendarDay(DayOfWeek day) {
+        int response = -1;
+        switch (day) {
+            case MONDAY:
+                response =  2;
+                break;
+            case TUESDAY:
+                response = 3;
+                break;
+            case WEDNESDAY:
+                response = 4;
+                break;
+            case THURSDAY:
+                response = 5;
+                break;
+            case FRIDAY:
+                response = 6;
+                break;
+            case SATURDAY:
+                response = 7;
+                break;
+            case SUNDAY:
+                response = 1;
+                break;
+        }
+        return response;
+    }
+
+}

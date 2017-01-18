@@ -3,8 +3,11 @@ package main.application.api.controller.student;
 import main.application.api.resource.binary.BinaryResource;
 import main.application.api.resource.message.MessageResource;
 import main.application.api.resource.module.ModuleResource;
+import main.application.api.resource.scheduledClass.ScheduledClassResource;
 import main.application.api.resource.signIn.SignInResource;
 import main.application.api.resource.student.StudentResource;
+import main.application.domain.module.Module;
+import main.application.service.scheduledClass.ScheduledClassService;
 import main.application.service.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -25,6 +28,10 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+//    @Autowired
+//    private ModuleService  moduleService;
+    @Autowired
+    private ScheduledClassService scheduledClassService;
 
     @RequestMapping(value="/student", method= RequestMethod.GET)
     @ResponseBody
@@ -46,13 +53,29 @@ public class StudentController {
         return null;
     }
 
-    public ResponseEntity<List<ModuleResource>> getModules() {
-        //TODO: plus number of attended / total. Number of mondays between class' start date and
-        return null;
+//    @RequestMapping(value="/student/{id}/modules", method= RequestMethod.GET)
+//    @ResponseBody
+//    public ResponseEntity<List<ModuleResource>> getModules(@PathVariable String id) {
+//        List<ModuleResource> modules = new ArrayList<>();
+//        moduleService.findModulesByStudentUniversityId(id).forEach(module ->
+//                modules.add(new ModuleResource(module)));
+//        return new ResponseEntity<>(modules, HttpStatus.OK);
+//    }
+
+    @RequestMapping(value="/class/{universityId}/{moduleCode}", method= RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<ScheduledClassResource>> getModules(@PathVariable String universityId,
+                                                                   @PathVariable String moduleCode) {
+        List<ScheduledClassResource> classes = new ArrayList<>();
+        scheduledClassService.findClassesByStudentUniveristyIdAndModuleUuid(universityId, moduleCode).forEach(scheduledClass ->
+                classes.add(new ScheduledClassResource(scheduledClass)));
+        return new ResponseEntity<>(classes, HttpStatus.OK);
     }
 
-    public ResponseEntity<List<SignInResource>> getHistory() {
-        return null;
-    }
+//    @RequestMapping(value="/student/{id}/history", method= RequestMethod.GET)
+//    @ResponseBody
+//    public List<Module> getHistory() {
+//        return repo.getModules("b00642446");
+//    }
 
 }

@@ -9,11 +9,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class StudentService extends IdentifiableEntityService<Student> {
+public class StudentService implements IdentifiableEntityService<Student>{
+
     @Autowired
-    public StudentService(StudentRepository repository) {
-        super(repository);
-    }
+    private StudentRepository repository;
 
     public boolean universityIdAndPinCombinationExist(String id, String pin) {
         Student student = ((StudentRepository)repository).findByUniversityIdAndPin(id, pin);
@@ -25,5 +24,15 @@ public class StudentService extends IdentifiableEntityService<Student> {
 
     public List<Student> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public Student findById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public Student save(Student object) {
+        return null;
     }
 }
