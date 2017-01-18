@@ -1,3 +1,4 @@
+/home/Projects/blusign-server/src/main/java/main/application/service/metrics/MetricsService.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/NaturallyIdentifiableResource.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java
@@ -6,10 +7,10 @@
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/message/MessageResource.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/NaturallyIdentifiableRowMapper.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/BaseJDBCRepository.java
+/home/Projects/blusign-server/src/main/java/main/application/domain/metrics/MobileCumulativeModuleMetrics.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/binary/BinaryResource.java
 /home/Projects/blusign-server/src/main/java/main/application/service/IdentifiableEntityService.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/IdentifiableRowMapper.java
-/home/Projects/blusign-server/src/main/java/main/application/domain/module/metrics/student/StudentModuleMetrics.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/student/StudentRowMapper.java
 /home/Projects/blusign-server/src/main/java/main/application/util/date/DateUtility.java
 /home/Projects/blusign-server/src/main/java/main/application/domain/entity/IdentifiableEntity.java

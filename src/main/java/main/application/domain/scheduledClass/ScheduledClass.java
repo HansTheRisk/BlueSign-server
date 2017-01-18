@@ -6,11 +6,6 @@ import java.sql.Time;
 import java.time.DayOfWeek;
 import java.util.Date;
 
-/**
- * This class is a basic resource class for inserting class instances into DB.
- * It is used for inserting class classes into database and extracting them
- * for local and not complicated manipulation.
- */
 public class ScheduledClass implements NaturallyIdentifiableEntity {
 
     private Long id;
@@ -18,6 +13,7 @@ public class ScheduledClass implements NaturallyIdentifiableEntity {
     private DayOfWeek day;
     private Date startDate;
     private Date endDate;
+    //TODO: Incorporate into startDate and endDate
     private Time startTime;
     private Time endTime;
     private String moduleCode;

@@ -4,9 +4,8 @@ import main.application.api.resource.binary.BinaryResource;
 import main.application.api.resource.message.MessageResource;
 import main.application.api.resource.module.ModuleResource;
 import main.application.api.resource.scheduledClass.ScheduledClassResource;
-import main.application.api.resource.signIn.SignInResource;
 import main.application.api.resource.student.StudentResource;
-import main.application.domain.module.Module;
+import main.application.service.module.ModuleService;
 import main.application.service.scheduledClass.ScheduledClassService;
 import main.application.service.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,8 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
-//    @Autowired
-//    private ModuleService  moduleService;
+    @Autowired
+    private ModuleService moduleService;
     @Autowired
     private ScheduledClassService scheduledClassService;
 
@@ -53,15 +52,16 @@ public class StudentController {
         return null;
     }
 
-//    @RequestMapping(value="/student/{id}/modules", method= RequestMethod.GET)
-//    @ResponseBody
-//    public ResponseEntity<List<ModuleResource>> getModules(@PathVariable String id) {
-//        List<ModuleResource> modules = new ArrayList<>();
-//        moduleService.findModulesByStudentUniversityId(id).forEach(module ->
-//                modules.add(new ModuleResource(module)));
-//        return new ResponseEntity<>(modules, HttpStatus.OK);
-//    }
+    @RequestMapping(value="/student/{id}/modules", method= RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<ModuleResource>> getModules(@PathVariable String id) {
+        List<ModuleResource> modules = new ArrayList<>();
+        moduleService.getModulesForStudent(id).forEach(module ->
+                modules.add(new ModuleResource(module)));
+        return new ResponseEntity<>(modules, HttpStatus.OK);
+    }
 
+    //TODO: move to class controller
     @RequestMapping(value="/class/{universityId}/{moduleCode}", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ScheduledClassResource>> getModules(@PathVariable String universityId,
@@ -71,6 +71,8 @@ public class StudentController {
                 classes.add(new ScheduledClassResource(scheduledClass)));
         return new ResponseEntity<>(classes, HttpStatus.OK);
     }
+
+    //TODO: endpoint for metrics
 
 //    @RequestMapping(value="/student/{id}/history", method= RequestMethod.GET)
 //    @ResponseBody

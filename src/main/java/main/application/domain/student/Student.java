@@ -7,24 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name="student")
 public class Student implements IdentifiableEntity {
 
-//    @Id
-//    @Column(name="id")
     private Long id;
-
-//    @Column(name="university_id")
     private String universityId;
-
-//    @Column(name="name")
     private String name;
-
-//    @Column(name="surname")
     private String surname;
-
-//    @Column(name="pin_salt")
     private String pin;
 
     public Student() {

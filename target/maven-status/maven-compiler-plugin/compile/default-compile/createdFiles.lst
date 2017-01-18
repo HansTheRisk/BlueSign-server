@@ -1,3 +1,4 @@
+main/application/service/metrics/MetricsService.class
 main/application/service/student/StudentService.class
 main/application/domain/scheduledClass/ScheduledClass.class
 main/application/repository/IdentifiableRowMapper.class
@@ -5,10 +6,12 @@ main/application/repository/BaseJdbcTemplate.class
 main/application/api/resource/signIn/SignInResource.class
 main/application/repository/module/ModuleRowMapper.class
 main/application/repository/NaturallyIdentifiableRowMapper.class
+main/application/domain/metrics/MobileCumulativeModuleMetrics.class
 main/application/repository/scheduledClass/ScheduledClassRowMapper.class
 main/application/repository/student/StudentRowMapper.class
 main/application/service/IdentifiableEntityService.class
 main/application/repository/module/ModuleRepository.class
+main/application/service/module/ModuleService.class
 main/application/domain/entity/NaturallyIdentifiableEntity.class
 main/application/service/NaturallyIdentifiableService.class
 main/application/domain/student/Student.class
@@ -20,7 +23,6 @@ main/application/Application.class
 main/application/api/resource/module/ModuleResource.class
 main/application/repository/BaseJDBCRepository.class
 main/application/api/resource/student/StudentResource.class
-main/application/domain/module/metrics/student/StudentModuleMetrics.class
 main/application/api/resource/IdentifiableResource.class
 main/application/domain/signIn/SignIn.class
 main/application/api/resource/message/MessageResource.class

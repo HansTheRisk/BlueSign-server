@@ -26,6 +26,20 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.query(sql, new Object[]{universityId, moduleCode}, new ScheduledClassRowMapper());
     }
 
+    public List<ScheduledClass> findClassesByStudentUniveristyId(String universityId) {
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, day, start_date, end_date, start_time, end_time " +
+                "FROM class " +
+                "INNER JOIN module " +
+                "ON class.module_id = module.id " +
+                "INNER JOIN allocation " +
+                "ON class.id = allocation.class_id " +
+                "INNER JOIN student " +
+                "ON allocation.student_id = student.id " +
+                "WHERE " +
+                "student.university_id = ? ";
+        return executor.query(sql, new Object[]{universityId}, new ScheduledClassRowMapper());
+    }
+
     @Override
     public ScheduledClass findByUuid(String uuid) {
         return null;

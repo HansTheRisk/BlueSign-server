@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class ModuleRepository extends BaseJDBCRepository implements IdentifiableRepository<Module> {
 
-    public List<Module> getModules(String universityId) {
+    public List<Module> getModulesForStudent(String universityId) {
         String sql = "SELECT module.id, title, module_code, user.uuid AS lecturer_uuid " +
                 "FROM module " +
                     "INNER JOIN class ON " +

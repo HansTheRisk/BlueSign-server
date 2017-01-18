@@ -1,11 +1,14 @@
 package main.application.util.date;
 
+import org.springframework.stereotype.Component;
+
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class DateUtility {
 
     public Long countDays(Date startDate, Date endDate, DayOfWeek day) {

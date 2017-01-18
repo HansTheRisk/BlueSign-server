@@ -1,7 +1,6 @@
 package main.application.service.scheduledClass;
 
 import main.application.domain.scheduledClass.ScheduledClass;
-import main.application.repository.NaturallyIdentifiableRepository;
 import main.application.repository.scheduledClass.ScheduledClassRepository;
 import main.application.service.NaturallyIdentifiableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,10 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
 
     public List<ScheduledClass> findClassesByStudentUniveristyIdAndModuleUuid(String universityId, String moduleCode) {
         return repository.findClassesByStudentUniveristyIdAndModuleUuid(universityId, moduleCode);
+    }
+
+    public List<ScheduledClass> findClassesByStudentUniversityId(String universityId) {
+        return repository.findClassesByStudentUniveristyId(universityId);
     }
 
     @Override
