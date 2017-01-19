@@ -5,6 +5,10 @@ import main.application.api.resource.message.MessageResource;
 import main.application.api.resource.module.ModuleResource;
 import main.application.api.resource.scheduledClass.ScheduledClassResource;
 import main.application.api.resource.student.StudentResource;
+import main.application.domain.attendance.Attendance;
+import main.application.domain.metrics.MobileCumulativeModuleMetrics;
+import main.application.service.attendance.AttendanceService;
+import main.application.service.metrics.MetricsService;
 import main.application.service.module.ModuleService;
 import main.application.service.scheduledClass.ScheduledClassService;
 import main.application.service.student.StudentService;
@@ -31,6 +35,10 @@ public class StudentController {
     private ModuleService moduleService;
     @Autowired
     private ScheduledClassService scheduledClassService;
+    @Autowired
+    private AttendanceService attendanceService;
+    @Autowired
+    private MetricsService metricsService;
 
     @RequestMapping(value="/student", method= RequestMethod.GET)
     @ResponseBody
@@ -72,12 +80,16 @@ public class StudentController {
         return new ResponseEntity<>(classes, HttpStatus.OK);
     }
 
-    //TODO: endpoint for metrics
+    @RequestMapping(value="/student/{id}/history", method= RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<Attendance>> getHistory(@PathVariable String id) {
+        return new ResponseEntity<List<Attendance>>(attendanceService.getAttendanceForStudent(id), HttpStatus.OK);
+    }
 
-//    @RequestMapping(value="/student/{id}/history", method= RequestMethod.GET)
-//    @ResponseBody
-//    public List<Module> getHistory() {
-//        return repo.getModules("b00642446");
-//    }
+    @RequestMapping(value="/student/{id}/mobileMetrics", method= RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<MobileCumulativeModuleMetrics>> getMobileMetrics(@PathVariable String id) {
+        return new ResponseEntity<List<MobileCumulativeModuleMetrics>>(metricsService.getMobileCumulativeModuleMetrics(id), HttpStatus.OK);
+    }
 
 }

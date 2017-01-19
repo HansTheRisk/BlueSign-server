@@ -10,10 +10,10 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
         super(object);
     }
 
-    @JsonProperty("day")
-    public String getDay() {
-        return object.getDay().toString();
-    }
+//    @JsonProperty("day")
+//    public String getDay() {
+//        return object.getDay().toString();
+//    }
 
     @JsonProperty("moduleCode")
     public String getModuleCode() {
@@ -30,13 +30,13 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
         return object.getEndDate().toString();
     }
 
-    @JsonProperty("startTime")
-    public String getStartTime() {
-        return object.getStartTime().toString();
-    }
-
-    @JsonProperty("endTime")
-    public String getEndTime() {
-        return object.getEndTime().toString();
-    }
+//    @JsonProperty("startTime")
+//    public String getStartTime() {
+//        return object.getStartTime().toString();
+//    }
+//
+//    @JsonProperty("endTime")
+//    public String getEndTime() {
+//        return object.getEndTime().toString();
+//    }
 }

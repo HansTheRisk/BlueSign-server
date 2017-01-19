@@ -12,7 +12,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
 
     public List<ScheduledClass> findClassesByStudentUniveristyIdAndModuleUuid(String universityId,
                                                                               String moduleCode) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, day, start_date, end_date, start_time, end_time " +
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -27,7 +27,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     }
 
     public List<ScheduledClass> findClassesByStudentUniveristyId(String universityId) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, day, start_date, end_date, start_time, end_time " +
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
                 "FROM class " +
                 "INNER JOIN module " +
                 "ON class.module_id = module.id " +

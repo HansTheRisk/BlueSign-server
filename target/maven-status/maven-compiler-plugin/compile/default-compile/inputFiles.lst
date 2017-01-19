@@ -1,8 +1,11 @@
 /home/Projects/blusign-server/src/main/java/main/application/service/metrics/MetricsService.java
+/home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRowMapper.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/NaturallyIdentifiableResource.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java
+/home/Projects/blusign-server/src/main/java/main/application/api/resource/attendance/AttendanceResource.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java
+/home/Projects/blusign-server/src/main/java/main/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.java
 /home/Projects/blusign-server/src/main/java/main/application/domain/entity/NaturallyIdentifiableEntity.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/message/MessageResource.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/NaturallyIdentifiableRowMapper.java
@@ -19,11 +22,13 @@
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/signIn/SignInResource.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/BaseResource.java
 /home/Projects/blusign-server/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java
+/home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRepository.java
 /home/Projects/blusign-server/src/main/java/main/application/Application.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/module/ModuleRowMapper.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/NaturallyIdentifiableRepository.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/student/StudentResource.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/IdentifiableResource.java
+/home/Projects/blusign-server/src/main/java/main/application/service/attendance/AttendanceService.java
 /home/Projects/blusign-server/src/main/java/main/application/domain/student/Student.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/BaseJdbcTemplate.java
 /home/Projects/blusign-server/src/main/java/main/application/service/student/StudentService.java
@@ -35,3 +40,4 @@
 /home/Projects/blusign-server/src/main/java/main/application/domain/module/Module.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/module/ModuleResource.java
 /home/Projects/blusign-server/src/main/java/main/application/service/NaturallyIdentifiableService.java
+/home/Projects/blusign-server/src/main/java/main/application/domain/attendance/Attendance.java

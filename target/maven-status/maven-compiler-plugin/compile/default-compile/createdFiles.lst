@@ -4,8 +4,10 @@ main/application/domain/scheduledClass/ScheduledClass.class
 main/application/repository/IdentifiableRowMapper.class
 main/application/repository/BaseJdbcTemplate.class
 main/application/api/resource/signIn/SignInResource.class
+main/application/domain/attendance/Attendance.class
 main/application/repository/module/ModuleRowMapper.class
 main/application/repository/NaturallyIdentifiableRowMapper.class
+main/application/api/resource/attendance/AttendanceResource.class
 main/application/domain/metrics/MobileCumulativeModuleMetrics.class
 main/application/repository/scheduledClass/ScheduledClassRowMapper.class
 main/application/repository/student/StudentRowMapper.class
@@ -13,9 +15,11 @@ main/application/service/IdentifiableEntityService.class
 main/application/repository/module/ModuleRepository.class
 main/application/service/module/ModuleService.class
 main/application/domain/entity/NaturallyIdentifiableEntity.class
+main/application/repository/attendance/AttendanceRowMapper.class
 main/application/service/NaturallyIdentifiableService.class
 main/application/domain/student/Student.class
 main/application/api/controller/student/StudentController.class
+main/application/repository/attendance/AttendanceRepository.class
 main/application/api/resource/BaseResource.class
 main/application/repository/student/StudentRepository.class
 main/application/repository/IdentifiableRepository.class
@@ -25,11 +29,13 @@ main/application/repository/BaseJDBCRepository.class
 main/application/api/resource/student/StudentResource.class
 main/application/api/resource/IdentifiableResource.class
 main/application/domain/signIn/SignIn.class
+main/application/service/attendance/AttendanceService.class
 main/application/api/resource/message/MessageResource.class
 main/application/domain/module/Module.class
 main/application/repository/scheduledClass/ScheduledClassRepository.class
 main/application/util/date/DateUtility$1.class
 main/application/util/date/DateUtility.class
+main/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.class
 main/application/service/scheduledClass/ScheduledClassService.class
 main/application/repository/NaturallyIdentifiableRepository.class
 main/application/api/resource/binary/BinaryResource.class

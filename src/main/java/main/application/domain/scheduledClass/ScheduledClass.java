@@ -10,34 +10,34 @@ public class ScheduledClass implements NaturallyIdentifiableEntity {
 
     private Long id;
     private String uuid;
-    private DayOfWeek day;
+//    private DayOfWeek day;
     private Date startDate;
     private Date endDate;
     //TODO: Incorporate into startDate and endDate
-    private Time startTime;
-    private Time endTime;
+//    private Time startTime;
+//    private Time endTime;
     private String moduleCode;
 
     public ScheduledClass() {
 
     }
 
-    public ScheduledClass(String moduleCode, DayOfWeek day, Date startDate, Date endDate, Time startTime, Time endTime) {
+    public ScheduledClass(String moduleCode, Date startDate, Date endDate) {
         this.moduleCode = moduleCode;
-        this.day = day;
+//        this.day = day;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
+//        this.startTime = startTime;
+//        this.endTime = endTime;
     }
 
-    public DayOfWeek getDay() {
-        return day;
-    }
-
-    public void setDay(DayOfWeek day) {
-        this.day = day;
-    }
+//    public DayOfWeek getDay() {
+//        return day;
+//    }
+//
+//    public void setDay(DayOfWeek day) {
+//        this.day = day;
+//    }
 
     public Date getStartDate() {
         return startDate;
@@ -55,21 +55,21 @@ public class ScheduledClass implements NaturallyIdentifiableEntity {
         this.endDate = endDate;
     }
 
-    public Time getStartTime() {
-        return startTime;
-    }
+//    public Time getStartTime() {
+//        return startTime;
+//    }
+//
+//    public void setStartTime(Time startTime) {
+//        this.startTime = startTime;
+//    }
 
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
-    }
-
-    public Time getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
-    }
+//    public Time getEndTime() {
+//        return endTime;
+//    }
+//
+//    public void setEndTime(Time endTime) {
+//        this.endTime = endTime;
+//    }
 
     public String getModuleCode() {
         return moduleCode;

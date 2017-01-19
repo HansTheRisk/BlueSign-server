@@ -11,20 +11,26 @@ import java.util.List;
 @Component
 public class DateUtility {
 
-    public Long countDays(Date startDate, Date endDate, DayOfWeek day) {
-
+    public long countDays(Date startDate, Date endDate, DayOfWeek day) {
         long count = 0;
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        start.setTime(startDate);
-        end.setTime(endDate);
 
-        while (start.getTimeInMillis() < end.getTimeInMillis()) {
-            if (start.get(Calendar.DAY_OF_WEEK) == convertDayOfWeekToCalendarDay(day))
-                count++;
-            start.add(Calendar.DAY_OF_MONTH, 1);
+        if(startDate.getTime() > endDate.getTime()) {
+            return count;
         }
-        return count;
+        else {
+            Calendar start = Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            start.setTime(startDate);
+            end.setTime(endDate);
+
+            while (start.getTimeInMillis() < end.getTimeInMillis()) {
+                if (start.get(Calendar.DAY_OF_WEEK) == convertDayOfWeekToCalendarDay(day))
+                    count++;
+                start.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            return count;
+        }
+
     }
 
     public List<Date> listDays(Date startDate, Date endDate, DayOfWeek day) {
