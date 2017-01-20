@@ -10,9 +10,12 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
         super(object);
     }
 
+    //TODO: Write a converter for Calendar Day to DayOfWeek
 //    @JsonProperty("day")
 //    public String getDay() {
-//        return object.getDay().toString();
+//        Calendar calendar =  Calendar.getInstance();
+//        calendar.setTimeInMillis(object.getStartDate().getTime());
+//        return calendar.get(Calendar.DAY_OF_WEEK);
 //    }
 
     @JsonProperty("moduleCode")
@@ -30,13 +33,13 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
         return object.getEndDate().toString();
     }
 
-//    @JsonProperty("startTime")
-//    public String getStartTime() {
-//        return object.getStartTime().toString();
-//    }
-//
-//    @JsonProperty("endTime")
-//    public String getEndTime() {
-//        return object.getEndTime().toString();
-//    }
+    @JsonProperty("startDateTimestamp")
+    public long getStartDateTimestamp() {
+        return object.getStartDate().getTime();
+    }
+
+    @JsonProperty("endDateTimestamp")
+    public long getEndDateTimestamp() {
+        return object.getEndDate().getTime();
+    }
 }

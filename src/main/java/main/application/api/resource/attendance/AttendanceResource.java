@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import main.application.api.resource.BaseResource;
 import main.application.domain.attendance.Attendance;
 
-import java.util.Date;
-
 public class AttendanceResource extends BaseResource<Attendance> {
     public AttendanceResource(Attendance object) {
         super(object);
@@ -27,7 +25,7 @@ public class AttendanceResource extends BaseResource<Attendance> {
     }
 
     @JsonProperty("date")
-    public Date getDate() {
-        return object.getDate();
+    public String getDate() {
+        return object.getDate().toString();
     }
 }
