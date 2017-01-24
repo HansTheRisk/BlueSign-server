@@ -1,11 +1,11 @@
 package main.application.api.controller.student;
 
+import main.application.api.resource.attendance.AttendanceResource;
 import main.application.api.resource.binary.BinaryResource;
 import main.application.api.resource.message.MessageResource;
 import main.application.api.resource.module.ModuleResource;
 import main.application.api.resource.scheduledClass.ScheduledClassResource;
 import main.application.api.resource.student.StudentResource;
-import main.application.domain.attendance.Attendance;
 import main.application.domain.metrics.MobileCumulativeModuleMetrics;
 import main.application.service.attendance.AttendanceService;
 import main.application.service.metrics.MetricsService;
@@ -82,8 +82,10 @@ public class StudentController {
 
     @RequestMapping(value="/student/{id}/history", method= RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<Attendance>> getHistory(@PathVariable String id) {
-        return new ResponseEntity<List<Attendance>>(attendanceService.getAttendanceForStudent(id), HttpStatus.OK);
+    public ResponseEntity<List<AttendanceResource>> getHistory(@PathVariable String id) {
+        List<AttendanceResource> resources = new ArrayList<>();
+        attendanceService.getAttendanceForStudent(id).forEach(attendance -> resources.add(new AttendanceResource(attendance)));
+        return new ResponseEntity<List<AttendanceResource>>(resources, HttpStatus.OK);
     }
 
     @RequestMapping(value="/student/{id}/mobileMetrics", method= RequestMethod.GET)
