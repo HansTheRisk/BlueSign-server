@@ -22,6 +22,14 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
         return repository.findClassesByStudentUniveristyId(universityId);
     }
 
+    public ScheduledClass findClassByAuthenticationCode(int code) {
+        return repository.findClassByAuthenticationCode(code);
+    }
+
+    public List<ScheduledClass> findCurrentlyRunningClasses() {
+        return repository.findCurrentlyRunningClasses();
+    }
+
     @Override
     public ScheduledClass findByUUID(String uuid) {
         return null;

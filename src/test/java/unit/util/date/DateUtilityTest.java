@@ -18,14 +18,62 @@ public class DateUtilityTest {
 
         DateUtility utility = new DateUtility();
         Calendar startDate = Calendar.getInstance();
-        startDate.set(2017, 00, 01, 00, 00);
+        startDate.set(2017, 00, 01, 12, 00);
 
         Calendar endDate = Calendar.getInstance();
-        endDate.set(2017, 00, 22, 00, 00);
+        endDate.set(2017, 00, 22, 12, 00);
         DayOfWeek day = DayOfWeek.TUESDAY;
 
         long days = utility.countDays(startDate.getTime(), endDate.getTime(), day);
         Assert.assertEquals(3, days);
+
+    }
+
+    @Test
+    public void countDaysEndTimeSmallerTest() {
+
+        DateUtility utility = new DateUtility();
+        Calendar startDate = Calendar.getInstance();
+        startDate.set(2017, 00, 01, 12, 00);
+
+        Calendar endDate = Calendar.getInstance();
+        endDate.set(2017, 00, 22, 11, 00);
+        DayOfWeek day = DayOfWeek.TUESDAY;
+
+        long days = utility.countDays(startDate.getTime(), endDate.getTime(), day);
+        Assert.assertEquals(2, days);
+
+    }
+
+    @Test
+    public void countDaysEndTimeGreaterTest() {
+
+        DateUtility utility = new DateUtility();
+        Calendar startDate = Calendar.getInstance();
+        startDate.set(2017, 00, 01, 12, 00);
+
+        Calendar endDate = Calendar.getInstance();
+        endDate.set(2017, 00, 22, 15, 00);
+        DayOfWeek day = DayOfWeek.TUESDAY;
+
+        long days = utility.countDays(startDate.getTime(), endDate.getTime(), day);
+        Assert.assertEquals(3, days);
+
+    }
+
+    @Test
+    public void countDaysEndDateSmallerTest() {
+
+        DateUtility utility = new DateUtility();
+        Calendar endDate = Calendar.getInstance();
+        endDate.set(2017, 00, 01, 12, 00);
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.set(2017, 00, 22, 11, 00);
+        DayOfWeek day = DayOfWeek.TUESDAY;
+
+        long days = utility.countDays(startDate.getTime(), endDate.getTime(), day);
+        Assert.assertEquals(0, days);
 
     }
 

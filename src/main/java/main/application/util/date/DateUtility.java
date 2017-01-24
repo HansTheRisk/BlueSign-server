@@ -28,6 +28,9 @@ public class DateUtility {
                     count++;
                 start.add(Calendar.DAY_OF_MONTH, 1);
             }
+
+            if (end.getTime().getHours() < start.getTime().getHours())
+                count--;
             return count;
         }
 

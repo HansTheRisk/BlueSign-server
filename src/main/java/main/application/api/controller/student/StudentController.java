@@ -3,14 +3,12 @@ package main.application.api.controller.student;
 import main.application.api.resource.attendance.AttendanceResource;
 import main.application.api.resource.binary.BinaryResource;
 import main.application.api.resource.message.MessageResource;
+import main.application.api.resource.metrics.MobileCumulativeModuleMetricsResource;
 import main.application.api.resource.module.ModuleResource;
-import main.application.api.resource.scheduledClass.ScheduledClassResource;
 import main.application.api.resource.student.StudentResource;
-import main.application.domain.metrics.MobileCumulativeModuleMetrics;
 import main.application.service.attendance.AttendanceService;
 import main.application.service.metrics.MetricsService;
 import main.application.service.module.ModuleService;
-import main.application.service.scheduledClass.ScheduledClassService;
 import main.application.service.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -33,8 +31,6 @@ public class StudentController {
     private StudentService studentService;
     @Autowired
     private ModuleService moduleService;
-    @Autowired
-    private ScheduledClassService scheduledClassService;
     @Autowired
     private AttendanceService attendanceService;
     @Autowired
@@ -69,17 +65,6 @@ public class StudentController {
         return new ResponseEntity<>(modules, HttpStatus.OK);
     }
 
-    //TODO: move to class controller
-    @RequestMapping(value="/class/{universityId}/{moduleCode}", method= RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<List<ScheduledClassResource>> getModules(@PathVariable String universityId,
-                                                                   @PathVariable String moduleCode) {
-        List<ScheduledClassResource> classes = new ArrayList<>();
-        scheduledClassService.findClassesByStudentUniveristyIdAndModuleUuid(universityId, moduleCode).forEach(scheduledClass ->
-                classes.add(new ScheduledClassResource(scheduledClass)));
-        return new ResponseEntity<>(classes, HttpStatus.OK);
-    }
-
     @RequestMapping(value="/student/{id}/history", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<AttendanceResource>> getHistory(@PathVariable String id) {
@@ -90,8 +75,22 @@ public class StudentController {
 
     @RequestMapping(value="/student/{id}/mobileMetrics", method= RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<MobileCumulativeModuleMetrics>> getMobileMetrics(@PathVariable String id) {
-        return new ResponseEntity<List<MobileCumulativeModuleMetrics>>(metricsService.getMobileCumulativeModuleMetrics(id), HttpStatus.OK);
+    public ResponseEntity<List<MobileCumulativeModuleMetricsResource>> getMobileMetrics(@PathVariable String id) {
+        List<MobileCumulativeModuleMetricsResource> resources = new ArrayList<>();
+        metricsService.getMobileCumulativeModuleMetrics(id).forEach(metrics -> resources.add(new MobileCumulativeModuleMetricsResource(metrics)));
+        return new ResponseEntity<List<MobileCumulativeModuleMetricsResource>>(resources, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/student/{id}/{pin}/signIn", method= RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<List<AttendanceResource>> signIn(@PathVariable String id,
+                                                           @PathVariable String pin) {
+
+        //TODO PUT THE CODE HERE!
+        
+        List<AttendanceResource> resources = new ArrayList<>();
+        attendanceService.getAttendanceForStudent(id).forEach(attendance -> resources.add(new AttendanceResource(attendance)));
+        return new ResponseEntity<List<AttendanceResource>>(resources, HttpStatus.OK);
     }
 
 }

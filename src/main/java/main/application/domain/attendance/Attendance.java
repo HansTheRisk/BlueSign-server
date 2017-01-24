@@ -25,14 +25,6 @@ public class Attendance {
         this.moduleCode = moduleCode;
     }
 
-    public String getStudentUuid() {
-        return studentUniversityId;
-    }
-
-    public void setStudentUuid(String studentUniversityId) {
-        this.studentUniversityId = studentUniversityId;
-    }
-
     public String getClassUuid() {
         return classUuid;
     }
