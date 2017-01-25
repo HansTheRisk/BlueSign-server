@@ -17,6 +17,7 @@ main/application/repository/accessCode/AccessCodeRepository.class
 main/application/api/resource/IdentifiableResource.class
 main/application/domain/signIn/SignIn.class
 main/application/service/attendance/AttendanceService.class
+main/application/util/ip/IpUtility.class
 main/application/repository/allocation/AllocationRepository.class
 main/application/repository/scheduledClass/ScheduledClassRepository.class
 main/application/util/date/DateUtility$1.class

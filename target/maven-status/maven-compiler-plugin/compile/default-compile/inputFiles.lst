@@ -4,6 +4,7 @@
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/message/MessageResource.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/NaturallyIdentifiableRowMapper.java
 /home/Projects/blusign-server/src/main/java/main/application/domain/metrics/MobileCumulativeModuleMetrics.java
+/home/Projects/blusign-server/src/main/java/main/application/util/ip/IpUtility.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/IdentifiableRowMapper.java
 /home/Projects/blusign-server/src/main/java/main/application/util/date/DateUtility.java
 /home/Projects/blusign-server/src/main/java/main/application/service/allocation/AllocationService.java

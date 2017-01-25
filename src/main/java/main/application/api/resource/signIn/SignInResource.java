@@ -5,6 +5,9 @@ import main.application.api.resource.BaseResource;
 
 public class SignInResource extends BaseResource<Integer> {
 
+    public SignInResource() {
+        super(null);
+    }
 
     public SignInResource(int object) {
         super(object);

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Component
@@ -32,11 +33,12 @@ public class AttendanceRepository extends BaseJDBCRepository {
                 "FROM attendance INNER JOIN student " +
                 "   ON attendance.student_id = student.id " +
                 "INNER JOIN class " +
+
                 "   ON attendance.class_id = class.id " +
                 "INNER JOIN module ON " +
                 "   class.module_id = module.id " +
                 "WHERE university_id = ? " +
-                "AND class_uuid = ? " +
+                "AND class.uuid = ? " +
                 "AND DATE(attendance.date) = DATE(?) ";
         return executor.queryForObject(sql, new Object[]{universityId, classUuid, date}, new AttendanceRowMapper());
     }
@@ -51,7 +53,7 @@ public class AttendanceRepository extends BaseJDBCRepository {
             public void setValues(PreparedStatement ps) throws SQLException {
                 ps.setString(1, attendance.getStudentUniversityId());
                 ps.setString(2, attendance.getClassUuid());
-                ps.setDate(3, new Date(attendance.getDate().getTime()));
+                ps.setTimestamp(3, new Timestamp(attendance.getDate().getTime()));
             }
         });
     }

@@ -103,7 +103,7 @@ public class StudentController {
         if (studentService.universityIdAndPinCombinationExist(id, pin)) {
             if (scheduledClass != null) {
                 if (allocationService.checkIfAllocationExists(id, scheduledClass.getUuid())) {
-                    if (attendanceService.checkIfAttendanceExists(id, scheduledClass.getUuid(), now)) {
+                    if (!attendanceService.checkIfAttendanceExists(id, scheduledClass.getUuid(), now)) {
                         if (attendanceService.insertAttendance(new Attendance(id, scheduledClass.getUuid(), now)))
                             return new ResponseEntity<MessageResource>(new MessageResource("Successfully signed in!"), HttpStatus.OK);
                         else
