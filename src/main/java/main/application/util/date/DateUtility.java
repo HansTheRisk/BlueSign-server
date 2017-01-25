@@ -29,7 +29,7 @@ public class DateUtility {
                 start.add(Calendar.DAY_OF_MONTH, 1);
             }
 
-            if (end.getTime().getHours() < start.getTime().getHours())
+            if ((end.getTime().getHours() + end.getTime().getMinutes()) < (start.getTime().getHours() + start.getTime().getMinutes()))
                 count--;
             return count;
         }
@@ -49,6 +49,10 @@ public class DateUtility {
                 dates.add(start.getTime());
             start.add(Calendar.DAY_OF_MONTH, 1);
         }
+
+        if ((end.getTime().getHours() + end.getTime().getMinutes()) < (start.getTime().getHours() + start.getTime().getMinutes()))
+            dates.remove(dates.size()-1);
+
         return dates;
     }
 

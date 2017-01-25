@@ -1,7 +1,22 @@
 package main.application.api.resource.signIn;
 
-/**
- * Created by hans on 08.01.17.
- */
-public class SignInResource {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import main.application.api.resource.BaseResource;
+
+public class SignInResource extends BaseResource<Integer> {
+
+
+    public SignInResource(int object) {
+        super(object);
+    }
+
+    @JsonProperty("code")
+    public int getCode() {
+        return object;
+    }
+
+    @JsonProperty("code")
+    public void setCode(int code) {
+        this.object = code;
+    }
 }
