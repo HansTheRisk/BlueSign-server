@@ -1,3 +1,4 @@
+/home/Projects/blusign-server/src/main/java/main/application/repository/ipRange/IpRangeRepository.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRowMapper.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java
 /home/Projects/blusign-server/src/main/java/main/application/service/accessCode/AccessCodeService.java
@@ -20,6 +21,7 @@
 /home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java
 /home/Projects/blusign-server/src/main/java/main/application/service/module/ModuleService.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/IdentifiableRepository.java
+/home/Projects/blusign-server/src/main/java/main/application/service/ipRange/IpRangeService.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/module/ModuleResource.java
 /home/Projects/blusign-server/src/main/java/main/application/domain/allocation/Allocation.java
 /home/Projects/blusign-server/src/main/java/main/application/service/NaturallyIdentifiableService.java
@@ -32,6 +34,7 @@
 /home/Projects/blusign-server/src/main/java/main/application/domain/entity/NaturallyIdentifiableEntity.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/BaseJDBCRepository.java
 /home/Projects/blusign-server/src/main/java/main/application/scheduled/ScheduledTask.java
+/home/Projects/blusign-server/src/main/java/main/application/domain/ipRange/IpRange.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/binary/BinaryResource.java
 /home/Projects/blusign-server/src/main/java/main/application/service/IdentifiableEntityService.java
 /home/Projects/blusign-server/src/main/java/main/application/repository/accessCode/AccessCodeRepository.java
@@ -42,6 +45,7 @@
 /home/Projects/blusign-server/src/main/java/main/application/repository/student/StudentRepository.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/signIn/SignInResource.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/BaseResource.java
+/home/Projects/blusign-server/src/main/java/main/application/repository/ipRange/IpRangeRowMapper.java
 /home/Projects/blusign-server/src/main/java/main/application/api/resource/IdentifiableResource.java
 /home/Projects/blusign-server/src/main/java/main/application/domain/student/Student.java
 /home/Projects/blusign-server/src/main/java/main/application/api/controller/scheduledClass/ScheduledClassController.java

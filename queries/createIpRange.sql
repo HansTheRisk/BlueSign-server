@@ -1,0 +1,8 @@
+use ebdb;
+CREATE TABLE ip_range
+(
+id int UNIQUE NOT NULL AUTO_INCREMENT,
+uuid character(36) NOT NULL UNIQUE,
+start VARCHAR(15) UNIQUE NOT NULL,
+end VARCHAR(15) UNIQUE NOT NULL
+); 

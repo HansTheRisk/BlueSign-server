@@ -2,11 +2,13 @@ main/application/repository/BaseJdbcTemplate.class
 main/application/api/resource/signIn/SignInResource.class
 main/application/domain/attendance/Attendance.class
 main/application/domain/allocation/Allocation.class
+main/application/domain/ipRange/IpRange.class
 main/application/repository/student/StudentRowMapper.class
 main/application/service/module/ModuleService.class
 main/application/domain/entity/NaturallyIdentifiableEntity.class
 main/application/service/NaturallyIdentifiableService.class
 main/application/domain/student/Student.class
+main/application/repository/ipRange/IpRangeRowMapper.class
 main/application/repository/attendance/AttendanceRepository.class
 main/application/api/resource/BaseResource.class
 main/application/service/accessCode/AccessCodeService.class
@@ -18,6 +20,7 @@ main/application/api/resource/IdentifiableResource.class
 main/application/domain/signIn/SignIn.class
 main/application/service/attendance/AttendanceService.class
 main/application/util/ip/IpUtility.class
+main/application/service/ipRange/IpRangeService.class
 main/application/repository/allocation/AllocationRepository.class
 main/application/repository/scheduledClass/ScheduledClassRepository.class
 main/application/util/date/DateUtility$1.class
@@ -31,6 +34,7 @@ main/application/service/metrics/MetricsService.class
 main/application/service/student/StudentService.class
 main/application/domain/scheduledClass/ScheduledClass.class
 main/application/repository/IdentifiableRowMapper.class
+main/application/repository/ipRange/IpRangeRepository.class
 main/application/repository/allocation/AllocationRowMapper.class
 main/application/repository/module/ModuleRowMapper.class
 main/application/repository/NaturallyIdentifiableRowMapper.class
