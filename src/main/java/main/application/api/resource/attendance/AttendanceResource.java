@@ -28,4 +28,9 @@ public class AttendanceResource extends BaseResource<Attendance> {
     public String getDate() {
         return object.getDate().toString();
     }
+
+    @JsonProperty("dateTimestamp")
+    public long getDateTimestamp() {
+        return object.getDate().getTime();
+    }
 }

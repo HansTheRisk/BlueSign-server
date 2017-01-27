@@ -62,8 +62,8 @@
   <testcase name="listDaysTest" classname="unit.util.date.DateUtilityTest" time="0">
     <skipped/>
   </testcase>
-  <testcase name="countDaysEndTimeGreaterTest" classname="unit.util.date.DateUtilityTest" time="0.017"/>
-  <testcase name="countDaysTest" classname="unit.util.date.DateUtilityTest" time="0.001"/>
+  <testcase name="countDaysEndTimeGreaterTest" classname="unit.util.date.DateUtilityTest" time="0.016"/>
+  <testcase name="countDaysTest" classname="unit.util.date.DateUtilityTest" time="0"/>
   <testcase name="countDaysEndDateSmallerTest" classname="unit.util.date.DateUtilityTest" time="0"/>
-  <testcase name="countDaysEndTimeSmallerTest" classname="unit.util.date.DateUtilityTest" time="0.001"/>
+  <testcase name="countDaysEndTimeSmallerTest" classname="unit.util.date.DateUtilityTest" time="0.003"/>
 </testsuite>
