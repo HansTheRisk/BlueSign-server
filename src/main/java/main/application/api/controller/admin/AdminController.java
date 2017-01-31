@@ -1,7 +1,9 @@
-package main.application.api.controller.scheduledClass;
+package main.application.api.controller.admin;
 
 import main.application.api.resource.scheduledClass.ScheduledClassResource;
+import main.application.api.resource.student.StudentResource;
 import main.application.service.scheduledClass.ScheduledClassService;
+import main.application.service.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
@@ -17,12 +19,15 @@ import java.util.List;
 
 @Controller
 @EnableAutoConfiguration
-public class ScheduledClassController {
+public class AdminController {
+
+    @Autowired
+    private StudentService studentService;
 
     @Autowired
     private ScheduledClassService scheduledClassService;
 
-    @RequestMapping(value="/class/{universityId}/{moduleCode}", method= RequestMethod.GET)
+    @RequestMapping(value="admin/class/{universityId}/{moduleCode}", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ScheduledClassResource>> getModules(@PathVariable String universityId,
                                                                    @PathVariable String moduleCode) {
@@ -30,6 +35,14 @@ public class ScheduledClassController {
         scheduledClassService.findClassesByStudentUniveristyIdAndModuleUuid(universityId, moduleCode).forEach(scheduledClass ->
                 classes.add(new ScheduledClassResource(scheduledClass)));
         return new ResponseEntity<>(classes, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="admin/student", method= RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<StudentResource>> getStudents() {
+        List<StudentResource> students = new ArrayList<>();
+        studentService.findAll().forEach(student -> students.add(new StudentResource(student)));
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
 }

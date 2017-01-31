@@ -22,11 +22,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
-                                        .antMatchers("/lecturer/**").hasRole("LECTURER")
-                                        .and()
-                                        .formLogin()
-                                        .loginPage("/login").failureUrl("/login-error");
+        httpSecurity
+                .formLogin()
+                    .loginPage("/login").permitAll()
+                    .and()
+                .authorizeRequests().antMatchers("/student/**").permitAll().anyRequest().authenticated()
+                                        .antMatchers("/admin/**").hasRole("ADMIN")
+                                        .antMatchers("/lecturer/**").hasRole("LECTURER").and().httpBasic().disable();
     }
 
 }

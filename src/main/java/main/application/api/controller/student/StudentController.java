@@ -6,7 +6,6 @@ import main.application.api.resource.message.MessageResource;
 import main.application.api.resource.metrics.MobileCumulativeModuleMetricsResource;
 import main.application.api.resource.module.ModuleResource;
 import main.application.api.resource.signIn.SignInResource;
-import main.application.api.resource.student.StudentResource;
 import main.application.domain.attendance.Attendance;
 import main.application.domain.scheduledClass.ScheduledClass;
 import main.application.service.allocation.AllocationService;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -34,7 +32,6 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@EnableAutoConfiguration
 public class StudentController {
 
     @Autowired
@@ -52,24 +49,12 @@ public class StudentController {
     @Autowired
     private IpRangeService ipRangeService;
 
-    @RequestMapping(value="/student", method= RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<List<StudentResource>> test() {
-        List<StudentResource> students = new ArrayList<>();
-        studentService.findAll().forEach(student -> students.add(new StudentResource(student)));
-        return new ResponseEntity<>(students, HttpStatus.OK);
-    }
-
     @RequestMapping(value="/student/{id}/{pin}", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<BinaryResource> exists(@PathVariable String id,
                                                  @PathVariable String pin) {
         Boolean isIt = studentService.universityIdAndPinCombinationExist(id, pin);
             return new ResponseEntity<>(new BinaryResource<>(isIt), HttpStatus.OK);
-    }
-
-    public ResponseEntity<MessageResource> signIn() {
-        return null;
     }
 
     @RequestMapping(value="/student/{id}/modules", method= RequestMethod.GET)
