@@ -3,11 +3,15 @@
 <head>
     <title>Hello Spring Security</title>
     <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="@{/resources/templates/js/bootstrap-3.3.7-distjs/bootstrap.min.js}"></script>
     <!--<link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />-->
 </head>
 <body>
 <div th:substituteby="index::logout"></div>
 <h1>This is a secured page!</h1>
+<div id="1"></div>
 <p><a href="/index" th:href="@{/index}">Back to home page</a></p>
 </body>
 </html>

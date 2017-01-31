@@ -2,148 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f975b926-186d-492c-9dac-a577eb3132cf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/web/WebController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/config/security/SecurityConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/config/view/MvcConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/domain/signIn/SignIn.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/domain/user/Role.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/domain/user/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/repository/IdentifiableRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/repository/user/UserRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/repository/user/UserRowMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/service/user/UserService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/loginPage.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/signIn/SignIn.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/IdentifiableRepository.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/Application.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/controller/scheduledClass/ScheduledClassController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/controller/student/StudentController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/BaseResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/IdentifiableResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/NaturallyIdentifiableResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/attendance/AttendanceResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/binary/BinaryResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/message/MessageResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/module/ModuleResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/scheduledClass/ScheduledClassResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/signIn/SignInResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/student/StudentResource.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/accessCode/AccessCode.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/allocation/Allocation.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/attendance/Attendance.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/entity/IdentifiableEntity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/entity/NaturallyIdentifiableEntity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/ipRange/IpRange.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/metrics/MobileCumulativeModuleMetrics.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/module/Module.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/scheduledClass/ScheduledClass.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/signIn/SignIn.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/student/Student.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/BaseJDBCRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/BaseJdbcTemplate.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/IdentifiableRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/IdentifiableRowMapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/NaturallyIdentifiableRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/NaturallyIdentifiableRowMapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/accessCode/AccessCodeRepository$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/accessCode/AccessCodeRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/allocation/AllocationRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/allocation/AllocationRowMapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/attendance/AttendanceRepository$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/attendance/AttendanceRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/attendance/AttendanceRowMapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/ipRange/IpRangeRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/ipRange/IpRangeRowMapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/module/ModuleRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/module/ModuleRowMapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/scheduledClass/ScheduledClassRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/scheduledClass/ScheduledClassRowMapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/student/StudentRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/student/StudentRowMapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/scheduled/ScheduledTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/IdentifiableEntityService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/NaturallyIdentifiableService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/accessCode/AccessCodeService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/allocation/AllocationService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/attendance/AttendanceService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/ipRange/IpRangeService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/metrics/MetricsService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/module/ModuleService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/scheduledClass/ScheduledClassService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/student/StudentService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/util/date/DateUtility$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/util/date/DateUtility.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/util/ip/IpUtility.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/Application.java" afterPath="$PROJECT_DIR$/src/main/java/application/Application.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/controller/scheduledClass/ScheduledClassController.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/scheduledClass/ScheduledClassController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/controller/student/StudentController.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/student/StudentController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/BaseResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/BaseResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/IdentifiableResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/IdentifiableResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/NaturallyIdentifiableResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/NaturallyIdentifiableResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/attendance/AttendanceResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/attendance/AttendanceResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/binary/BinaryResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/binary/BinaryResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/message/MessageResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/message/MessageResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/module/ModuleResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/module/ModuleResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/scheduledClass/ScheduledClassResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/signIn/SignInResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/signIn/SignInResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/student/StudentResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/student/StudentResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/accessCode/AccessCode.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/accessCode/AccessCode.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/allocation/Allocation.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/allocation/Allocation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/attendance/Attendance.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/attendance/Attendance.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/entity/IdentifiableEntity.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/entity/IdentifiableEntity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/entity/NaturallyIdentifiableEntity.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/entity/NaturallyIdentifiableEntity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/ipRange/IpRange.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/ipRange/IpRange.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/metrics/MobileCumulativeModuleMetrics.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/metrics/MobileCumulativeModuleMetrics.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/module/Module.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/module/Module.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/scheduledClass/ScheduledClass.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/scheduledClass/ScheduledClass.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/student/Student.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/student/Student.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/BaseJDBCRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/BaseJDBCRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/BaseJdbcTemplate.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/BaseJdbcTemplate.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/IdentifiableRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/IdentifiableRowMapper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/NaturallyIdentifiableRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/NaturallyIdentifiableRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/NaturallyIdentifiableRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/NaturallyIdentifiableRowMapper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/accessCode/AccessCodeRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/accessCode/AccessCodeRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/allocation/AllocationRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/allocation/AllocationRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/allocation/AllocationRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/allocation/AllocationRowMapper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/attendance/AttendanceRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/attendance/AttendanceRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/attendance/AttendanceRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/attendance/AttendanceRowMapper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/ipRange/IpRangeRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/ipRange/IpRangeRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/ipRange/IpRangeRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/ipRange/IpRangeRowMapper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/module/ModuleRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/module/ModuleRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRowMapper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/scheduledClass/ScheduledClassRowMapper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/student/StudentRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRepository.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/student/StudentRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRowMapper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/scheduled/ScheduledTask.java" afterPath="$PROJECT_DIR$/src/main/java/application/scheduled/ScheduledTask.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/IdentifiableEntityService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/IdentifiableEntityService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/NaturallyIdentifiableService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/NaturallyIdentifiableService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/accessCode/AccessCodeService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/accessCode/AccessCodeService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/allocation/AllocationService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/allocation/AllocationService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/attendance/AttendanceService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/attendance/AttendanceService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/ipRange/IpRangeService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/ipRange/IpRangeService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/metrics/MetricsService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/metrics/MetricsService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/module/ModuleService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/module/ModuleService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/scheduledClass/ScheduledClassService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/student/StudentService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/student/StudentService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/util/date/DateUtility.java" afterPath="$PROJECT_DIR$/src/main/java/application/util/date/DateUtility.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/util/ip/IpUtility.java" afterPath="$PROJECT_DIR$/src/main/java/application/util/ip/IpUtility.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/unit/util/date/DateUtilityTest.class" afterPath="$PROJECT_DIR$/target/test-classes/unit/util/date/DateUtilityTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/unit/util/ip/IpUtilityTest.class" afterPath="$PROJECT_DIR$/target/test-classes/unit/util/ip/IpUtilityTest.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/js/lecturer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blusign-server.iml" afterPath="$PROJECT_DIR$/blusign-server.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/unit/util/date/DateUtilityTest.java" afterPath="$PROJECT_DIR$/src/test/java/unit/util/date/DateUtilityTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/unit/util/ip/IpUtilityTest.java" afterPath="$PROJECT_DIR$/src/test/java/unit/util/ip/IpUtilityTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" />
     </list>
     <ignored path="blusign-server.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -166,18 +27,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/student/StudentController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="32" column="11" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Application.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/application/Application.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -236,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LecturerController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LecturerController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+            <state relative-caret-position="252">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#269#270#0" expanded="true" />
@@ -250,11 +99,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+            <state relative-caret-position="126">
+              <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lecturer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/js/lecturer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -300,7 +159,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/main/application/domain/accessCode/accessCode.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/domain/accessCode/AccessCode.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/repository/accessCode/AuthenticationCodeRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/repository/accessCode/AccessCodeRepository.java" />
@@ -351,6 +209,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/application/api/controller/web/WebController.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
       </list>
     </option>
   </component>
@@ -549,6 +408,108 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blusign-server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blusign-server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bootstrap-3.3.7-dist" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blusign-server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blusign-server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bootstrap-3.3.7-dist" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blusign-server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blusign-server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -564,7 +525,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../gs-accessing-data-rest/complete/pom.xml" />
-    <property name="SearchEverywhereHistoryKey" value="pom&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;pom.xml&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;prop&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;pom.&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;StudentRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/student/StudentRepository.java&#10;ModuleRE&#9;PSI&#9;JAVA://main.application.repository.module.ModuleRepository&#10;AttendanceRo&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRowMapper.java&#10;Attendance&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRepository.java&#10;Atte&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/attendance/AttendanceService.java&#10;Attenda&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRepository.java&#10;Date&#9;FILE&#9;file:///home/Projects/blusign-server/src/test/java/unit/util/date/DateUtilityTest.java&#10;DateU&#9;FILE&#9;file:///home/Projects/blusign-server/src/test/java/unit/util/date/DateUtilityTest.java&#10;Acce&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/accessCode/AccessCodeRepository.java&#10;app&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;Sched&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java&#10;ScheduledClass&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;Schedu&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java&#10;Scheduled&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java&#10;Dat&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/util/date/DateUtility.java&#10;ScheduledC&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java&#10;Stude&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;om&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;applica&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;Student&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;metrics&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/metrics/MetricsService.java&#10;Att&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/attendance/Attendance.java&#10;DateUti&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/util/date/DateUtility.java&#10;Metrics&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/metrics/MetricsService.java&#10;po&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;appl&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;StudentCo&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;Mod&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/Module.java&#10;Stu&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/student/StudentRowMapper.java&#10;NaturallyIde&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/NaturallyIdentifiableService.java&#10;StudentSe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/student/StudentService.java&#10;ModuleRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/module/ModuleRepository.java&#10;Natura&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/NaturallyReferencedModule.java&#10;ModuleRes&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/module/ModuleResource.java&#10;Class&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/scheduledClass/ScheduledClass.java&#10;StudentCon&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;ScheduledClassRes&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java&#10;ScheduledClassSe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java&#10;classRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;Modul&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/Module.java&#10;class&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;NaturallyRef&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/scheduledClass/NaturallyReferencedScheduledClass.java&#10;pro&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties" />
+    <property name="SearchEverywhereHistoryKey" value="pom.xml&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;pom&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;prop&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;pom.&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;StudentRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/student/StudentRepository.java&#10;ModuleRE&#9;PSI&#9;JAVA://main.application.repository.module.ModuleRepository&#10;AttendanceRo&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRowMapper.java&#10;Attendance&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRepository.java&#10;Atte&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/attendance/AttendanceService.java&#10;Attenda&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRepository.java&#10;Date&#9;FILE&#9;file:///home/Projects/blusign-server/src/test/java/unit/util/date/DateUtilityTest.java&#10;DateU&#9;FILE&#9;file:///home/Projects/blusign-server/src/test/java/unit/util/date/DateUtilityTest.java&#10;Acce&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/accessCode/AccessCodeRepository.java&#10;app&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;Sched&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java&#10;ScheduledClass&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;Schedu&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java&#10;Scheduled&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java&#10;Dat&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/util/date/DateUtility.java&#10;ScheduledC&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java&#10;Stude&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;om&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;applica&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;Student&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;metrics&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/metrics/MetricsService.java&#10;Att&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/attendance/Attendance.java&#10;DateUti&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/util/date/DateUtility.java&#10;Metrics&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/metrics/MetricsService.java&#10;po&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;appl&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;StudentCo&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;Mod&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/Module.java&#10;Stu&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/student/StudentRowMapper.java&#10;NaturallyIde&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/NaturallyIdentifiableService.java&#10;StudentSe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/student/StudentService.java&#10;ModuleRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/module/ModuleRepository.java&#10;Natura&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/NaturallyReferencedModule.java&#10;ModuleRes&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/module/ModuleResource.java&#10;Class&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/scheduledClass/ScheduledClass.java&#10;StudentCon&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;ScheduledClassRes&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java&#10;ScheduledClassSe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java&#10;classRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;Modul&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/Module.java&#10;class&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;NaturallyRef&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/scheduledClass/NaturallyReferencedScheduledClass.java&#10;pro&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties" />
     <property name="settings.editor.selected.configurable" value="copyright" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
@@ -1048,16 +1009,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/unit/util/date/DateUtilityTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/util/date/DateUtility.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -1482,14 +1433,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/loginPage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -1508,14 +1451,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/web/WebController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -1530,13 +1465,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        <state relative-caret-position="252">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#269#270#0" expanded="true" />
             <element signature="e#299#300#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/js/lecturer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
