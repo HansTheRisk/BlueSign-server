@@ -1,6 +1,6 @@
 package unit.util.date;
 
-import main.application.util.date.DateUtility;
+import application.util.date.DateUtility;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

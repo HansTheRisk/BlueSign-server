@@ -2,19 +2,148 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f975b926-186d-492c-9dac-a577eb3132cf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/blusign-server-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/blusign-server-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/blusign-server-1.0-SNAPSHOT.jar.original" afterPath="$PROJECT_DIR$/target/blusign-server-1.0-SNAPSHOT.jar.original" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/main/application/api/controller/student/StudentController.class" afterPath="$PROJECT_DIR$/target/classes/main/application/api/controller/student/StudentController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/attendance/AttendanceResource.class" afterPath="$PROJECT_DIR$/target/classes/main/application/api/resource/attendance/AttendanceResource.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/web/WebController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/config/security/SecurityConfig.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/config/view/MvcConfig.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/domain/signIn/SignIn.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/domain/user/Role.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/domain/user/User.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/repository/IdentifiableRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/repository/user/UserRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/repository/user/UserRowMapper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/service/user/UserService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/loginPage.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/signIn/SignIn.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/IdentifiableRepository.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/Application.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/controller/scheduledClass/ScheduledClassController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/controller/student/StudentController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/BaseResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/IdentifiableResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/NaturallyIdentifiableResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/attendance/AttendanceResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/binary/BinaryResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/message/MessageResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/module/ModuleResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/scheduledClass/ScheduledClassResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/signIn/SignInResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/api/resource/student/StudentResource.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/accessCode/AccessCode.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/allocation/Allocation.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/attendance/Attendance.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/entity/IdentifiableEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/entity/NaturallyIdentifiableEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/ipRange/IpRange.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/metrics/MobileCumulativeModuleMetrics.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/module/Module.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/scheduledClass/ScheduledClass.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/signIn/SignIn.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/domain/student/Student.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/BaseJDBCRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/BaseJdbcTemplate.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/IdentifiableRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/IdentifiableRowMapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/NaturallyIdentifiableRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/NaturallyIdentifiableRowMapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/accessCode/AccessCodeRepository$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/accessCode/AccessCodeRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/allocation/AllocationRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/allocation/AllocationRowMapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/attendance/AttendanceRepository$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/attendance/AttendanceRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/attendance/AttendanceRowMapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/ipRange/IpRangeRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/ipRange/IpRangeRowMapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/module/ModuleRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/module/ModuleRowMapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/scheduledClass/ScheduledClassRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/scheduledClass/ScheduledClassRowMapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/student/StudentRepository.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/repository/student/StudentRowMapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/scheduled/ScheduledTask.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/IdentifiableEntityService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/NaturallyIdentifiableService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/accessCode/AccessCodeService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/allocation/AllocationService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/attendance/AttendanceService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/ipRange/IpRangeService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/metrics/MetricsService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/module/ModuleService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/scheduledClass/ScheduledClassService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/service/student/StudentService.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/util/date/DateUtility$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/util/date/DateUtility.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/main/application/util/ip/IpUtility.class" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/Application.java" afterPath="$PROJECT_DIR$/src/main/java/application/Application.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/controller/scheduledClass/ScheduledClassController.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/scheduledClass/ScheduledClassController.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/controller/student/StudentController.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/student/StudentController.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/BaseResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/BaseResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/IdentifiableResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/IdentifiableResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/NaturallyIdentifiableResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/NaturallyIdentifiableResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/attendance/AttendanceResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/attendance/AttendanceResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/binary/BinaryResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/binary/BinaryResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/message/MessageResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/message/MessageResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/module/ModuleResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/module/ModuleResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/scheduledClass/ScheduledClassResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/signIn/SignInResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/signIn/SignInResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/student/StudentResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/student/StudentResource.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/accessCode/AccessCode.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/accessCode/AccessCode.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/allocation/Allocation.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/allocation/Allocation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/attendance/Attendance.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/attendance/Attendance.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/entity/IdentifiableEntity.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/entity/IdentifiableEntity.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/entity/NaturallyIdentifiableEntity.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/entity/NaturallyIdentifiableEntity.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/ipRange/IpRange.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/ipRange/IpRange.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/metrics/MobileCumulativeModuleMetrics.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/metrics/MobileCumulativeModuleMetrics.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/module/Module.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/module/Module.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/scheduledClass/ScheduledClass.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/scheduledClass/ScheduledClass.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/domain/student/Student.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/student/Student.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/BaseJDBCRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/BaseJDBCRepository.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/BaseJdbcTemplate.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/BaseJdbcTemplate.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/IdentifiableRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/IdentifiableRowMapper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/NaturallyIdentifiableRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/NaturallyIdentifiableRepository.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/NaturallyIdentifiableRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/NaturallyIdentifiableRowMapper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/accessCode/AccessCodeRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/accessCode/AccessCodeRepository.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/allocation/AllocationRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/allocation/AllocationRepository.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/allocation/AllocationRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/allocation/AllocationRowMapper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/attendance/AttendanceRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/attendance/AttendanceRepository.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/attendance/AttendanceRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/attendance/AttendanceRowMapper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/ipRange/IpRangeRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/ipRange/IpRangeRepository.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/ipRange/IpRangeRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/ipRange/IpRangeRowMapper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/module/ModuleRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRepository.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/module/ModuleRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRowMapper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/scheduledClass/ScheduledClassRowMapper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/student/StudentRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRepository.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/repository/student/StudentRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRowMapper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/scheduled/ScheduledTask.java" afterPath="$PROJECT_DIR$/src/main/java/application/scheduled/ScheduledTask.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/IdentifiableEntityService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/IdentifiableEntityService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/NaturallyIdentifiableService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/NaturallyIdentifiableService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/accessCode/AccessCodeService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/accessCode/AccessCodeService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/allocation/AllocationService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/allocation/AllocationService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/attendance/AttendanceService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/attendance/AttendanceService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/ipRange/IpRangeService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/ipRange/IpRangeService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/metrics/MetricsService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/metrics/MetricsService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/module/ModuleService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/module/ModuleService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/scheduledClass/ScheduledClassService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/service/student/StudentService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/student/StudentService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/util/date/DateUtility.java" afterPath="$PROJECT_DIR$/src/main/java/application/util/date/DateUtility.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/main/application/util/ip/IpUtility.java" afterPath="$PROJECT_DIR$/src/main/java/application/util/ip/IpUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/unit/util/date/DateUtilityTest.class" afterPath="$PROJECT_DIR$/target/test-classes/unit/util/date/DateUtilityTest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/unit/util/ip/IpUtilityTest.class" afterPath="$PROJECT_DIR$/target/test-classes/unit/util/ip/IpUtilityTest.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/controller/student/StudentController.java" afterPath="$PROJECT_DIR$/src/main/java/main/application/api/controller/student/StudentController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/application/api/resource/attendance/AttendanceResource.java" afterPath="$PROJECT_DIR$/src/main/java/main/application/api/resource/attendance/AttendanceResource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blusign-server.iml" afterPath="$PROJECT_DIR$/blusign-server.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/unit/util/date/DateUtilityTest.java" afterPath="$PROJECT_DIR$/src/test/java/unit/util/date/DateUtilityTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/unit/util/ip/IpUtilityTest.java" afterPath="$PROJECT_DIR$/src/test/java/unit/util/ip/IpUtilityTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-unit.util.date.DateUtilityTest.xml" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-unit.util.date.DateUtilityTest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-unit.util.ip.IpUtilityTest.xml" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-unit.util.ip.IpUtilityTest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/unit.util.date.DateUtilityTest.txt" afterPath="$PROJECT_DIR$/target/surefire-reports/unit.util.date.DateUtilityTest.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/unit.util.ip.IpUtilityTest.txt" afterPath="$PROJECT_DIR$/target/surefire-reports/unit.util.ip.IpUtilityTest.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
     </list>
     <ignored path="blusign-server.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,10 +167,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/controller/student/StudentController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/student/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="139" column="5" selection-start-line="139" selection-start-column="5" selection-end-line="139" selection-end-column="5" />
+            <state relative-caret-position="178">
+              <caret line="32" column="11" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -49,59 +178,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SignInResource.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/signIn/SignInResource.java">
+      <file leaf-file-name="Application.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/Application.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="72">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MessageResource.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/message/MessageResource.java">
+      <file leaf-file-name="ScheduledClassController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/scheduledClass/ScheduledClassController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="72">
+              <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AttendanceResource.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/attendance/AttendanceResource.java">
+      <file leaf-file-name="SecurityConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/config/security/SecurityConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-              <folding>
-                <element signature="e#779#780#0" expanded="true" />
-                <element signature="e#829#830#0" expanded="true" />
-                <element signature="e#902#903#0" expanded="true" />
-                <element signature="e#951#952#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MobileCumulativeModuleMetricsResource.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
-              <folding>
-                <element signature="e#747#748#0" expanded="true" />
-                <element signature="e#795#796#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IpUtility.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/main/application/util/ip/IpUtility.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+            <state relative-caret-position="318">
+              <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -109,49 +210,72 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IpUtilityTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/unit/util/ip/IpUtilityTest.java">
+      <file leaf-file-name="MvcConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/config/view/MvcConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="2" selection-end-line="15" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#605#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WebController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/web/WebController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#253#254#0" expanded="true" />
+                <element signature="e#287#288#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LecturerController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="12" column="33" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="33" />
+              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#269#270#0" expanded="true" />
+                <element signature="e#299#300#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IpRangeRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/ipRange/IpRangeRepository.java">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
-              <folding>
-                <element signature="e#673#674#0" expanded="true" />
-                <element signature="e#700#701#0" expanded="true" />
-                <element signature="e#754#755#0" expanded="true" />
-                <element signature="e#781#782#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="216">
+              <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IpRangeService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/main/application/service/ipRange/IpRangeService.java">
+      <file leaf-file-name="loginPage.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/loginPage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="28" column="9" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#641#642#0" expanded="true" />
-                <element signature="e#697#698#0" expanded="true" />
-                <element signature="e#1256#1257#0" expanded="true" />
-                <element signature="e#1283#1284#0" expanded="true" />
-                <element signature="e#1337#1338#0" expanded="true" />
-                <element signature="e#1364#1365#0" expanded="true" />
-                <element signature="e#1421#1422#0" expanded="true" />
-                <element signature="e#1448#1449#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="72">
+              <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -176,33 +300,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/main/application/service/student/StudentService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/repository/NaturallyIdentifiableRowMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/repository/BaseJDBCRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/repository/BaseJdbcTemplate.java" />
-        <option value="$PROJECT_DIR$/src/test/java/unit/metrics/StudentCumulativeModuleMetricsTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/domain/metrics/MobileCumulativeModuleMetrics.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/repository/module/ModuleRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/service/module/ModuleService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/domain/student/Student.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/service/metrics/MetricsService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/api/resource/metrics/MobileCumulativeModuleMetrics.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/repository/attendance/AttendanceRowMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java" />
-        <option value="$PROJECT_DIR$/src/test/java/unit/util/date/DateUtilityTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/domain/scheduledClass/ScheduledClass.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/repository/authenticationCode/AuthenticationCodeRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/domain/accessCode/accessCode.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/domain/accessCode/AccessCode.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/repository/accessCode/AuthenticationCodeRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/repository/accessCode/AccessCodeRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/Application.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/scheduled/ScheduledTask.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/application/api/controller/scheduledClass/ScheduledClassController.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/service/accessCode/AccessCodeService.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/domain/attendance/Attendance.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/api/resource/signIn/AccessCodeResource.java" />
@@ -213,7 +317,6 @@
         <option value="$PROJECT_DIR$/src/main/java/main/application/util/date/DateUtility.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/service/attendance/AttendanceService.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/api/resource/signIn/SignInResource.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/repository/attendance/AttendanceRepository.java" />
         <option value="$PROJECT_DIR$/src/test/java/unit/metrics/MobileCumulativeModuleMetricsTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/domain/ipRange/IpRange.java" />
@@ -226,7 +329,28 @@
         <option value="$PROJECT_DIR$/src/main/java/main/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/api/resource/message/ResponseMessageResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/api/resource/message/MessageResource.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/api/controller/scheduledClass/ScheduledClassController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/config/security/SecurityConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/domain/user/Role.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/domain/user/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/repository/user/UserRowMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/repository/user/UserRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/service/user/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/api/controller/admin/AdminController.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/application/api/controller/student/StudentController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/web/lecturer" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/config/security/SecurityConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/api/controller/WebController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/web/lecturer2.html" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/Application.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/web/login.html" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/config/view/MvcConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/api/controller/lecturer/LecturerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/application/api/controller/web/WebController.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/application/api/controller/web/WebController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java" />
       </list>
     </option>
   </component>
@@ -271,9 +395,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -377,34 +500,8 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="blusign-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blusign-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -426,19 +523,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -464,191 +553,30 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="metrics" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blusign-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blusign-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resource" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blusign-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blusign-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resource" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="metrics" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blusign-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blusign-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resource" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="message" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blusign-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blusign-server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../gs-accessing-data-rest/complete/pom.xml" />
-    <property name="SearchEverywhereHistoryKey" value="StudentRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/student/StudentRepository.java&#10;ModuleRE&#9;PSI&#9;JAVA://main.application.repository.module.ModuleRepository&#10;AttendanceRo&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRowMapper.java&#10;pom&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;Attendance&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRepository.java&#10;Atte&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/attendance/AttendanceService.java&#10;Attenda&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRepository.java&#10;Date&#9;FILE&#9;file:///home/Projects/blusign-server/src/test/java/unit/util/date/DateUtilityTest.java&#10;DateU&#9;FILE&#9;file:///home/Projects/blusign-server/src/test/java/unit/util/date/DateUtilityTest.java&#10;Acce&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/accessCode/AccessCodeRepository.java&#10;app&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;Sched&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java&#10;ScheduledClass&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;Schedu&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java&#10;Scheduled&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java&#10;Dat&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/util/date/DateUtility.java&#10;ScheduledC&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java&#10;Stude&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;om&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;applica&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;Student&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;metrics&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/metrics/MetricsService.java&#10;Att&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/attendance/Attendance.java&#10;DateUti&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/util/date/DateUtility.java&#10;Metrics&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/metrics/MetricsService.java&#10;po&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;appl&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;pom.xml&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;StudentCo&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;Mod&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/Module.java&#10;Stu&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/student/StudentRowMapper.java&#10;NaturallyIde&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/NaturallyIdentifiableService.java&#10;StudentSe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/student/StudentService.java&#10;ModuleRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/module/ModuleRepository.java&#10;Natura&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/NaturallyReferencedModule.java&#10;ModuleRes&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/module/ModuleResource.java&#10;Class&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/scheduledClass/ScheduledClass.java&#10;StudentCon&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;ScheduledClassRes&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java&#10;ScheduledClassSe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java&#10;classRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;Modul&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/Module.java&#10;class&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;NaturallyRef&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/scheduledClass/NaturallyReferencedScheduledClass.java&#10;prop&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;pro&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties" />
+    <property name="SearchEverywhereHistoryKey" value="pom&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;pom.xml&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;prop&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;pom.&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;StudentRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/student/StudentRepository.java&#10;ModuleRE&#9;PSI&#9;JAVA://main.application.repository.module.ModuleRepository&#10;AttendanceRo&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRowMapper.java&#10;Attendance&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRepository.java&#10;Atte&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/attendance/AttendanceService.java&#10;Attenda&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/attendance/AttendanceRepository.java&#10;Date&#9;FILE&#9;file:///home/Projects/blusign-server/src/test/java/unit/util/date/DateUtilityTest.java&#10;DateU&#9;FILE&#9;file:///home/Projects/blusign-server/src/test/java/unit/util/date/DateUtilityTest.java&#10;Acce&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/accessCode/AccessCodeRepository.java&#10;app&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;Sched&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java&#10;ScheduledClass&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;Schedu&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java&#10;Scheduled&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java&#10;Dat&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/util/date/DateUtility.java&#10;ScheduledC&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java&#10;Stude&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;om&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;applica&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;Student&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;metrics&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/metrics/MetricsService.java&#10;Att&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/attendance/Attendance.java&#10;DateUti&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/util/date/DateUtility.java&#10;Metrics&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/metrics/MetricsService.java&#10;po&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;appl&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;StudentCo&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;Mod&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/Module.java&#10;Stu&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/student/StudentRowMapper.java&#10;NaturallyIde&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/NaturallyIdentifiableService.java&#10;StudentSe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/student/StudentService.java&#10;ModuleRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/module/ModuleRepository.java&#10;Natura&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/NaturallyReferencedModule.java&#10;ModuleRes&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/module/ModuleResource.java&#10;Class&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/scheduledClass/ScheduledClass.java&#10;StudentCon&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/controller/student/StudentController.java&#10;ScheduledClassRes&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java&#10;ScheduledClassSe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java&#10;classRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;Modul&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/module/Module.java&#10;class&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java&#10;NaturallyRef&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/main/application/domain/scheduledClass/NaturallyReferencedScheduledClass.java&#10;pro&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties" />
     <property name="settings.editor.selected.configurable" value="copyright" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="main.application.domain.entity.identifier" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/web" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.IpUtilityTest.ipWithinRange">
@@ -1045,7 +973,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="726" extended-state="6" />
+    <frame x="0" y="0" width="1366" height="726" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1057,6 +985,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21041055" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1069,7 +998,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6203554" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4701131" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1120,122 +1048,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/sql/ResultSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="707" column="18" selection-start-line="707" selection-start-column="18" selection-end-line="707" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/scheduledClass/ScheduledClassRowMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/domain/metrics/MobileCumulativeModuleMetrics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/scheduledClass/ScheduledClassResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/domain/scheduledClass/ScheduledClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/BaseJdbcTemplate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/BaseJDBCRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/4.3.5.RELEASE/spring-context-4.3.5.RELEASE.jar!/org/springframework/scheduling/annotation/Scheduled.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/controller/scheduledClass/ScheduledClassController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/binary/BinaryResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="63" selection-start-line="5" selection-start-column="63" selection-end-line="5" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/IdentifiableResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/domain/accessCode/AccessCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/domain/allocation/Allocation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/allocation/AllocationRowMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="80" selection-start-line="11" selection-start-column="80" selection-end-line="11" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/unit/util/date/DateUtilityTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -1246,21 +1058,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/util/date/DateUtility.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/util/date/DateUtility.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/service/allocation/AllocationService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/allocation/AllocationService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/allocation/AllocationRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/allocation/AllocationRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="17" column="15" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
@@ -1274,32 +1086,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/accessCode/AccessCodeRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/accessCode/AccessCodeRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/BaseResource.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/BaseResource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding>
-            <element signature="e#106#107#0" expanded="false" />
-            <element signature="e#142#143#0" expanded="false" />
+            <element signature="e#101#102#0" expanded="false" />
+            <element signature="e#137#138#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/service/attendance/AttendanceService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/attendance/AttendanceService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="21" column="45" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/attendance/AttendanceRowMapper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/attendance/AttendanceRowMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="9" column="66" selection-start-line="9" selection-start-column="66" selection-end-line="9" selection-end-column="66" />
@@ -1307,57 +1119,49 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/unit/metrics/MobileCumulativeModuleMetricsTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/service/accessCode/AccessCodeService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/accessCode/AccessCodeService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/scheduled/ScheduledTask.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/scheduled/ScheduledTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="30" column="60" selection-start-line="30" selection-start-column="60" selection-end-line="30" selection-end-column="60" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/service/scheduledClass/ScheduledClassService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/scheduledClass/ScheduledClassService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/scheduledClass/ScheduledClassRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
           <caret line="54" column="60" selection-start-line="54" selection-start-column="60" selection-end-line="54" selection-end-column="60" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/service/metrics/MetricsService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/metrics/MetricsService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="552">
           <caret line="64" column="41" selection-start-line="64" selection-start-column="41" selection-end-line="64" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/attendance/AttendanceRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/attendance/AttendanceRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="738">
           <caret line="42" column="45" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/domain/attendance/Attendance.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/domain/attendance/Attendance.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
@@ -1365,74 +1169,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/domain/module/Module.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/domain/module/Module.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/module/ModuleRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/ipRange/IpRangeRowMapper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/ipRange/IpRangeRowMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/domain/student/Student.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/domain/student/Student.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="9" column="50" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/student/StudentRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/student/StudentRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="20" column="59" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/domain/ipRange/IpRange.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/domain/ipRange/IpRange.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/repository/ipRange/IpRangeRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/ipRange/IpRangeRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
           <folding>
-            <element signature="e#673#674#0" expanded="true" />
-            <element signature="e#700#701#0" expanded="true" />
-            <element signature="e#754#755#0" expanded="true" />
-            <element signature="e#781#782#0" expanded="true" />
+            <element signature="e#653#654#0" expanded="false" />
+            <element signature="e#680#681#0" expanded="false" />
+            <element signature="e#734#735#0" expanded="false" />
+            <element signature="e#761#762#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/util/ip/IpUtility.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/util/ip/IpUtility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
+        <state relative-caret-position="270">
           <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/unit/util/ip/IpUtilityTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="216">
           <caret line="12" column="33" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1440,49 +1244,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/service/ipRange/IpRangeService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/ipRange/IpRangeService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
+        <state relative-caret-position="504">
           <caret line="28" column="9" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#641#642#0" expanded="true" />
-            <element signature="e#697#698#0" expanded="true" />
-            <element signature="e#1256#1257#0" expanded="true" />
-            <element signature="e#1283#1284#0" expanded="true" />
-            <element signature="e#1337#1338#0" expanded="true" />
-            <element signature="e#1364#1365#0" expanded="true" />
-            <element signature="e#1421#1422#0" expanded="true" />
-            <element signature="e#1448#1449#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#616#617#0" expanded="false" />
+            <element signature="e#672#673#0" expanded="false" />
+            <element signature="e#1231#1232#0" expanded="false" />
+            <element signature="e#1258#1259#0" expanded="false" />
+            <element signature="e#1312#1313#0" expanded="false" />
+            <element signature="e#1339#1340#0" expanded="false" />
+            <element signature="e#1396#1397#0" expanded="false" />
+            <element signature="e#1423#1424#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/attendance/AttendanceResource.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/attendance/AttendanceResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
+        <state relative-caret-position="360">
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding>
-            <element signature="e#779#780#0" expanded="true" />
-            <element signature="e#829#830#0" expanded="true" />
-            <element signature="e#902#903#0" expanded="true" />
-            <element signature="e#951#952#0" expanded="true" />
+            <element signature="e#764#765#0" expanded="false" />
+            <element signature="e#814#815#0" expanded="false" />
+            <element signature="e#887#888#0" expanded="false" />
+            <element signature="e#936#937#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/metrics/MobileCumulativeModuleMetricsResource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
           <folding>
-            <element signature="e#747#748#0" expanded="true" />
-            <element signature="e#795#796#0" expanded="true" />
+            <element signature="e#732#733#0" expanded="false" />
+            <element signature="e#780#781#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/signIn/SignInResource.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/signIn/SignInResource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
@@ -1504,21 +1308,235 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/controller/student/StudentController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/message/MessageResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="139" column="5" selection-start-line="139" selection-start-column="5" selection-end-line="139" selection-end-column="5" />
+        <state relative-caret-position="198">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/domain/user/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#595#596#0" expanded="false" />
+            <element signature="e#626#627#0" expanded="false" />
+            <element signature="e#674#675#0" expanded="false" />
+            <element signature="e#714#715#0" expanded="false" />
+            <element signature="e#745#746#0" expanded="false" />
+            <element signature="e#772#773#0" expanded="false" />
+            <element signature="e#812#813#0" expanded="false" />
+            <element signature="e#844#845#0" expanded="false" />
+            <element signature="e#878#879#0" expanded="false" />
+            <element signature="e#908#909#0" expanded="false" />
+            <element signature="e#954#955#0" expanded="false" />
+            <element signature="e#992#993#0" expanded="false" />
+            <element signature="e#1042#1043#0" expanded="false" />
+            <element signature="e#1086#1087#0" expanded="false" />
+            <element signature="e#1117#1118#0" expanded="false" />
+            <element signature="e#1144#1145#0" expanded="false" />
+            <element signature="e#1184#1185#0" expanded="false" />
+            <element signature="e#1216#1217#0" expanded="false" />
+            <element signature="e#1261#1262#0" expanded="false" />
+            <element signature="e#1288#1289#0" expanded="false" />
+            <element signature="e#1342#1343#0" expanded="false" />
+            <element signature="e#1374#1375#0" expanded="false" />
+            <element signature="e#1415#1416#0" expanded="false" />
+            <element signature="e#1440#1441#0" expanded="false" />
+            <element signature="e#1488#1489#0" expanded="false" />
+            <element signature="e#1516#1517#0" expanded="false" />
+            <element signature="e#1600#1601#0" expanded="false" />
+            <element signature="e#1652#1653#0" expanded="false" />
+            <element signature="e#1701#1702#0" expanded="false" />
+            <element signature="e#1734#1735#0" expanded="false" />
+            <element signature="e#1792#1793#0" expanded="false" />
+            <element signature="e#1819#1820#0" expanded="false" />
+            <element signature="e#1876#1877#0" expanded="false" />
+            <element signature="e#1903#1904#0" expanded="false" />
+            <element signature="e#1965#1966#0" expanded="false" />
+            <element signature="e#1992#1993#0" expanded="false" />
+            <element signature="e#2040#2041#0" expanded="false" />
+            <element signature="e#2067#2068#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/domain/user/Role.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+          <folding>
+            <element signature="e#226#227#0" expanded="false" />
+            <element signature="e#258#259#0" expanded="false" />
+            <element signature="e#303#304#0" expanded="false" />
+            <element signature="e#335#336#0" expanded="false" />
+            <element signature="e#385#386#0" expanded="false" />
+            <element signature="e#412#413#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/user/UserRowMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/application/api/resource/message/MessageResource.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/user/UserRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="468">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#711#712#0" expanded="false" />
+            <element signature="e#738#739#0" expanded="false" />
+            <element signature="e#789#790#0" expanded="false" />
+            <element signature="e#816#817#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/user/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="41" column="1" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#730#731#0" expanded="false" />
+            <element signature="e#757#758#0" expanded="false" />
+            <element signature="e#808#809#0" expanded="false" />
+            <element signature="e#835#836#0" expanded="false" />
+            <element signature="e#886#887#0" expanded="false" />
+            <element signature="e#913#914#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1024#1025#0" expanded="false" />
+            <element signature="e#1054#1055#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/web/lecturer">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="7" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/student/StudentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="32" column="11" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/scheduledClass/ScheduledClassController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/config/security/SecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/loginPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/config/view/MvcConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="2" selection-end-line="15" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#605#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/web/WebController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#253#254#0" expanded="true" />
+            <element signature="e#287#288#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#269#270#0" expanded="true" />
+            <element signature="e#299#300#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

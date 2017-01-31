@@ -1,6 +1,6 @@
 package unit.util.ip;
 
-import main.application.util.ip.IpUtility;
+import application.util.ip.IpUtility;
 import org.junit.Assert;
 import org.junit.Test;
 
