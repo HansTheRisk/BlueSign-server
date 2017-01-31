@@ -2,11 +2,11 @@ $(document).ready(function(){
 
     $.ajax({
         type: "GET",
-        url: "lecturer/student",
-        dataType: "json",
+        url: "/student/b00642446/1234",
+        dataType: "jsonp",
         cache: false,
         success: function(data) {
-            $('#1').append(data[0].name);
+            $('#1').append(JSON.stringify(data.value));
         }
     });
 

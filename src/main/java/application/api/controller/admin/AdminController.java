@@ -40,11 +40,11 @@ public class AdminController {
         return new ResponseEntity<>(classes, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "admin/student", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<List<StudentResource>> getStudents() {
-        List<StudentResource> students = new ArrayList<>();
-        studentService.findAll().forEach(student -> students.add(new StudentResource(student)));
-        return new ResponseEntity<>(students, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "admin/student", method = RequestMethod.GET)
+//    @ResponseBody
+//    public ResponseEntity<List<StudentResource>> getStudents() {
+//        List<StudentResource> students = new ArrayList<>();
+//        studentService.findAll().forEach(student -> students.add(new StudentResource(student)));
+//        return new ResponseEntity<>(students, HttpStatus.OK);
+//    }
 }

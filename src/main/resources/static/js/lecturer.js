@@ -2,11 +2,11 @@ $(document).ready(function(){
 
     $.ajax({
         type: "GET",
-        url: "lecturer/student",
+        url: "/lecturer/student",
         dataType: "json",
         cache: false,
         success: function(data) {
-            $('#1').append(data[0].name);
+            $('#1').append(JSON.stringify(data[0].name));
         }
     });
 
