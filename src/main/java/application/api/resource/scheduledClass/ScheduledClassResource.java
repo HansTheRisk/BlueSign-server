@@ -4,19 +4,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import application.api.resource.NaturallyIdentifiableResource;
 import application.domain.scheduledClass.ScheduledClass;
 
+import java.util.Calendar;
+
 public class ScheduledClassResource extends NaturallyIdentifiableResource<ScheduledClass> {
+
+    String[] days = new String[]{
+            "SUNDAY",
+            "MONDAY",
+            "TUESDAY",
+            "WEDNESDAY",
+            "THURSDAY",
+            "FRIDAY",
+            "SATURDAY"
+    };
 
     public ScheduledClassResource(ScheduledClass object) {
         super(object);
     }
 
-    //TODO: Write a converter for Calendar Day to DayOfWeek
-//    @JsonProperty("day")
-//    public String getDay() {
-//        Calendar calendar =  Calendar.getInstance();
-//        calendar.setTimeInMillis(object.getStartDate().getTime());
-//        return calendar.get(Calendar.DAY_OF_WEEK);
-//    }
+    @JsonProperty("day")
+    public String getDay() {
+        Calendar calendar =  Calendar.getInstance();
+        calendar.setTimeInMillis(object.getStartDate().getTime());
+        return days[(calendar.get(Calendar.DAY_OF_WEEK))];
+    }
 
     @JsonProperty("moduleCode")
     public String getModuleCode() {

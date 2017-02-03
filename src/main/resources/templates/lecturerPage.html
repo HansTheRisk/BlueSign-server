@@ -4,17 +4,72 @@
     <title>Hello Spring Security</title>
     <meta charset="utf-8" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" th:src="@{/js/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/lecturer.js}"></script>
     <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.css" th:href="@{js/bootstrap-3.3.7-dist/css/bootstrap.css}" />
     <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap-theme.css" th:href="@{js/bootstrap-3.3.7-dist/css/bootstrap-theme.css}" />
+    <link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}" />
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
-<div th:substituteby="loginPage::logout"></div>
-<h1>This is a secured page!</h1>
-<div id="1"></div>
+    <div class="container-full">
+        <div class="row" style="background-color: #0000FF;">
+            <div class="col-md-12">
+                <div id="banner">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    Blusign Lecturer
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <div id="navigation" class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar" style="width: 100%;">
+                    <div class="container-fluid">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#attendance">Attendance</a></li>
+                            <li><a data-toggle="tab" href="#accessCode">Access Code</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div id="attendanceContent">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="container-fluid">
+                        <h4>Your modules:</h4>
+                        <div style="margin-bottom: 1%;" id="modules" class="btn-group" role="group" aria-label="..."></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="container-fluid">
+                        <h4>Your classes:</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="container-fluid">
+                        <div id="classes" class="list-group">
+                            <li class="list-group-item">Cras justo odio</li>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container-fluid">
+                        <div id="classesToDate" class="list-group">
+                            <li class="list-group-item">Cras justo odio</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>Mateusz Sliwinski 2017</footer>
+    </div>
 </body>
 </html>

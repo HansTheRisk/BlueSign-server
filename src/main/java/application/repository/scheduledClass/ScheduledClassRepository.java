@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class ScheduledClassRepository extends BaseJDBCRepository implements NaturallyIdentifiableRepository <ScheduledClass> {
 
-    public List<ScheduledClass> findClassesByStudentUniveristyIdAndModuleUuid(String universityId,
+    public List<ScheduledClass> findClassesByStudentUniveristyIdAndModuleCode(String universityId,
                                                                               String moduleCode) {
         String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
                      "FROM class " +
@@ -22,8 +22,17 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                             "ON allocation.student_id = student.id " +
                         "WHERE " +
                             "student.university_id = ? " +
-                            "AND module.module_code = ?";
+                            "AND module.module_code = ? ";
         return executor.query(sql, new Object[]{universityId, moduleCode}, new ScheduledClassRowMapper());
+    }
+
+    public List<ScheduledClass> findClassesByModuleCode(String moduleCode) {
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
+                     "FROM class " +
+                        "INNER JOIN module " +
+                            "ON class.module_id = module.id " +
+                     "WHERE module.module_code = ? ";
+        return executor.query(sql, new Object[]{moduleCode}, new ScheduledClassRowMapper());
     }
 
     public List<ScheduledClass> findClassesByStudentUniveristyId(String universityId) {

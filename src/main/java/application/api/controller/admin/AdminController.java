@@ -1,7 +1,6 @@
 package application.api.controller.admin;
 
 import application.api.resource.scheduledClass.ScheduledClassResource;
-import application.api.resource.student.StudentResource;
 import application.service.scheduledClass.ScheduledClassService;
 import application.service.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class AdminController {
 
     @RequestMapping("/admin")
     public String admin() {
-        return "admin";
+        return "adminPage";
     }
 
     @RequestMapping(value = "admin/class/{universityId}/{moduleCode}", method = RequestMethod.GET)
@@ -35,7 +34,7 @@ public class AdminController {
     public ResponseEntity<List<ScheduledClassResource>> getModules(@PathVariable String universityId,
                                                                    @PathVariable String moduleCode) {
         List<ScheduledClassResource> classes = new ArrayList<>();
-        scheduledClassService.findClassesByStudentUniveristyIdAndModuleUuid(universityId, moduleCode).forEach(scheduledClass ->
+        scheduledClassService.findClassesByStudentUniveristyIdAndModuleCode(universityId, moduleCode).forEach(scheduledClass ->
                 classes.add(new ScheduledClassResource(scheduledClass)));
         return new ResponseEntity<>(classes, HttpStatus.OK);
     }

@@ -12,18 +12,27 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
 
     public List<Module> getModulesForStudent(String universityId) {
         String sql = "SELECT module.id, title, module_code, user.uuid AS lecturer_uuid " +
-                "FROM module " +
-                    "INNER JOIN class ON " +
-                        "module.id = class.module_id " +
-                    "INNER JOIN allocation ON " +
-                        "class.id = allocation.class_id " +
-                    "INNER JOIN student ON " +
-                        "allocation.student_id = student.id " +
-                    "INNER JOIN user ON " +
-                        "module.lecturer_id = user.id " +
+                     "FROM module " +
+                        "INNER JOIN class ON " +
+                            "module.id = class.module_id " +
+                        "INNER JOIN allocation ON " +
+                            "class.id = allocation.class_id " +
+                        "INNER JOIN student ON " +
+                            "allocation.student_id = student.id " +
+                        "INNER JOIN user ON " +
+                            "module.lecturer_id = user.id " +
                     "WHERE student.university_id = ? " +
                     "GROUP BY module.id";
         return executor.query(sql, new Object[]{universityId}, new ModuleRowMapper());
+    }
+
+    public List<Module> getModulesForLecturer(String uuid) {
+        String sql = "SELECT module.id, title, module_code, user.uuid AS lecturer_uuid " +
+                     "FROM module " +
+                        "INNER JOIN user ON " +
+                            "module.lecturer_id = user.id " +
+                        "WHERE user.uuid = ? ";
+        return executor.query(sql, new Object[]{uuid}, new ModuleRowMapper());
     }
 
     @Override

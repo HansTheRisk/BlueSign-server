@@ -25,7 +25,7 @@ public class ScheduledClassController {
     public ResponseEntity<List<ScheduledClassResource>> getModules(@PathVariable String universityId,
                                                                    @PathVariable String moduleCode) {
         List<ScheduledClassResource> classes = new ArrayList<>();
-        scheduledClassService.findClassesByStudentUniveristyIdAndModuleUuid(universityId, moduleCode).forEach(scheduledClass ->
+        scheduledClassService.findClassesByStudentUniveristyIdAndModuleCode(universityId, moduleCode).forEach(scheduledClass ->
                 classes.add(new ScheduledClassResource(scheduledClass)));
         return new ResponseEntity<>(classes, HttpStatus.OK);
     }

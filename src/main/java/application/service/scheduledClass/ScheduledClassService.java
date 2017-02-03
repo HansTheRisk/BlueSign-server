@@ -14,8 +14,12 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
     @Autowired
     private ScheduledClassRepository repository;
 
-    public List<ScheduledClass> findClassesByStudentUniveristyIdAndModuleUuid(String universityId, String moduleCode) {
-        return repository.findClassesByStudentUniveristyIdAndModuleUuid(universityId, moduleCode);
+    public List<ScheduledClass> findClassesByStudentUniveristyIdAndModuleCode(String universityId, String moduleCode) {
+        return repository.findClassesByStudentUniveristyIdAndModuleCode(universityId, moduleCode);
+    }
+
+    public List<ScheduledClass> findClassesByModuleCode(String moduleCode) {
+        return repository.findClassesByModuleCode(moduleCode);
     }
 
     public List<ScheduledClass> findClassesByStudentUniversityId(String universityId) {

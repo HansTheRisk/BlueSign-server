@@ -1,0 +1,20 @@
+#banner {
+	background-color:  	#0000FF;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 150%;
+	margin-left: 10%;
+}
+
+#navigation {
+	font-weight: bold;
+	background-color: #ffffff;
+	width: 100%;
+}
+
+footer {
+	width: 100%;
+	font-weight: bold;
+	text-align: center;
+	background-color: #ffffff;
+}
