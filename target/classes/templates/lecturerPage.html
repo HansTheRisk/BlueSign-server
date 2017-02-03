@@ -7,12 +7,14 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" th:src="@{/js/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/lecturer.js}"></script>
-    <!--<link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />-->
+    <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.css" th:href="@{js/bootstrap-3.3.7-dist/css/bootstrap.css}" />
+    <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap-theme.css" th:href="@{js/bootstrap-3.3.7-dist/css/bootstrap-theme.css}" />
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
-<div th:substituteby="index::logout"></div>
+<div th:substituteby="loginPage::logout"></div>
 <h1>This is a secured page!</h1>
 <div id="1"></div>
-<p><a href="/index" th:href="@{/index}">Back to home page</a></p>
 </body>
 </html>

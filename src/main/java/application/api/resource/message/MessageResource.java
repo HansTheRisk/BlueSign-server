@@ -5,6 +5,10 @@ import application.api.resource.BaseResource;
 
 public class MessageResource extends BaseResource<String>{
 
+    public MessageResource() {
+        super(null);
+    }
+
     public MessageResource(String object) {
         super(object);
     }
@@ -12,5 +16,10 @@ public class MessageResource extends BaseResource<String>{
     @JsonProperty("message")
     public String getMessage() {
         return object;
+    }
+
+    @JsonProperty("message")
+    public void setMessage(String message) {
+        this.object = message;
     }
 }
