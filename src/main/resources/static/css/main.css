@@ -1,3 +1,7 @@
+.container-full {
+    width: 100%;
+}
+
 #banner {
 	background-color:  	#0000FF;
 	color: #FFFFFF;
@@ -12,9 +16,21 @@
 	width: 100%;
 }
 
+#pills {
+    height: 40%;
+}
+
+#classes, #classesToDate {
+    border-style: solid;
+    border-width: 1px;
+}
+
 footer {
+    position:absolute;
+    bottom:0;
 	width: 100%;
 	font-weight: bold;
 	text-align: center;
-	background-color: #ffffff;
+	color: #FFFFFF;
+	background-color: #0000FF;
 }
