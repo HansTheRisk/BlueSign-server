@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ComponentScan
 @EnableAutoConfiguration
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling TeMPORARILY DISABLED
 public class Application {
 
     public static void main(String[] args) {

@@ -26,7 +26,7 @@ public class ScheduledTask {
     private AccessCodeService accessCodeService;
 
     @Transactional
-    @Scheduled(fixedDelay = 240000)
+//    @Scheduled(fixedDelay = 240000)
     public void regenerateCodes() {
         List<ScheduledClass> classes = classService.findCurrentlyRunningClasses();
         List<Integer> codes = generateCodes(classes.size()).stream().collect(Collectors.toList());
