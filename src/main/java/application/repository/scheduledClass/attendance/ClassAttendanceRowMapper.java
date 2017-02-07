@@ -10,6 +10,9 @@ import java.util.Date;
 public class ClassAttendanceRowMapper implements RowMapper<ClassAttendance>{
     @Override
     public ClassAttendance mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new ClassAttendance(rs.getString("class_uuid"), new Date(rs.getTimestamp("date").getTime()), rs.getInt("allocated"), rs.getInt("attended"));
+        return new ClassAttendance(rs.getString("class_uuid"),
+                new Date(rs.getTimestamp("date").getTime()),
+                rs.getInt("allocated"),
+                rs.getInt("attended"));
     }
 }

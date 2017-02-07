@@ -7,6 +7,7 @@ import application.repository.NaturallyIdentifiableRepository;
 import application.repository.scheduledClass.attendance.ClassAttendanceRowMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Component
@@ -14,7 +15,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
 
     public List<ScheduledClass> findClassesByStudentUniveristyIdAndModuleCode(String universityId,
                                                                               String moduleCode) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room" +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -29,7 +30,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     }
 
     public List<ScheduledClass> findClassesByModuleCode(String moduleCode) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -38,7 +39,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     }
 
     public List<ScheduledClass> findClassesByStudentUniveristyId(String universityId) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -52,7 +53,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     }
 
     public ScheduledClass findClassByAuthenticationCode(int code) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -64,7 +65,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     }
 
     public List<ScheduledClass> findCurrentlyRunningClasses() {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room " +
                 "FROM class " +
                 "INNER JOIN module " +
                     "ON class.module_id = module.id " +
@@ -82,19 +83,20 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     }
 
     public ClassAttendance getClassAttendance(String classUuid, long timestamp) {
-        String sql = "SELECT '"+classUuid+"' AS class_uuid, DATE("+timestamp+") AS date, " +
+        Timestamp timestampObj = new Timestamp(timestamp);
+        String sql = "SELECT ? AS class_uuid, DATE(?) AS date, " +
                             "(SELECT COUNT(*) FROM allocation " +
                                 "INNER JOIN class ON class_id = class.id " +
-                             "WHERE class.uuid = '"+classUuid+"') AS allocated, " +
+                             "WHERE class.uuid = ?) AS allocated, " +
                             "(SELECT COUNT(*) FROM attendance " +
                                 "INNER JOIN class ON class_id = class.id " +
-                            "WHERE class.uuid = '"+classUuid+"' AND DATE(date) = DATE("+timestamp+") AS attended ";
-        return executor.queryForObject(sql, new ClassAttendanceRowMapper());
+                            "WHERE class.uuid = ? AND DATE(date) = DATE(?)) AS attended ";
+        return executor.queryForObject(sql, new Object[]{classUuid, timestampObj, classUuid, classUuid, timestampObj}, new ClassAttendanceRowMapper());
     }
 
     @Override
     public ScheduledClass findByUuid(String uuid) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room " +
                 "FROM class " +
                 "INNER JOIN module " +
                 "ON class.module_id = module.id " +

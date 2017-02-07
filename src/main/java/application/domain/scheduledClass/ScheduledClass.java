@@ -11,6 +11,7 @@ public class ScheduledClass implements NaturallyIdentifiableEntity {
     private Date startDate;
     private Date endDate;
     private String moduleCode;
+    private String room;
 
     public ScheduledClass() {
 
@@ -44,6 +45,14 @@ public class ScheduledClass implements NaturallyIdentifiableEntity {
 
     public void setModuleCode(String moduleCode) {
         this.moduleCode = moduleCode;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 
     @Override

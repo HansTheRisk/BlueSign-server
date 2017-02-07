@@ -18,6 +18,7 @@ public class ScheduledClassRowMapper implements NaturallyIdentifiableRowMapper<S
                                                                 endDate);
         sclass.setId(rs.getLong("id"));
         sclass.setUuid(rs.getString("uuid"));
+        sclass.setRoom(rs.getString("room"));
         return sclass;
     }
 }

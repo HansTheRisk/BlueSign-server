@@ -31,7 +31,7 @@ $(document).ready(function(){
         var caption = $('<div class="caption"></div>').appendTo(thumbnail);
 
         caption.append('<h4>'+moduleCode+'<h4>');
-        caption.append('<em>'+new Date(dateTimestamp).toLocaleDateString()+'<em>');
+        caption.append('<em>'+dateTimestamp+'<em>');
         getCall("lecturer/class/"+class_uuid+"/"+dateTimestamp+"/attendance", "json", loadClassAttendance);
 	})
 });
@@ -58,8 +58,11 @@ function loadClassesToDate(json) {
 
 function loadClassAttendance(json) {
     var caption = $('#classAttendanceDetails .caption');
-    caption.append('<p><a href="#" class="btn btn-primary" role="button">Button</a>'+
-                   '<a href="#" class="btn btn-default" role="button">Button</a></p>');
+    caption.append($('<h5>Attendance Percentage: ' + ((json.attended / json.allocated) * 100).toFixed(2) +'%</h5>'));
+    caption.append($('<p>Allocated to class: '+json.allocated+'</p>'));
+    caption.append($('<p>Attended the class:'+json.attended+'</p>'));
+    caption.append('<p><a href="#" class="btn btn-primary" role="button">Students who attended</a>'+
+                   '<a href="#" class="btn btn-default" role="button">Students who did not attend</a></p>');
 }
 
 function loadModuleAttendance(json) {
@@ -75,10 +78,12 @@ function loadClasses(json) {
         $('<li role="presentation" class_uuid="'+json[i].uuid+'"><a href="#">' + startDate.toLocaleDateString()
                                          + ' - '
                                          + endDate.toLocaleDateString()
-                                         +'</br>'
+                                         + '</br>'
                                          + startDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' - '
                                          + endDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
                                          + ' ' + JSON.stringify(json[i].day).replace(/"/g, '')
+                                         + '</br>'
+                                         + JSON.stringify(json[i].room).replace(/"/g, '')
                                          + '</a></li>').appendTo($('#classes'));
     }
 }
