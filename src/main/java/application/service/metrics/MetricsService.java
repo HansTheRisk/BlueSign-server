@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +28,18 @@ public class MetricsService {
     @Autowired
     private DateUtility dateUtility;
 
-    public List<MobileCumulativeModuleMetrics> getMobileCumulativeModuleMetrics(String universityId) {
+    public List<Date> getDatesOfCompletedClasses(ScheduledClass scheduledClass) {
+        Calendar now = Calendar.getInstance();
+        now.setTimeInMillis(System.currentTimeMillis());
+
+        if(now.getTimeInMillis() > scheduledClass.getEndDate().getTime())
+            return dateUtility.listDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+        else
+            return dateUtility.listDays(scheduledClass.getStartDate(), now.getTime(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+    }
+
+    //TODO: CHange this to accept a student object instead
+    public List<MobileCumulativeModuleMetrics> getMobileCumulativeModuleMetricsForStudent(String universityId) {
         List<ScheduledClass> classes = classService.findClassesByStudentUniversityId(universityId);
         List<Attendance> attendance = attendanceService.getAttendanceForStudent(universityId);
         return calculateMobileModuleMetrics(classes, attendance);

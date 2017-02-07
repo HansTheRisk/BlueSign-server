@@ -81,7 +81,7 @@ public class StudentController {
     @ResponseBody
     public ResponseEntity<List<MobileCumulativeModuleMetricsResource>> getMobileMetrics(@PathVariable String id) {
         List<MobileCumulativeModuleMetricsResource> resources = new ArrayList<>();
-        metricsService.getMobileCumulativeModuleMetrics(id).forEach(metrics -> resources.add(new MobileCumulativeModuleMetricsResource(metrics)));
+        metricsService.getMobileCumulativeModuleMetricsForStudent(id).forEach(metrics -> resources.add(new MobileCumulativeModuleMetricsResource(metrics)));
         return new ResponseEntity<List<MobileCumulativeModuleMetricsResource>>(resources, HttpStatus.OK);
     }
 

@@ -1,8 +1,10 @@
 package application.repository.scheduledClass;
 
 import application.domain.scheduledClass.ScheduledClass;
+import application.domain.scheduledClass.attendance.ClassAttendance;
 import application.repository.BaseJDBCRepository;
 import application.repository.NaturallyIdentifiableRepository;
+import application.repository.scheduledClass.attendance.ClassAttendanceRowMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -79,9 +81,25 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.query(sql, new ScheduledClassRowMapper());
     }
 
+    public ClassAttendance getClassAttendance(String classUuid, long timestamp) {
+        String sql = "SELECT '"+classUuid+"' AS class_uuid, DATE("+timestamp+") AS date, " +
+                            "(SELECT COUNT(*) FROM allocation " +
+                                "INNER JOIN class ON class_id = class.id " +
+                             "WHERE class.uuid = '"+classUuid+"') AS allocated, " +
+                            "(SELECT COUNT(*) FROM attendance " +
+                                "INNER JOIN class ON class_id = class.id " +
+                            "WHERE class.uuid = '"+classUuid+"' AND DATE(date) = DATE("+timestamp+") AS attended ";
+        return executor.queryForObject(sql, new ClassAttendanceRowMapper());
+    }
+
     @Override
     public ScheduledClass findByUuid(String uuid) {
-        return null;
+        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date " +
+                "FROM class " +
+                "INNER JOIN module " +
+                "ON class.module_id = module.id " +
+                "WHERE class.uuid = ? ";
+        return executor.queryForObject(sql, new Object[]{uuid}, new ScheduledClassRowMapper());
     }
 
     @Override

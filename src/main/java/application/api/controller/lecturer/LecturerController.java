@@ -1,11 +1,18 @@
 package application.api.controller.lecturer;
 
+import application.api.resource.date.DateResource;
 import application.api.resource.module.ModuleResource;
+import application.api.resource.scheduledClass.ScheduledClassDates;
 import application.api.resource.scheduledClass.ScheduledClassResource;
+import application.api.resource.scheduledClass.attendance.ClassAttendanceResource;
+import application.domain.scheduledClass.ScheduledClass;
+import application.domain.scheduledClass.attendance.ClassAttendance;
 import application.domain.user.User;
+import application.service.metrics.MetricsService;
 import application.service.module.ModuleService;
 import application.service.scheduledClass.ScheduledClassService;
 import application.service.student.StudentService;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class LecturerController {
@@ -30,6 +38,9 @@ public class LecturerController {
 
     @Autowired
     private ScheduledClassService scheduledClassService;
+
+    @Autowired
+    private MetricsService metricsService;
 
 //    @RequestMapping(value = "lecturer/student", method = RequestMethod.GET)
 //    @ResponseBody
@@ -53,6 +64,27 @@ public class LecturerController {
         List<ScheduledClassResource> classes = new ArrayList<>();
         scheduledClassService.findClassesByModuleCode(moduleCode).forEach(scheduledClass -> classes.add(new ScheduledClassResource(scheduledClass)));
         return new ResponseEntity<>(classes, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "lecturer/class/{classUuid}/toDate", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<ScheduledClassDates> getClassesToDate(@PathVariable String classUuid) {
+        ScheduledClass scheduledClass = scheduledClassService.findByUUID(classUuid);
+        if (scheduledClass == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ScheduledClassDates(scheduledClass, metricsService.getDatesOfCompletedClasses(scheduledClass)
+                                                  .stream().map(date -> new DateResource<>(date))
+                                                  .collect(Collectors.toList())), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/attendance", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<ClassAttendanceResource> getClassAttendace(@PathVariable String classUuid,
+                                                             @PathVariable long dateTimestamp) {
+        ScheduledClass scheduledClass = scheduledClassService.findByUUID(classUuid);
+        if (scheduledClass == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ClassAttendanceResource(scheduledClassService.getClassAttendance(classUuid, dateTimestamp)), HttpStatus.OK);
     }
 
 //    @RequestMapping(value = "lecturer/student", method = RequestMethod.POST)

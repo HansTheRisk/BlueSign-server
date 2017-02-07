@@ -26,7 +26,7 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
     public String getDay() {
         Calendar calendar =  Calendar.getInstance();
         calendar.setTimeInMillis(object.getStartDate().getTime());
-        return days[(calendar.get(Calendar.DAY_OF_WEEK))];
+        return days[(calendar.get(Calendar.DAY_OF_WEEK) -1)];
     }
 
     @JsonProperty("moduleCode")

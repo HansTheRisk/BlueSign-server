@@ -9,7 +9,14 @@ $(document).ready(function(){
         getCall("lecturer/modules/"+moduleCode+"/classes", "json", loadClasses);
         $('#moduleDetailsJumbo').empty();
         $('#moduleDetailsJumbo').append('<h4>'+moduleCode+': '+ title + '</h4>');
-        $('#moduleDetailsJumbo').append('<p><a class="btn btn-primary" href="#" role="button">Learn more</a></p>')
+        $('#moduleDetailsJumbo').append('<p><a class="btn btn-primary" href="#" role="button">Learn more</a></p>');
+	})
+});
+
+$(document).ready(function(){
+	$(document).on("click", "#classes li", function() {
+        var class_uuid = $(this).attr("class_uuid");
+        getCall("lecturer/class/"+class_uuid+"/toDate", "json", loadClassesToDate);
 	})
 });
 
@@ -23,6 +30,16 @@ function getCall(url, type, method) {
     });
 }
 
+function loadClassesToDate(json) {
+    $('#classesToDate').empty();
+    for(var i = 0; i < json.dates.length; i++) {
+        var timestamp = json.dates[i].dateTimestamp;
+        var date = new Date(timestamp);
+        $('<li role="presentation" class_uuid="'+json.uuid+'" dateTimestamp="'+timestamp+'">' +
+            '<a href="#">' + date.toLocaleDateString() + '</a></li>').appendTo($('#classesToDate'));
+    }
+}
+
 function loadClassMetric(json) {
 
 }
@@ -33,6 +50,7 @@ function loadModuleMetrics(json) {
 
 function loadClasses(json) {
     $('#classes').empty();
+    $('#classesToDate').empty();
     for(var i = 0; i < json.length; i++) {
         var startDate = new Date(json[i].startDateTimestamp);
         var endDate = new Date(json[i].endDateTimestamp);

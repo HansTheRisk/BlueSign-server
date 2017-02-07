@@ -1,6 +1,7 @@
 package application.service.scheduledClass;
 
 import application.domain.scheduledClass.ScheduledClass;
+import application.domain.scheduledClass.attendance.ClassAttendance;
 import application.repository.scheduledClass.ScheduledClassRepository;
 import application.service.NaturallyIdentifiableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,13 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
         return repository.findCurrentlyRunningClasses();
     }
 
+    public ClassAttendance getClassAttendance(String classUuid, long timestamp) {
+        return repository.getClassAttendance(classUuid, timestamp);
+    }
+
     @Override
     public ScheduledClass findByUUID(String uuid) {
-        return null;
+        return repository.findByUuid(uuid);
     }
 
     @Override
