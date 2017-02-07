@@ -26,9 +26,8 @@ $(document).ready(function(){
         var dateTimestamp = $(this).attr("dateTimestamp");
         var moduleCode = $(this).attr("module_code");
 
-        $('#classAttendance').empty();
-        var thumbnail = $('<div id="classAttendanceDetails" class="thumbnail"></div>').appendTo('#classAttendance');
-        var caption = $('<div class="caption"></div>').appendTo(thumbnail);
+        $('#classAttendanceDetails').empty();
+        var caption = $('<div class="caption"></div>').appendTo($('#classAttendanceDetails'));
 
         caption.append('<h4>'+moduleCode+'<h4>');
         caption.append('<em>'+dateTimestamp+'<em>');
@@ -48,6 +47,7 @@ function getCall(url, type, method) {
 
 function loadClassesToDate(json) {
     $('#classesToDate').empty();
+    $('#classAttendanceDetails').empty();
     for(var i = 0; i < json.dates.length; i++) {
         var timestamp = json.dates[i].dateTimestamp;
         var date = new Date(timestamp);
@@ -60,9 +60,9 @@ function loadClassAttendance(json) {
     var caption = $('#classAttendanceDetails .caption');
     caption.append($('<h5>Attendance Percentage: ' + ((json.attended / json.allocated) * 100).toFixed(2) +'%</h5>'));
     caption.append($('<p>Allocated to class: '+json.allocated+'</p>'));
-    caption.append($('<p>Attended the class:'+json.attended+'</p>'));
-    caption.append('<p><a href="#" class="btn btn-primary" role="button">Students who attended</a>'+
-                   '<a href="#" class="btn btn-default" role="button">Students who did not attend</a></p>');
+    caption.append($('<p>Attended the class: '+json.attended+'</p>'));
+    caption.append('<p><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" role="button">Students who attended</a>'+
+                   '<a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal" role="button">Students who did not attend</a></p>');
 }
 
 function loadModuleAttendance(json) {
