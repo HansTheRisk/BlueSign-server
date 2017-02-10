@@ -1,7 +1,8 @@
 package application.service.metrics;
 
 import application.domain.attendance.Attendance;
-import application.domain.metrics.MobileCumulativeModuleMetrics;
+import application.domain.module.attendance.CumulativeModuleAttendanceForMobile;
+import application.domain.module.attendance.CumulativeModuleAttendanceForWeb;
 import application.domain.scheduledClass.ScheduledClass;
 import application.service.attendance.AttendanceService;
 import application.service.scheduledClass.ScheduledClassService;
@@ -39,35 +40,60 @@ public class MetricsService {
     }
 
     //TODO: CHange this to accept a student object instead
-    public List<MobileCumulativeModuleMetrics> getMobileCumulativeModuleMetricsForStudent(String universityId) {
+    public List<CumulativeModuleAttendanceForMobile> getMobileCumulativeModuleMetricsForStudent(String universityId) {
         List<ScheduledClass> classes = classService.findClassesByStudentUniversityId(universityId);
-        List<Attendance> attendance = attendanceService.getAttendanceForStudent(universityId);
+        List<Attendance> attendance = attendanceService.getAttendanceRecordsForStudent(universityId);
         return calculateMobileModuleMetrics(classes, attendance);
     }
 
-    private List<MobileCumulativeModuleMetrics> calculateMobileModuleMetrics(List<ScheduledClass> classes , List<Attendance> attendance) {
+    public CumulativeModuleAttendanceForWeb getCumulativeModuleAttendanceMetrics(String moduleCode) {
+        List<ScheduledClass> classes = classService.findClassesByModuleCode(moduleCode);
+        List<Attendance> attendance = attendanceService.getAttendanceRecordsForModule(moduleCode);
+        return calculateCumulativeModuleAttendanceMetrics(moduleCode, classes, attendance);
+    }
+
+    private CumulativeModuleAttendanceForWeb calculateCumulativeModuleAttendanceMetrics(String moduleCode, List<ScheduledClass> classes, List<Attendance> attendance) {
+        Calendar now = Calendar.getInstance();
+        now.setTimeInMillis(System.currentTimeMillis());
+        final long[] totalExpectedAttendances = {0};
+        final long[] totalClassesToDate = {0};
+        long attended = attendance.size();
+
+        classes.forEach(scheduledClass -> {
+            long numOfCompleted = 0;
+            if(now.getTimeInMillis() > scheduledClass.getEndDate().getTime())
+                numOfCompleted = dateUtility.countDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+            else
+                numOfCompleted = dateUtility.countDays(scheduledClass.getStartDate(), now.getTime(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+            totalExpectedAttendances[0] += scheduledClass.getAllocated() * numOfCompleted;
+            totalClassesToDate[0] += numOfCompleted;
+        });
+        return new CumulativeModuleAttendanceForWeb(moduleCode, totalExpectedAttendances[0], attended, totalClassesToDate[0]);
+    }
+
+    private List<CumulativeModuleAttendanceForMobile> calculateMobileModuleMetrics(List<ScheduledClass> classes , List<Attendance> attendance) {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
 
-        List<MobileCumulativeModuleMetrics> metrics = new ArrayList<>();
+        List<CumulativeModuleAttendanceForMobile> metrics = new ArrayList<>();
         Set<String> moduleCodes =  new HashSet<>(classes.stream()
                 .map(scheduledClass -> scheduledClass.getModuleCode())
                 .collect(Collectors.toList()));
 
         moduleCodes.forEach(moduleCode -> {
-            MobileCumulativeModuleMetrics metric = new MobileCumulativeModuleMetrics();
+            CumulativeModuleAttendanceForMobile metric = new CumulativeModuleAttendanceForMobile();
             metric.setModuleCode(moduleCode);
             classes.stream().filter(scheduledClass -> scheduledClass.getModuleCode()
                     .equals(moduleCode))
                     .collect(Collectors.toList()).forEach(scheduledClass -> {
-                        long total = metric.getTotalToDate();
+                        long total = metric.getTotalCompletedClassesToDate();
                         long toDate;
 
                         if(now.getTimeInMillis() > scheduledClass.getEndDate().getTime())
                             toDate = dateUtility.countDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
                         else
                             toDate = dateUtility.countDays(scheduledClass.getStartDate(), now.getTime(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
-                        metric.setTotalToDate(total + toDate);
+                        metric.setTotalCompletedClassesToDate(total + toDate);
                     });
             metrics.add(metric);
         });

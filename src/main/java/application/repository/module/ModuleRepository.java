@@ -35,6 +35,15 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
         return executor.query(sql, new Object[]{uuid}, new ModuleRowMapper());
     }
 
+    public Module getByModuleCode(String moduleCode) {
+        String sql = "SELECT module.id, title, module_code, user.uuid AS lecturer_uuid " +
+                     "FROM module " +
+                     "INNER JOIN user ON " +
+                        "module.lecturer_id = user.id " +
+                     "WHERE module_code = ? ";
+        return executor.queryForObject(sql, new Object[]{moduleCode}, new ModuleRowMapper());
+    }
+
     @Override
     public Module findById(Long id) {
         String SQL = "SELECT * FROM module WHERE id = ?";

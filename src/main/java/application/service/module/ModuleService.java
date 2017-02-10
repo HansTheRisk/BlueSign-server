@@ -22,6 +22,10 @@ public class ModuleService implements IdentifiableEntityService<Module> {
         return repository.getModulesForLecturer(uuid);
     }
 
+    public Module getByModuleCode(String moduleCode) {
+        return repository.getByModuleCode(moduleCode);
+    }
+
     @Override
     public Module findById(Long id) {
         return repository.findById(id);

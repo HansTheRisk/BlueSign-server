@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public class AttendanceRepository extends BaseJDBCRepository {
 
-    public List<Attendance> getAttendanceForStudent(String universityId) {
+    public List<Attendance> getAttendanceRecordsForStudent(String universityId) {
         String sql = "SELECT student.university_id, class.uuid AS class_uuid, attendance.date, module.module_code " +
                 "FROM attendance INNER JOIN student " +
                 "   ON attendance.student_id = student.id " +
@@ -26,6 +26,18 @@ public class AttendanceRepository extends BaseJDBCRepository {
                 "   class.module_id = module.id " +
                 "WHERE university_id = ?";
         return executor.query(sql, new Object[]{universityId}, new AttendanceRowMapper());
+    }
+
+    public List<Attendance> getAttendanceRecordsForModule(String moduleCode) {
+        String sql = "SELECT student.university_id, class.uuid AS class_uuid, attendance.date, module.module_code " +
+                "FROM attendance INNER JOIN student " +
+                "   ON attendance.student_id = student.id " +
+                "INNER JOIN class " +
+                "   ON attendance.class_id = class.id " +
+                "INNER JOIN module ON " +
+                "   class.module_id = module.id " +
+                "WHERE module_code = ?";
+        return executor.query(sql, new Object[]{moduleCode}, new AttendanceRowMapper());
     }
 
     public Attendance checkIfAttendanceExists(String universityId, String classUuid, Date date) {

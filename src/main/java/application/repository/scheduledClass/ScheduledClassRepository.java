@@ -1,7 +1,7 @@
 package application.repository.scheduledClass;
 
 import application.domain.scheduledClass.ScheduledClass;
-import application.domain.scheduledClass.attendance.ClassAttendance;
+import application.domain.scheduledClass.attendance.CompletedClassAttendance;
 import application.repository.BaseJDBCRepository;
 import application.repository.NaturallyIdentifiableRepository;
 import application.repository.scheduledClass.attendance.ClassAttendanceRowMapper;
@@ -15,7 +15,11 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
 
     public List<ScheduledClass> findClassesByStudentUniveristyIdAndModuleCode(String universityId,
                                                                               String moduleCode) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room" +
+        String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, " +
+                    "(SELECT COUNT(*) " +
+                     "FROM class INNER JOIN allocation " +
+                        "ON class.id = allocation.class_id " +
+                     "WHERE class.id = cl_id) as allocated " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -30,7 +34,11 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     }
 
     public List<ScheduledClass> findClassesByModuleCode(String moduleCode) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room " +
+        String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, " +
+                    "(SELECT COUNT(*) " +
+                        "FROM class INNER JOIN allocation " +
+                     "ON class.id = allocation.class_id " +
+                     "WHERE class.id = cl_id) as allocated " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -39,7 +47,11 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     }
 
     public List<ScheduledClass> findClassesByStudentUniveristyId(String universityId) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room " +
+        String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, " +
+                    "(SELECT COUNT(*) " +
+                     "FROM class INNER JOIN allocation " +
+                        "ON class.id = allocation.class_id " +
+                     "WHERE class.id = cl_id) as allocated " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -53,7 +65,11 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     }
 
     public ScheduledClass findClassByAuthenticationCode(int code) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room " +
+        String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, " +
+                    "(SELECT COUNT(*) " +
+                     "FROM class INNER JOIN allocation " +
+                        "ON class.id = allocation.class_id " +
+                     "WHERE class.id = cl_id) as allocated " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -65,7 +81,11 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     }
 
     public List<ScheduledClass> findCurrentlyRunningClasses() {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room " +
+        String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, " +
+                    "(SELECT COUNT(*) " +
+                     "FROM class INNER JOIN allocation " +
+                        "ON class.id = allocation.class_id " +
+                     "WHERE class.id = cl_id) as allocated " +
                 "FROM class " +
                 "INNER JOIN module " +
                     "ON class.module_id = module.id " +
@@ -82,7 +102,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.query(sql, new ScheduledClassRowMapper());
     }
 
-    public ClassAttendance getClassAttendance(String classUuid, long timestamp) {
+    public CompletedClassAttendance getCompletedClassAttendance(String classUuid, long timestamp) {
         Timestamp timestampObj = new Timestamp(timestamp);
         String sql = "SELECT ? AS class_uuid, DATE(?) AS date, " +
                             "(SELECT COUNT(*) FROM allocation " +
@@ -96,7 +116,11 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
 
     @Override
     public ScheduledClass findByUuid(String uuid) {
-        String sql = "SELECT class.id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room " +
+        String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, " +
+                    "(SELECT COUNT(*) " +
+                     "FROM class INNER JOIN allocation " +
+                        "ON class.id = allocation.class_id " +
+                     "WHERE class.id = cl_id) as allocated " +
                 "FROM class " +
                 "INNER JOIN module " +
                 "ON class.module_id = module.id " +

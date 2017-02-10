@@ -1,11 +1,11 @@
 package application.api.resource.scheduledClass.attendance;
 
 import application.api.resource.BaseResource;
-import application.domain.scheduledClass.attendance.ClassAttendance;
+import application.domain.scheduledClass.attendance.CompletedClassAttendance;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ClassAttendanceResource extends BaseResource<ClassAttendance>{
-    public ClassAttendanceResource(ClassAttendance object) {
+public class ClassAttendanceResource extends BaseResource<CompletedClassAttendance>{
+    public ClassAttendanceResource(CompletedClassAttendance object) {
         super(object);
     }
 

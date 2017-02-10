@@ -14,8 +14,12 @@ public class AttendanceService {
     @Autowired
     private AttendanceRepository attendanceRepository;
 
-    public List<Attendance> getAttendanceForStudent(String universityId) {
-        return attendanceRepository.getAttendanceForStudent(universityId);
+    public List<Attendance> getAttendanceRecordsForStudent(String universityId) {
+        return attendanceRepository.getAttendanceRecordsForStudent(universityId);
+    }
+
+    public List<Attendance> getAttendanceRecordsForModule(String moduleCode) {
+        return attendanceRepository.getAttendanceRecordsForModule(moduleCode);
     }
 
     public boolean checkIfAttendanceExists(String studentId, String classUuid, Date date) {

@@ -14,6 +14,14 @@ public class StudentService implements IdentifiableEntityService<Student>{
     @Autowired
     private StudentRepository repository;
 
+    public List<Student> getAllWhoAttendedAClass(String classUuid, long timestamp) {
+        return repository.findAllWhoAttendedAClass(classUuid, timestamp);
+    }
+
+    public List<Student> getAllWhoDidNotAttendAClass(String classUuid, long timestamp) {
+        return repository.findAllWhoDidNotAttendAClass(classUuid, timestamp);
+    }
+
     public boolean universityIdAndPinCombinationExist(String id, String pin) {
         Student student = ((StudentRepository)repository).findByUniversityIdAndPin(id, pin);
         if (student == null)

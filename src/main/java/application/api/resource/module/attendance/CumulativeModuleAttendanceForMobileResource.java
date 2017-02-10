@@ -1,11 +1,11 @@
-package application.api.resource.metrics;
+package application.api.resource.module.attendance;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import application.api.resource.BaseResource;
-import application.domain.metrics.MobileCumulativeModuleMetrics;
+import application.domain.module.attendance.CumulativeModuleAttendanceForMobile;
 
-public class MobileCumulativeModuleMetricsResource extends BaseResource<MobileCumulativeModuleMetrics> {
-    public MobileCumulativeModuleMetricsResource(MobileCumulativeModuleMetrics object) {
+public class CumulativeModuleAttendanceForMobileResource extends BaseResource<CumulativeModuleAttendanceForMobile> {
+    public CumulativeModuleAttendanceForMobileResource(CumulativeModuleAttendanceForMobile object) {
         super(object);
     }
 
@@ -16,7 +16,7 @@ public class MobileCumulativeModuleMetricsResource extends BaseResource<MobileCu
 
     @JsonProperty("totalToDate")
     public long getTotalToDate() {
-        return object.getTotalToDate();
+        return object.getTotalCompletedClassesToDate();
     }
 
     @JsonProperty("totalAttended")

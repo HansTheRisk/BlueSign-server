@@ -3,7 +3,7 @@ package application.api.controller.student;
 import application.api.resource.attendance.AttendanceResource;
 import application.api.resource.binary.BinaryResource;
 import application.api.resource.message.MessageResource;
-import application.api.resource.metrics.MobileCumulativeModuleMetricsResource;
+import application.api.resource.module.attendance.CumulativeModuleAttendanceForMobileResource;
 import application.api.resource.module.ModuleResource;
 import application.api.resource.signIn.SignInResource;
 import application.domain.attendance.Attendance;
@@ -73,16 +73,16 @@ public class StudentController {
     @ResponseBody
     public ResponseEntity<List<AttendanceResource>> getHistory(@PathVariable String id) {
         List<AttendanceResource> resources = new ArrayList<>();
-        attendanceService.getAttendanceForStudent(id).forEach(attendance -> resources.add(new AttendanceResource(attendance)));
+        attendanceService.getAttendanceRecordsForStudent(id).forEach(attendance -> resources.add(new AttendanceResource(attendance)));
         return new ResponseEntity<List<AttendanceResource>>(resources, HttpStatus.OK);
     }
 
     @RequestMapping(value="/student/{id}/mobileMetrics", method= RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<MobileCumulativeModuleMetricsResource>> getMobileMetrics(@PathVariable String id) {
-        List<MobileCumulativeModuleMetricsResource> resources = new ArrayList<>();
-        metricsService.getMobileCumulativeModuleMetricsForStudent(id).forEach(metrics -> resources.add(new MobileCumulativeModuleMetricsResource(metrics)));
-        return new ResponseEntity<List<MobileCumulativeModuleMetricsResource>>(resources, HttpStatus.OK);
+    public ResponseEntity<List<CumulativeModuleAttendanceForMobileResource>> getMobileMetrics(@PathVariable String id) {
+        List<CumulativeModuleAttendanceForMobileResource> resources = new ArrayList<>();
+        metricsService.getMobileCumulativeModuleMetricsForStudent(id).forEach(metrics -> resources.add(new CumulativeModuleAttendanceForMobileResource(metrics)));
+        return new ResponseEntity<List<CumulativeModuleAttendanceForMobileResource>>(resources, HttpStatus.OK);
     }
 
     @RequestMapping(value="/student/{id}/{pin}/signIn", method= RequestMethod.POST)

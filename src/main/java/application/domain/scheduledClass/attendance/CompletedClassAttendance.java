@@ -2,15 +2,15 @@ package application.domain.scheduledClass.attendance;
 
 import java.util.Date;
 
-public class ClassAttendance {
+public class CompletedClassAttendance {
     String classUuid;
     Date date;
     int allocated = 0;
     int attended = 0;
 
-    public ClassAttendance(){}
+    public CompletedClassAttendance(){}
 
-    public ClassAttendance(String classUuid, Date date, int allocated, int attended) {
+    public CompletedClassAttendance(String classUuid, Date date, int allocated, int attended) {
         this.classUuid = classUuid;
         this.date = date;
         this.allocated = allocated;
