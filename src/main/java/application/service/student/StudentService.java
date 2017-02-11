@@ -1,6 +1,7 @@
 package application.service.student;
 
 import application.domain.student.Student;
+import application.domain.student.StudentAttendanceCorrelation;
 import application.repository.student.StudentRepository;
 import application.service.IdentifiableEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,12 @@ public class StudentService implements IdentifiableEntityService<Student>{
     @Autowired
     private StudentRepository repository;
 
-    public List<Student> getAllWhoAttendedAClass(String classUuid, long timestamp) {
+    public List<StudentAttendanceCorrelation> getAllWhoAttendedAClass(String classUuid, long timestamp) {
         return repository.findAllWhoAttendedAClass(classUuid, timestamp);
+    }
+
+    public List<StudentAttendanceCorrelation> getAllWhoWereLateForClass(String classUuid, long timestamp) {
+        return repository.findAllWhoWereLateForAClass(classUuid, timestamp);
     }
 
     public List<Student> getAllWhoDidNotAttendAClass(String classUuid, long timestamp) {

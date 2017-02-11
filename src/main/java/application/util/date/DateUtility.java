@@ -11,8 +11,8 @@ import java.util.List;
 @Component
 public class DateUtility {
 
-    public long countDays(Date startDate, Date endDate, DayOfWeek day) {
-        long count = 0;
+    public int countDays(Date startDate, Date endDate, DayOfWeek day) {
+        int count = 0;
 
         if(startDate.getTime() > endDate.getTime()) {
             return count;

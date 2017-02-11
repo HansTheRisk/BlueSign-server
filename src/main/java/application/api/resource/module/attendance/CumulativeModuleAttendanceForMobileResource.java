@@ -2,10 +2,10 @@ package application.api.resource.module.attendance;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import application.api.resource.BaseResource;
-import application.domain.module.attendance.CumulativeModuleAttendanceForMobile;
+import application.domain.module.attendance.IndividualCumulativeModuleAttendance;
 
-public class CumulativeModuleAttendanceForMobileResource extends BaseResource<CumulativeModuleAttendanceForMobile> {
-    public CumulativeModuleAttendanceForMobileResource(CumulativeModuleAttendanceForMobile object) {
+public class CumulativeModuleAttendanceForMobileResource extends BaseResource<IndividualCumulativeModuleAttendance> {
+    public CumulativeModuleAttendanceForMobileResource(IndividualCumulativeModuleAttendance object) {
         super(object);
     }
 

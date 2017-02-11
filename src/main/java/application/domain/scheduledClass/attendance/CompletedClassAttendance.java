@@ -1,20 +1,19 @@
 package application.domain.scheduledClass.attendance;
 
+import application.domain.metrics.AttendanceMetricsAbstract;
+
 import java.util.Date;
 
-public class CompletedClassAttendance {
+public class CompletedClassAttendance extends AttendanceMetricsAbstract{
     String classUuid;
     Date date;
-    int allocated = 0;
-    int attended = 0;
 
     public CompletedClassAttendance(){}
 
     public CompletedClassAttendance(String classUuid, Date date, int allocated, int attended) {
+        super(allocated, attended);
         this.classUuid = classUuid;
         this.date = date;
-        this.allocated = allocated;
-        this.attended = attended;
     }
 
     public String getClassUuid() {
@@ -33,19 +32,19 @@ public class CompletedClassAttendance {
         this.date = date;
     }
 
-    public int getAllocated() {
-        return allocated;
+    public long getAllocated() {
+        return this.x;
     }
 
     public void setAllocated(int allocated) {
-        this.allocated = allocated;
+        this.x = allocated;
     }
 
-    public int getAttended() {
-        return attended;
+    public long getAttended() {
+        return this.y;
     }
 
     public void setAttended(int attended) {
-        this.attended = attended;
+        this.y = attended;
     }
 }

@@ -2,11 +2,11 @@ package application.api.controller.lecturer;
 
 import application.api.resource.date.DateResource;
 import application.api.resource.module.ModuleResource;
-import application.api.resource.module.attendance.CumulativeModuleAttendanceForMobileResource;
 import application.api.resource.module.attendance.CumulativeModuleAttendanceForWebResource;
 import application.api.resource.scheduledClass.ScheduledClassDates;
 import application.api.resource.scheduledClass.ScheduledClassResource;
 import application.api.resource.scheduledClass.attendance.ClassAttendanceResource;
+import application.api.resource.student.StudentAttendanceCorrelationResource;
 import application.api.resource.student.StudentResource;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.user.User;
@@ -91,7 +91,7 @@ public class LecturerController {
 
     @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/attended", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<StudentResource>> getStudentsWhoAttendedClass(@PathVariable String classUuid,
+    public ResponseEntity<List<StudentAttendanceCorrelationResource>> getStudentsWhoAttendedClass(@PathVariable String classUuid,
                                                                              @PathVariable long dateTimestamp) {
         ScheduledClass scheduledClass = scheduledClassService.findByUUID(classUuid);
         if (scheduledClass == null)
@@ -99,8 +99,22 @@ public class LecturerController {
 
         return new ResponseEntity<>(studentService.getAllWhoAttendedAClass(classUuid, dateTimestamp)
                                                   .stream()
-                                                  .map(student -> new StudentResource(student))
+                                                  .map(student -> new StudentAttendanceCorrelationResource(student))
                                                   .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/late", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<StudentAttendanceCorrelationResource>> getStudentsWhoWereLateForClass(@PathVariable String classUuid,
+                                                                                             @PathVariable long dateTimestamp) {
+        ScheduledClass scheduledClass = scheduledClassService.findByUUID(classUuid);
+        if (scheduledClass == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(studentService.getAllWhoWereLateForClass(classUuid, dateTimestamp)
+                .stream()
+                .map(student -> new StudentAttendanceCorrelationResource(student))
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/notAttended", method = RequestMethod.GET)

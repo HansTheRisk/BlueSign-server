@@ -25,12 +25,12 @@ public class ClassAttendanceResource extends BaseResource<CompletedClassAttendan
     }
 
     @JsonProperty("allocated")
-    public int getAllocated() {
+    public long getAllocated() {
         return object.getAllocated();
     }
 
     @JsonProperty("attended")
-    public int getAttended() {
+    public long getAttended() {
         return object.getAttended();
     }
 }

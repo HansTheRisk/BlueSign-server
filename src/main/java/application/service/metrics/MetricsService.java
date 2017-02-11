@@ -1,8 +1,8 @@
 package application.service.metrics;
 
 import application.domain.attendance.Attendance;
-import application.domain.module.attendance.CumulativeModuleAttendanceForMobile;
-import application.domain.module.attendance.CumulativeModuleAttendanceForWeb;
+import application.domain.module.attendance.IndividualCumulativeModuleAttendance;
+import application.domain.module.attendance.TotalCumulativeModuleAttendance;
 import application.domain.scheduledClass.ScheduledClass;
 import application.service.attendance.AttendanceService;
 import application.service.scheduledClass.ScheduledClassService;
@@ -40,24 +40,24 @@ public class MetricsService {
     }
 
     //TODO: CHange this to accept a student object instead
-    public List<CumulativeModuleAttendanceForMobile> getMobileCumulativeModuleMetricsForStudent(String universityId) {
+    public List<IndividualCumulativeModuleAttendance> getMobileCumulativeModuleMetricsForStudent(String universityId) {
         List<ScheduledClass> classes = classService.findClassesByStudentUniversityId(universityId);
         List<Attendance> attendance = attendanceService.getAttendanceRecordsForStudent(universityId);
         return calculateMobileModuleMetrics(classes, attendance);
     }
 
-    public CumulativeModuleAttendanceForWeb getCumulativeModuleAttendanceMetrics(String moduleCode) {
+    public TotalCumulativeModuleAttendance getCumulativeModuleAttendanceMetrics(String moduleCode) {
         List<ScheduledClass> classes = classService.findClassesByModuleCode(moduleCode);
         List<Attendance> attendance = attendanceService.getAttendanceRecordsForModule(moduleCode);
         return calculateCumulativeModuleAttendanceMetrics(moduleCode, classes, attendance);
     }
 
-    private CumulativeModuleAttendanceForWeb calculateCumulativeModuleAttendanceMetrics(String moduleCode, List<ScheduledClass> classes, List<Attendance> attendance) {
+    private TotalCumulativeModuleAttendance calculateCumulativeModuleAttendanceMetrics(String moduleCode, List<ScheduledClass> classes, List<Attendance> attendance) {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
         final long[] totalExpectedAttendances = {0};
         final long[] totalClassesToDate = {0};
-        long attended = attendance.size();
+        int attended = attendance.size();
 
         classes.forEach(scheduledClass -> {
             long numOfCompleted = 0;
@@ -68,20 +68,20 @@ public class MetricsService {
             totalExpectedAttendances[0] += scheduledClass.getAllocated() * numOfCompleted;
             totalClassesToDate[0] += numOfCompleted;
         });
-        return new CumulativeModuleAttendanceForWeb(moduleCode, totalExpectedAttendances[0], attended, totalClassesToDate[0]);
+        return new TotalCumulativeModuleAttendance(moduleCode, totalExpectedAttendances[0], attended, totalClassesToDate[0]);
     }
 
-    private List<CumulativeModuleAttendanceForMobile> calculateMobileModuleMetrics(List<ScheduledClass> classes , List<Attendance> attendance) {
+    private List<IndividualCumulativeModuleAttendance> calculateMobileModuleMetrics(List<ScheduledClass> classes , List<Attendance> attendance) {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
 
-        List<CumulativeModuleAttendanceForMobile> metrics = new ArrayList<>();
+        List<IndividualCumulativeModuleAttendance> metrics = new ArrayList<>();
         Set<String> moduleCodes =  new HashSet<>(classes.stream()
                 .map(scheduledClass -> scheduledClass.getModuleCode())
                 .collect(Collectors.toList()));
 
         moduleCodes.forEach(moduleCode -> {
-            CumulativeModuleAttendanceForMobile metric = new CumulativeModuleAttendanceForMobile();
+            IndividualCumulativeModuleAttendance metric = new IndividualCumulativeModuleAttendance();
             metric.setModuleCode(moduleCode);
             classes.stream().filter(scheduledClass -> scheduledClass.getModuleCode()
                     .equals(moduleCode))

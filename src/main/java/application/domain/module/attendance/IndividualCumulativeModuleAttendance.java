@@ -1,18 +1,18 @@
 package application.domain.module.attendance;
 /**
- *    This class is for mobile use (individual student perspective).
+ *    This class is for individual student perspective.
  *    It represents the number of times the student attended the allocated to him module's classes
  *    against the number of times the classes have been run i.e.
  *    @totalToDate = number of times the allocated to student modules' classes have been run to date
  *    @totalAttended = number of times the student attended the allocated module's class to date
  */
-public class CumulativeModuleAttendanceForMobile extends ModuleAttendance{
+public class IndividualCumulativeModuleAttendance extends ModuleAttendance{
 
-    public CumulativeModuleAttendanceForMobile() {
+    public IndividualCumulativeModuleAttendance() {
         super();
     }
 
-    public CumulativeModuleAttendanceForMobile(String moduleCode, long totalCompletedToDate, long totalAttended) {
+    public IndividualCumulativeModuleAttendance(String moduleCode, long totalCompletedToDate, long totalAttended) {
         super(moduleCode, totalCompletedToDate, totalAttended);
     }
 
@@ -25,18 +25,18 @@ public class CumulativeModuleAttendanceForMobile extends ModuleAttendance{
     }
 
     public long getTotalCompletedClassesToDate() {
-        return totalToDate;
+        return this.x;
     }
 
     public void setTotalCompletedClassesToDate(long totalToDate) {
-        this.totalToDate = totalToDate;
+        this.x = totalToDate;
     }
 
     public long getTotalAttended() {
-        return totalAttended;
+        return this.y;
     }
 
     public void setTotalAttended(long totalAttended) {
-        this.totalAttended = totalAttended;
+        this.y = totalAttended;
     }
 }

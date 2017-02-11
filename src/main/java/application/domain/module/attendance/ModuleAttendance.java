@@ -1,15 +1,14 @@
 package application.domain.module.attendance;
 
-public abstract class ModuleAttendance {
+import application.domain.metrics.AttendanceMetricsAbstract;
+
+public class ModuleAttendance extends AttendanceMetricsAbstract{
     protected String moduleCode;
-    protected long totalToDate = 0;
-    protected long totalAttended = 0;
 
-    public ModuleAttendance(){};
+    public ModuleAttendance(){}
 
-    public ModuleAttendance(String moduleCode, long totalToDate, long totalAttended) {
+    public ModuleAttendance(String moduleCode, long x, long y) {
+        super(x, y);
         this.moduleCode = moduleCode;
-        this.totalToDate = totalToDate;
-        this.totalAttended = totalAttended;
     }
 }
