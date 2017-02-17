@@ -1,6 +1,7 @@
 package unit.util.date;
 
 import application.util.date.DateUtility;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -78,7 +79,6 @@ public class DateUtilityTest {
     }
 
     @Test
-    @Ignore
     public void listDaysTest() {
 
         DateUtility utility = new DateUtility();
@@ -98,7 +98,9 @@ public class DateUtilityTest {
             dayNum += 7;
         }
         List<Date> days = utility.listDays(startDate.getTime(), endDate.getTime(), day);
-        Assert.assertArrayEquals(dates.toArray(), days.toArray());
+        days.forEach(dayResult -> {
+            Assert.assertTrue(DateUtils.isSameDay(dayResult, dates.get(days.indexOf(dayResult))));
+        });
     }
 
 }

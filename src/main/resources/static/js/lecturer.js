@@ -12,7 +12,7 @@ $(document).ready(function(){
         $('#info').empty();
         $('#loadedClassStats').empty();
         $('#moduleDetailsJumbo').append('<p>'+moduleCode+': '+ title + '</p>');
-        getCall("lecturer/modules/"+moduleCode+"/attendance", "json", loadModuleAttendance);
+        getCall("lecturer/modules/"+moduleCode+"/totalAverageAttendance", "json", loadModuleAttendance);
 	})
 });
 
@@ -109,15 +109,19 @@ function loadModuleAttendanceModal(json) {
                             '<thead class="thead-inverse"><tr><th>#</th><th>University ID</th><th>Name</th><th>Surname</th><th>%</th></tr></thead>' +
                     '</table>').appendTo($('.modal-body'));
         var tableContent = $('<tbody></tody>').appendTo(table);
+        var totalPerc = 0;
         for(var i = 0; i < json.length; i++) {
+            var percentage = calculatePercentage(json[i].attendance.totalAttended, json[i].attendance.totalToDate);
+            totalPerc = parseFloat(totalPerc) + parseFloat(percentage);
             row = $('<tr></tr>').appendTo(tableContent);
-            row.append($('<th scope="row">'+(i+1)+'</th><td>'+json[i].universityId+'</td><td>'+json[i].name+'</td><td>'+json[i].surname+'</td><td>'+calculatePercentage(json[i].attendance.totalAttended, json[i].attendance.totalToDate)+'</td>'));
+            row.append($('<th scope="row">'+(i+1)+'</th><td>'+json[i].universityId+'</td><td>'+json[i].name+'</td><td>'+json[i].surname+'</td><td>'+percentage+'</td>'));
         }
+        $('.modal-body').append("<p>Average percentage: "+calculatePercentage(totalPerc, (json.length * 100))+"%</p>")
 }
 
 function loadModuleAttendance(json) {
     $('#moduleDetailsJumbo').append('<h4>Completed classes to date: '+ json.totalClassesCompletedToDate + '</h4>');
-    $('#moduleDetailsJumbo').append('<h4>Total attendance percentage: '+ calculatePercentage(json.totalActualAttendances, json.totalExpectedAttendancesToDate) + '%</h4>');
+    $('#moduleDetailsJumbo').append('<h4>Average class attendance percentage: '+ calculatePercentage(json.totaledClassAttendanceAveragePercentages, json.numberOfClasses) + '%</h4>');
     $('#moduleDetailsJumbo').append('<p><a class="btn btn-primary" callType="module_attendance" link="lecturer/modules/'+json.moduleCode+'/attendanceList" data-toggle="modal" data-target="#myModal" role="button">Attendance list</a></p>');
 }
 

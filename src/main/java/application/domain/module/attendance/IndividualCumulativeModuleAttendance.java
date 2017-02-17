@@ -6,7 +6,7 @@ package application.domain.module.attendance;
  *    @totalToDate = number of times the allocated to student modules' classes have been run to date
  *    @totalAttended = number of times the student attended the allocated module's class to date
  */
-public class IndividualCumulativeModuleAttendance extends ModuleAttendance{
+public class IndividualCumulativeModuleAttendance extends ModuleAttendance<Long>{
 
     public IndividualCumulativeModuleAttendance() {
         super();

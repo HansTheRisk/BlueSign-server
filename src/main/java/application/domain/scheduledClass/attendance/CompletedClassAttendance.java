@@ -4,7 +4,7 @@ import application.domain.metrics.AttendanceMetricsAbstract;
 
 import java.util.Date;
 
-public class CompletedClassAttendance extends AttendanceMetricsAbstract{
+public class CompletedClassAttendance extends AttendanceMetricsAbstract<Integer>{
     String classUuid;
     Date date;
 

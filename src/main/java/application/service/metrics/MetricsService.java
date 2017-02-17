@@ -1,23 +1,22 @@
 package application.service.metrics;
 
+import application.domain.module.attendance.TotalAverageModuleAttendance;
 import application.domain.attendance.Attendance;
 import application.domain.module.attendance.IndividualCumulativeModuleAttendance;
-import application.domain.module.attendance.TotalCumulativeModuleAttendance;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.student.StudentModuleAttendanceCorrelation;
 import application.service.attendance.AttendanceService;
 import application.service.scheduledClass.ScheduledClassService;
 import application.service.student.StudentService;
 import application.util.date.DateUtility;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -100,25 +99,33 @@ public class MetricsService {
         return calculateMobileModuleMetrics(classes, attendance);
     }
 
-    public TotalCumulativeModuleAttendance getCumulativeModuleAttendanceMetrics(String moduleCode) {
+    public TotalAverageModuleAttendance getTotalAverageModuleAttendance(String moduleCode) {
         List<ScheduledClass> classes = classService.findClassesByModuleCode(moduleCode);
         List<Attendance> attendance = attendanceService.getAttendanceRecordsForModule(moduleCode);
-        return calculateCumulativeModuleAttendanceMetrics(moduleCode, classes, attendance);
+        return calculateAverageModuleAttendanceMetrics(moduleCode, classes, attendance);
     }
 
-    private TotalCumulativeModuleAttendance calculateCumulativeModuleAttendanceMetrics(String moduleCode, List<ScheduledClass> classes, List<Attendance> attendance) {
-        Calendar now = Calendar.getInstance();
-        now.setTimeInMillis(System.currentTimeMillis());
-        final long[] totalExpectedAttendances = {0};
-        final long[] totalClassesToDate = {0};
-        int attended = attendance.size();
+    private TotalAverageModuleAttendance calculateAverageModuleAttendanceMetrics(String moduleCode, List<ScheduledClass> classes, List<Attendance> attendance) {
+        List<Double> classesAvgPercentages = new ArrayList<Double>();
+        final int[] classesToDate = {0};
 
         classes.forEach(scheduledClass -> {
-            long numOfCompleted = calculateClasses(scheduledClass);
-            totalExpectedAttendances[0] += scheduledClass.getAllocated() * numOfCompleted;
-            totalClassesToDate[0] += numOfCompleted;
+            double allocated = scheduledClass.getAllocated();
+            List<Double> completedClassesAttendancePercentages = new ArrayList<Double>();
+            List<Date> completedClasses = calculateClassesDates(scheduledClass);
+            classesToDate[0] += completedClasses.size();
+
+            completedClasses.forEach(completedClass -> {
+                double records = attendance.stream().filter(record -> (record.getClassUuid().equals(scheduledClass.getUuid())
+                                                                    && DateUtils.isSameDay(record.getDate(), completedClass))).count();
+                completedClassesAttendancePercentages.add(Double.valueOf(records / allocated));
+            });
+            classesAvgPercentages.add((completedClassesAttendancePercentages.stream()
+                                                                           .mapToDouble(perc -> perc.doubleValue())
+                                                                           .sum()) / completedClassesAttendancePercentages.size());
         });
-        return new TotalCumulativeModuleAttendance(moduleCode, totalExpectedAttendances[0], attended, totalClassesToDate[0]);
+
+        return new TotalAverageModuleAttendance(moduleCode, classesAvgPercentages.stream().mapToDouble(perc -> perc.doubleValue()).sum(), classes.size(), classesToDate[0]);
     }
 
     private List<IndividualCumulativeModuleAttendance> calculateMobileModuleMetrics(List<ScheduledClass> classes , List<Attendance> attendance) {
@@ -159,6 +166,16 @@ public class MetricsService {
             return dateUtility.countDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
         else
             return dateUtility.countDays(scheduledClass.getStartDate(), now.getTime(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+    }
+
+    private List<Date> calculateClassesDates(ScheduledClass scheduledClass) {
+        Calendar now = Calendar.getInstance();
+        now.setTimeInMillis(System.currentTimeMillis());
+
+        if(now.getTimeInMillis() > scheduledClass.getEndDate().getTime())
+            return dateUtility.listDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+        else
+            return dateUtility.listDays(scheduledClass.getStartDate(), now.getTime(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
     }
 
 }

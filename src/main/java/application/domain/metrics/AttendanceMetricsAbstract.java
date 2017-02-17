@@ -1,11 +1,11 @@
 package application.domain.metrics;
 
-public abstract class AttendanceMetricsAbstract {
-    protected long x = 0;
-    protected long y = 0;
+public abstract class AttendanceMetricsAbstract<T extends Number> {
+    protected T x;
+    protected T y;
 
     public AttendanceMetricsAbstract(){}
-    public AttendanceMetricsAbstract(long x, long y) {
+    public AttendanceMetricsAbstract(T x, T y) {
         this.x = x;
         this.y = y;
     }

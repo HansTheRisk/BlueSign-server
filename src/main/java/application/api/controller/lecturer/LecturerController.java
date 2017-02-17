@@ -2,8 +2,7 @@ package application.api.controller.lecturer;
 
 import application.api.resource.date.DateResource;
 import application.api.resource.module.ModuleResource;
-import application.api.resource.module.attendance.IndividualCumulativeModuleAttendanceResource;
-import application.api.resource.module.attendance.TotalCumulativeModuleAttendanceResource;
+import application.api.resource.module.attendance.TotalAverageModuleAttendanceResource;
 import application.api.resource.scheduledClass.ScheduledClassDates;
 import application.api.resource.scheduledClass.ScheduledClassResource;
 import application.api.resource.scheduledClass.attendance.ClassAttendanceResource;
@@ -62,11 +61,11 @@ public class LecturerController {
         return new ResponseEntity<>(classes, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "lecturer/modules/{moduleCode}/attendance", method = RequestMethod.GET)
+    @RequestMapping(value = "lecturer/modules/{moduleCode}/totalAverageAttendance", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<TotalCumulativeModuleAttendanceResource> getModuleAttendance(@PathVariable String moduleCode) {
+    public ResponseEntity<TotalAverageModuleAttendanceResource> getModuleTotalAverageAttendance(@PathVariable String moduleCode) {
         if (moduleService.getByModuleCode(moduleCode) != null)
-            return new ResponseEntity<>(new TotalCumulativeModuleAttendanceResource(metricsService.getCumulativeModuleAttendanceMetrics(moduleCode)), HttpStatus.OK);
+            return new ResponseEntity<>(new TotalAverageModuleAttendanceResource(metricsService.getTotalAverageModuleAttendance(moduleCode)), HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
