@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import application.api.resource.BaseResource;
 import application.domain.module.attendance.IndividualCumulativeModuleAttendance;
 
-public class CumulativeModuleAttendanceForMobileResource extends BaseResource<IndividualCumulativeModuleAttendance> {
-    public CumulativeModuleAttendanceForMobileResource(IndividualCumulativeModuleAttendance object) {
+public class IndividualCumulativeModuleAttendanceResource extends BaseResource<IndividualCumulativeModuleAttendance> {
+    public IndividualCumulativeModuleAttendanceResource(IndividualCumulativeModuleAttendance object) {
         super(object);
     }
 

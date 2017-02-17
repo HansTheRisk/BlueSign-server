@@ -34,19 +34,24 @@ $(document).ready(function(){
         var moduleCode = $(this).attr("module_code");
 
         var info = $('#info');
-        var date = new Date(dateTimestamp);
         info.empty();
 
         info.append('<h4>'+moduleCode+'<h4>');
-        info.append('<em>'+date.toLocaleDateString()+'<em>');
+        info.append('<em>'+dateTimestamp+'<em>');
         getCall("lecturer/class/"+class_uuid+"/"+dateTimestamp+"/attendance", "json", loadClassAttendance);
 	})
 });
 
 $(document).ready(function(){
 	$("#myModal").on("show.bs.modal", function(e) {
+	    var type = $(e.relatedTarget).attr("callType")
 		$('.modal-body').empty();
-		getCall($(e.relatedTarget).attr("link"), "json", loadStudentsModal);
+		if(type == "class_attendance") {
+		    getCall($(e.relatedTarget).attr("link"), "json", loadClassAttendanceModal);
+		}
+		else if(type == "module_attendance") {
+		    getCall($(e.relatedTarget).attr("link"), "json", loadModuleAttendanceModal);
+		}
 	});
 });
 
@@ -77,13 +82,13 @@ function loadClassAttendance(json) {
 
     loadedContent.append($('<p>Allocated to class: '+json.allocated+'</p>'));
     loadedContent.append($('<p>Attended the class: '+json.attended+'</p>'));
-    loadedContent.append('<p><a link="lecturer/class/'+json.classUuid+'/'+json.dateTimestamp+'/attended" class="btn btn-primary" data-toggle="modal" data-target="#myModal" role="button">Students who attended</a>'+
-                            '<a link="lecturer/class/'+json.classUuid+'/'+json.dateTimestamp+'/late" class="btn btn-primary" data-toggle="modal" data-target="#myModal" role="button">Students who were late</a>'+
-                            '<a link="lecturer/class/'+json.classUuid+'/'+json.dateTimestamp+'/notAttended" class="btn btn-default" data-toggle="modal" data-target="#myModal" role="button">Students who did not attend</a>'+
+    loadedContent.append('<p><a link="lecturer/class/'+json.classUuid+'/'+json.dateTimestamp+'/attended" callType="class_attendance" class="btn btn-primary" data-toggle="modal" data-target="#myModal" role="button">Students who attended</a>'+
+                            '<a link="lecturer/class/'+json.classUuid+'/'+json.dateTimestamp+'/late" callType="class_attendance" class="btn btn-primary" data-toggle="modal" data-target="#myModal" role="button">Students who were late</a>'+
+                            '<a link="lecturer/class/'+json.classUuid+'/'+json.dateTimestamp+'/notAttended" callType="class_attendance" class="btn btn-default" data-toggle="modal" data-target="#myModal" role="button">Students who did not attend</a>'+
                          '</p>');
 }
 
-function loadStudentsModal(json) {
+function loadClassAttendanceModal(json) {
         var table = $('<table class="table">' +
                             '<thead class="thead-inverse"><tr><th>#</th><th>University ID</th><th>Name</th><th>Surname</th><th>Time</th></tr></thead>' +
                     '</table>').appendTo($('.modal-body'));
@@ -99,11 +104,21 @@ function loadStudentsModal(json) {
         }
 }
 
+function loadModuleAttendanceModal(json) {
+        var table = $('<table class="table">' +
+                            '<thead class="thead-inverse"><tr><th>#</th><th>University ID</th><th>Name</th><th>Surname</th><th>%</th></tr></thead>' +
+                    '</table>').appendTo($('.modal-body'));
+        var tableContent = $('<tbody></tody>').appendTo(table);
+        for(var i = 0; i < json.length; i++) {
+            row = $('<tr></tr>').appendTo(tableContent);
+            row.append($('<th scope="row">'+(i+1)+'</th><td>'+json[i].universityId+'</td><td>'+json[i].name+'</td><td>'+json[i].surname+'</td><td>'+calculatePercentage(json[i].attendance.totalAttended, json[i].attendance.totalToDate)+'</td>'));
+        }
+}
+
 function loadModuleAttendance(json) {
     $('#moduleDetailsJumbo').append('<h4>Completed classes to date: '+ json.totalClassesCompletedToDate + '</h4>');
     $('#moduleDetailsJumbo').append('<h4>Total attendance percentage: '+ calculatePercentage(json.totalActualAttendances, json.totalExpectedAttendancesToDate) + '%</h4>');
-    $('#moduleDetailsJumbo').append('<p><a class="btn btn-primary" link="#" role="button">Attendance list</a></p>');
-    $('#moduleDetailsJumbo').append('<p><a class="btn btn-primary" link="#" role="button">Non-attenders</a></p>');
+    $('#moduleDetailsJumbo').append('<p><a class="btn btn-primary" callType="module_attendance" link="lecturer/modules/'+json.moduleCode+'/attendanceList" data-toggle="modal" data-target="#myModal" role="button">Attendance list</a></p>');
 }
 
 function loadClasses(json) {

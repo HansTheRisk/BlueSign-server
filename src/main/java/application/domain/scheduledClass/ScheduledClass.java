@@ -13,6 +13,7 @@ public class ScheduledClass implements NaturallyIdentifiableEntity {
     private String moduleCode;
     private String room;
     private long allocated;
+    private String group;
 
     public ScheduledClass() {
 
@@ -58,6 +59,14 @@ public class ScheduledClass implements NaturallyIdentifiableEntity {
 
     public long getAllocated() {
         return allocated;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public void setAllocated(long allocated) {

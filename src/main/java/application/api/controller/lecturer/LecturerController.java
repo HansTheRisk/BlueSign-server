@@ -2,12 +2,15 @@ package application.api.controller.lecturer;
 
 import application.api.resource.date.DateResource;
 import application.api.resource.module.ModuleResource;
-import application.api.resource.module.attendance.CumulativeModuleAttendanceForWebResource;
+import application.api.resource.module.attendance.IndividualCumulativeModuleAttendanceResource;
+import application.api.resource.module.attendance.TotalCumulativeModuleAttendanceResource;
 import application.api.resource.scheduledClass.ScheduledClassDates;
 import application.api.resource.scheduledClass.ScheduledClassResource;
 import application.api.resource.scheduledClass.attendance.ClassAttendanceResource;
 import application.api.resource.student.StudentAttendanceCorrelationResource;
+import application.api.resource.student.StudentModuleAttendanceCorrelationResource;
 import application.api.resource.student.StudentResource;
+import application.domain.module.Module;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.user.User;
 import application.service.metrics.MetricsService;
@@ -61,9 +64,9 @@ public class LecturerController {
 
     @RequestMapping(value = "lecturer/modules/{moduleCode}/attendance", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<CumulativeModuleAttendanceForWebResource> getModuleAttendance(@PathVariable String moduleCode) {
+    public ResponseEntity<TotalCumulativeModuleAttendanceResource> getModuleAttendance(@PathVariable String moduleCode) {
         if (moduleService.getByModuleCode(moduleCode) != null)
-            return new ResponseEntity<>(new CumulativeModuleAttendanceForWebResource(metricsService.getCumulativeModuleAttendanceMetrics(moduleCode)), HttpStatus.OK);
+            return new ResponseEntity<>(new TotalCumulativeModuleAttendanceResource(metricsService.getCumulativeModuleAttendanceMetrics(moduleCode)), HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -129,6 +132,19 @@ public class LecturerController {
                                                   .stream()
                                                   .map(student -> new StudentResource(student))
                                                   .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "lecturer/modules/{moduleCode}/attendanceList", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<StudentModuleAttendanceCorrelationResource>> getModuleAttendanceList(@PathVariable String moduleCode) {
+        Module module = moduleService.getByModuleCode(moduleCode);
+        if (module == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(metricsService.getStudentAttendanceList(moduleCode)
+                .stream()
+                .map(attendance -> new StudentModuleAttendanceCorrelationResource(attendance))
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @RequestMapping("/lecturer")

@@ -3,7 +3,7 @@ package application.api.controller.student;
 import application.api.resource.attendance.AttendanceResource;
 import application.api.resource.binary.BinaryResource;
 import application.api.resource.message.MessageResource;
-import application.api.resource.module.attendance.CumulativeModuleAttendanceForMobileResource;
+import application.api.resource.module.attendance.IndividualCumulativeModuleAttendanceResource;
 import application.api.resource.module.ModuleResource;
 import application.api.resource.signIn.SignInResource;
 import application.domain.attendance.Attendance;
@@ -79,10 +79,10 @@ public class StudentController {
 
     @RequestMapping(value="/student/{id}/mobileMetrics", method= RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<CumulativeModuleAttendanceForMobileResource>> getMobileMetrics(@PathVariable String id) {
-        List<CumulativeModuleAttendanceForMobileResource> resources = new ArrayList<>();
-        metricsService.getMobileCumulativeModuleMetricsForStudent(id).forEach(metrics -> resources.add(new CumulativeModuleAttendanceForMobileResource(metrics)));
-        return new ResponseEntity<List<CumulativeModuleAttendanceForMobileResource>>(resources, HttpStatus.OK);
+    public ResponseEntity<List<IndividualCumulativeModuleAttendanceResource>> getMobileMetrics(@PathVariable String id) {
+        List<IndividualCumulativeModuleAttendanceResource> resources = new ArrayList<>();
+        metricsService.getMobileCumulativeModuleMetricsForStudent(id).forEach(metrics -> resources.add(new IndividualCumulativeModuleAttendanceResource(metrics)));
+        return new ResponseEntity<List<IndividualCumulativeModuleAttendanceResource>>(resources, HttpStatus.OK);
     }
 
     @RequestMapping(value="/student/{id}/{pin}/signIn", method= RequestMethod.POST)

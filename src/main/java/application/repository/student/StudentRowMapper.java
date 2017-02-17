@@ -12,7 +12,7 @@ public class StudentRowMapper implements IdentifiableRowMapper<Student>{
         Student student = new Student(rs.getString("university_id"),
                                       rs.getString("name"),
                                       rs.getString("surname"));
-        student.setId(rs.getLong("id"));
+        student.setId(rs.getLong("studentId"));
         student.setPin(rs.getString("pin_salt"));
         return student;
     }

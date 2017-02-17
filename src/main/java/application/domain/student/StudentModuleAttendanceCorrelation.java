@@ -1,13 +1,13 @@
 package application.domain.student;
 
-import application.domain.module.attendance.ModuleAttendance;
+import application.domain.module.attendance.IndividualCumulativeModuleAttendance;
 
 public class StudentModuleAttendanceCorrelation {
 
     private Student student;
-    private ModuleAttendance moduleAttendance;
+    private IndividualCumulativeModuleAttendance moduleAttendance;
 
-    public StudentModuleAttendanceCorrelation(Student student, ModuleAttendance moduleAttendance) {
+    public StudentModuleAttendanceCorrelation(Student student, IndividualCumulativeModuleAttendance moduleAttendance) {
         this.student = student;
         this.moduleAttendance = moduleAttendance;
     }
@@ -20,11 +20,11 @@ public class StudentModuleAttendanceCorrelation {
         this.student = student;
     }
 
-    public ModuleAttendance getModuleAttendance() {
+    public IndividualCumulativeModuleAttendance getModuleAttendance() {
         return moduleAttendance;
     }
 
-    public void setModuleAttendance(ModuleAttendance moduleAttendance) {
+    public void setModuleAttendance(IndividualCumulativeModuleAttendance moduleAttendance) {
         this.moduleAttendance = moduleAttendance;
     }
 }

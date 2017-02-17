@@ -2,6 +2,7 @@ package application.service.student;
 
 import application.domain.student.Student;
 import application.domain.student.StudentAttendanceCorrelation;
+import application.domain.student.StudentModuleAttendanceCorrelation;
 import application.repository.student.StudentRepository;
 import application.service.IdentifiableEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,14 @@ public class StudentService implements IdentifiableEntityService<Student>{
             return false;
         else
             return true;
+    }
+
+    public List<StudentModuleAttendanceCorrelation> getStudentAttendanceCorrelationForModuleGroup(String moduleCode, String groupName) {
+        return repository.findStudentAttendanceCorrelationForModuleGroup(moduleCode, groupName);
+    }
+
+    public List<StudentModuleAttendanceCorrelation> getStudentAttendanceCorrelationForStudentsWithNoGroup(String moduleCode) {
+        return repository.findStudentAttendanceCorrelationForStudentsWithNoGroup(moduleCode);
     }
 
     public List<Student> findAll() {
