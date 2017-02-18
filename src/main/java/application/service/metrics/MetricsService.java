@@ -89,7 +89,7 @@ public class MetricsService {
                     correlations.add(correlation);
                 });
             }
-        });
+        }); //TODO: Add people who are not allocated to any class, but are allocated to the module
         return correlations;
     }
 

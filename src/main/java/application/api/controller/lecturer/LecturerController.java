@@ -1,6 +1,8 @@
 package application.api.controller.lecturer;
 
+import application.api.resource.accessCode.AccessCodeForClassResource;
 import application.api.resource.date.DateResource;
+import application.api.resource.empty.EmptyJsonResource;
 import application.api.resource.module.ModuleResource;
 import application.api.resource.module.attendance.TotalAverageModuleAttendanceResource;
 import application.api.resource.scheduledClass.ScheduledClassDates;
@@ -9,9 +11,11 @@ import application.api.resource.scheduledClass.attendance.ClassAttendanceResourc
 import application.api.resource.student.StudentAttendanceCorrelationResource;
 import application.api.resource.student.StudentModuleAttendanceCorrelationResource;
 import application.api.resource.student.StudentResource;
+import application.domain.accessCode.AccessCodeForClass;
 import application.domain.module.Module;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.user.User;
+import application.service.accessCode.AccessCodeService;
 import application.service.metrics.MetricsService;
 import application.service.module.ModuleService;
 import application.service.scheduledClass.ScheduledClassService;
@@ -44,6 +48,9 @@ public class LecturerController {
 
     @Autowired
     private MetricsService metricsService;
+
+    @Autowired
+    private AccessCodeService accessCodeService;
 
     @RequestMapping(value = "lecturer/modules", method = RequestMethod.GET)
     @ResponseBody
@@ -94,7 +101,7 @@ public class LecturerController {
     @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/attended", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentAttendanceCorrelationResource>> getStudentsWhoAttendedClass(@PathVariable String classUuid,
-                                                                             @PathVariable long dateTimestamp) {
+                                                                                                  @PathVariable long dateTimestamp) {
         ScheduledClass scheduledClass = scheduledClassService.findByUUID(classUuid);
         if (scheduledClass == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -108,7 +115,7 @@ public class LecturerController {
     @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/late", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentAttendanceCorrelationResource>> getStudentsWhoWereLateForClass(@PathVariable String classUuid,
-                                                                                             @PathVariable long dateTimestamp) {
+                                                                                                     @PathVariable long dateTimestamp) {
         ScheduledClass scheduledClass = scheduledClassService.findByUUID(classUuid);
         if (scheduledClass == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -144,6 +151,16 @@ public class LecturerController {
                 .stream()
                 .map(attendance -> new StudentModuleAttendanceCorrelationResource(attendance))
                 .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "lecturer/accessCode", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity getAccessCode(@Autowired Authentication auth) {
+        AccessCodeForClass ac = accessCodeService.getClassAccessCodeForLecturer(((User)auth.getPrincipal()).getUuid());
+        if(ac == null)
+            return new ResponseEntity<>(new EmptyJsonResource(), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(new AccessCodeForClassResource(ac), HttpStatus.OK);
     }
 
     @RequestMapping("/lecturer")

@@ -1,6 +1,7 @@
 package application.repository.accessCode;
 
 import application.domain.accessCode.AccessCode;
+import application.domain.accessCode.AccessCodeForClass;
 import application.repository.BaseJDBCRepository;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,20 @@ public class AccessCodeRepository extends BaseJDBCRepository {
 
     public void deleteCodes() {
         executor.execute("TRUNCATE TABLE access_code");
+    }
+
+    public AccessCodeForClass getClassAccessCodeForLecturer(String lecturerUuid) {
+        String sql = "SELECT class_id, code, class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
+                     "(SELECT COUNT(*) "+
+                     "FROM class INNER JOIN allocation "+
+                        "ON class.id = allocation.class_id " +
+                     "WHERE class.id = cl_id) as allocated " +
+                     "FROM access_code " +
+                        "INNER JOIN class ON access_code.class_id = class.id " +
+                        "INNER JOIN module ON class.module_id = module.id " +
+                        "INNER JOIN user ON module.lecturer_id = user.id " +
+                     "WHERE user.uuid = ?";
+        return executor.queryForObject(sql, new Object[]{lecturerUuid}, new AccessCodeForClassRowMapper());
     }
 
     public void insertCodes(List<AccessCode> codes) {

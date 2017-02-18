@@ -1,4 +1,8 @@
+var interval = null;
+
 $(document).ready(function(){
+    $("#accessCodeContent").hide();
+    $("#attendanceContent").show();
     getCall("/lecturer/modules", "json", loadModules);
 });
 
@@ -55,6 +59,26 @@ $(document).ready(function(){
 	});
 });
 
+$(document).ready(function(){
+    $(document).on("click", "#navTabs li a", function(e) {
+        e.preventDefault();
+        var attribute = $(this).attr("href");
+
+        if(attribute == "#attendance") {
+            clearInterval(interval);
+            $("#accessCodeContent").hide();
+            $("#attendanceContent").show();
+        }
+        else if(attribute == "#accessCode") {
+            $("#attendanceContent").hide();
+            $("#accessCodeContent").show();
+//            interval = setInterval(getCall("lecturer/accessCode", "json", loadAccessCode), 10000);
+interval = alert(setInterval(alert("hahah"), 1000));
+        }
+
+    })
+});
+
 function getCall(url, type, method) {
     $.ajax({
       type: "GET",
@@ -63,6 +87,25 @@ function getCall(url, type, method) {
       cache: false,
       success: method
     });
+}
+
+function loadAccessCode(json) {
+    var modCode = $("#accessCodeContent #modCode");
+    var room = $("#accessCodeContent #room");
+    var accessCode = $("#accessCodeContent #accessCode");
+
+    modCode.empty();
+    room.empty();
+    accessCode.empty();
+
+    if(!$.isEmptyObject(json)) {
+        modCode.append(json.class.moduleCode);
+        room.append(json.class.room);
+        accessCode.append(json.accessCode.code);
+    }
+    else {
+        modCode.append("You have no classes running at the moment.");
+    }
 }
 
 function loadClassesToDate(json) {
