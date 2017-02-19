@@ -4,6 +4,9 @@ import application.domain.entity.NaturallyIdentifiableEntity;
 
 import java.util.Date;
 
+/**
+ * This class represents the scheduled class database rows.
+ */
 public class ScheduledClass implements NaturallyIdentifiableEntity {
 
     private Long id;

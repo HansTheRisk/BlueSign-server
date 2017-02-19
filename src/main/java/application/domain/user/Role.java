@@ -2,6 +2,9 @@ package application.domain.user;
 
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * This class represents the role a user can have.
+ */
 public class Role implements GrantedAuthority {
 
     private String role;

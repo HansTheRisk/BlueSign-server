@@ -5,7 +5,7 @@ import application.api.resource.date.DateResource;
 import application.api.resource.empty.EmptyJsonResource;
 import application.api.resource.module.ModuleResource;
 import application.api.resource.module.attendance.TotalAverageModuleAttendanceResource;
-import application.api.resource.scheduledClass.ScheduledClassDates;
+import application.api.resource.scheduledClass.ScheduledClassDatesResource;
 import application.api.resource.scheduledClass.ScheduledClassResource;
 import application.api.resource.scheduledClass.attendance.ClassAttendanceResource;
 import application.api.resource.student.StudentAttendanceCorrelationResource;
@@ -34,6 +34,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This api controller provides all the functionality necessary
+ * for the BluSign lecturer web application.
+ */
 @Controller
 public class LecturerController {
 
@@ -52,6 +56,11 @@ public class LecturerController {
     @Autowired
     private AccessCodeService accessCodeService;
 
+    /**
+     * This endpoint returns all the modules for the lecturer.
+     * @param auth
+     * @return List of ModuleResource
+     */
     @RequestMapping(value = "lecturer/modules", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ModuleResource>> getModules(@Autowired Authentication auth) {
@@ -60,6 +69,12 @@ public class LecturerController {
         return new ResponseEntity<>(modules, HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns a list of all scheduled classes for
+     * the given module code.
+     * @param moduleCode
+     * @return  List of ScheduledClassResources
+     */
     @RequestMapping(value = "lecturer/modules/{moduleCode}/classes", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ScheduledClassResource>> getModulesClasses(@PathVariable String moduleCode) {
@@ -68,6 +83,12 @@ public class LecturerController {
         return new ResponseEntity<>(classes, HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns the average attendance percentage for
+     * the module by the given module code.
+     * @param moduleCode
+     * @return TotalAverageModuleAttendanceResource
+     */
     @RequestMapping(value = "lecturer/modules/{moduleCode}/totalAverageAttendance", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<TotalAverageModuleAttendanceResource> getModuleTotalAverageAttendance(@PathVariable String moduleCode) {
@@ -77,13 +98,19 @@ public class LecturerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * This endpoint returns all the completed classes for a
+     * scheduled class.
+     * @param classUuid
+     * @return ScheduledClassDates
+     */
     @RequestMapping(value = "lecturer/class/{classUuid}/toDate", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<ScheduledClassDates> getClassesToDate(@PathVariable String classUuid) {
+    public ResponseEntity<ScheduledClassDatesResource> getClassesToDate(@PathVariable String classUuid) {
         ScheduledClass scheduledClass = scheduledClassService.findByUUID(classUuid);
         if (scheduledClass == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(new ScheduledClassDates(scheduledClass, metricsService.getDatesOfCompletedClasses(scheduledClass)
+        return new ResponseEntity<>(new ScheduledClassDatesResource(scheduledClass, metricsService.getDatesOfCompletedClasses(scheduledClass)
                                                                                           .stream()
                                                                                           .sorted((dateOne, dateTwo) -> {
             if(dateOne.getTime() < dateTwo.getTime())
@@ -94,6 +121,13 @@ public class LecturerController {
           .collect(Collectors.toList())), HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns attendance for a class that
+     * has been completed.
+     * @param classUuid
+     * @param dateTimestamp
+     * @return ClassAttendanceResource
+     */
     @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/attendance", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<ClassAttendanceResource> getClassAttendace(@PathVariable String classUuid,
@@ -104,6 +138,13 @@ public class LecturerController {
         return new ResponseEntity<>(new ClassAttendanceResource(scheduledClassService.getClassAttendance(classUuid, dateTimestamp)), HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns a list of students
+     * who attended a completed class.
+     * @param classUuid
+     * @param dateTimestamp
+     * @return List of StudentAttendanceCorrelationResource
+     */
     @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/attended", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentAttendanceCorrelationResource>> getStudentsWhoAttendedClass(@PathVariable String classUuid,
@@ -118,6 +159,13 @@ public class LecturerController {
                                                   .collect(Collectors.toList()), HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns a list of students
+     * who were late for a completed class (20 min. after class start).
+     * @param classUuid
+     * @param dateTimestamp
+     * @return List of StudentAttendanceCorrelationResource
+     */
     @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/late", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentAttendanceCorrelationResource>> getStudentsWhoWereLateForClass(@PathVariable String classUuid,
@@ -132,6 +180,13 @@ public class LecturerController {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns a list of students
+     * who did not attend a completed class.
+     * @param classUuid
+     * @param dateTimestamp
+     * @return List of StudentResource
+     */
     @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/notAttended", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentResource>> getStudentsWhoDidNotAttendedClass(@PathVariable String classUuid,
@@ -146,6 +201,13 @@ public class LecturerController {
                                                   .collect(Collectors.toList()), HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns a list of students of a module
+     * and the corresponding attendance percentage for each
+     * of the students.
+     * @param moduleCode
+     * @return List of StudentModuleAttendanceCorrelationResource
+     */
     @RequestMapping(value = "lecturer/modules/{moduleCode}/attendanceList", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentModuleAttendanceCorrelationResource>> getModuleAttendanceList(@PathVariable String moduleCode) {
@@ -169,6 +231,12 @@ public class LecturerController {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns an access code for a class
+     * running currently for the given lecturer.
+     * @param auth
+     * @return ResponseEntity
+     */
     @RequestMapping(value = "lecturer/accessCode", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity getAccessCode(@Autowired Authentication auth) {
@@ -179,6 +247,10 @@ public class LecturerController {
             return new ResponseEntity<>(new AccessCodeForClassResource(ac), HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns the lecturer page.
+     * @return String
+     */
     @RequestMapping("/lecturer")
     public String lecturer() {
         return "lecturerPage";

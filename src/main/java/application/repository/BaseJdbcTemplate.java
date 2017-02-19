@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.util.List;
 
+/**
+ * Basic JDBCTemplate class for performing database queries.
+ */
 @Component
 public class BaseJdbcTemplate extends JdbcTemplate {
 

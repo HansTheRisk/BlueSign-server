@@ -2,6 +2,10 @@ package application.domain.student;
 
 import application.domain.module.attendance.IndividualCumulativeModuleAttendance;
 
+/**
+ * This class correlates a student with his
+ * IndividualCumulativeModuleAttendance.
+ */
 public class StudentModuleAttendanceCorrelation {
 
     private Student student;

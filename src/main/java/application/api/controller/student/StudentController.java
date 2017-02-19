@@ -30,6 +30,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This controller provides all the necessary
+ * functionality for the student mobile application.
+ */
 @Controller
 public class StudentController {
 
@@ -48,6 +52,14 @@ public class StudentController {
     @Autowired
     private IpRangeService ipRangeService;
 
+    /**
+     * This endpoint performs an existential check
+     * on a combination of a student university id
+     * and pin.
+     * @param id
+     * @param pin
+     * @return BinaryResource
+     */
     @RequestMapping(value="/student/{id}/{pin}", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<BinaryResource> exists(@PathVariable String id,
@@ -56,10 +68,12 @@ public class StudentController {
             return new ResponseEntity<>(new BinaryResource<>(isIt), HttpStatus.OK);
     }
 
-    public ResponseEntity<MessageResource> signIn() {
-        return null;
-    }
-
+    /**
+     * This endpoint returns a list of modules
+     * of a student.
+     * @param id
+     * @return List of ModuleResources
+     */
     @RequestMapping(value="/student/{id}/modules", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ModuleResource>> getModules(@PathVariable String id) {
@@ -69,6 +83,12 @@ public class StudentController {
         return new ResponseEntity<>(modules, HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns a list of sign-ins
+     * of a student with the given university id.
+     * @param id
+     * @return List of AttendanceResources
+     */
     @RequestMapping(value="/student/{id}/history", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<AttendanceResource>> getHistory(@PathVariable String id) {
@@ -77,6 +97,12 @@ public class StudentController {
         return new ResponseEntity<List<AttendanceResource>>(resources, HttpStatus.OK);
     }
 
+    /**
+     * This endpoint returns student attendance metrics
+     * for the mobile presentation.
+     * @param id
+     * @return List of IndividualCumulativeModuleAttendanceResource
+     */
     @RequestMapping(value="/student/{id}/mobileMetrics", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<IndividualCumulativeModuleAttendanceResource>> getMobileMetrics(@PathVariable String id) {
@@ -85,6 +111,22 @@ public class StudentController {
         return new ResponseEntity<List<IndividualCumulativeModuleAttendanceResource>>(resources, HttpStatus.OK);
     }
 
+    /**
+     * This endpoint allows the user of the mobile application
+     * to sign into the attendance system.
+     *
+     * The endpoint performs the following checks:
+     *  -   Is the user at the university campus (IP check)?
+     *  -   Does the user exist?
+     *  -   Does the class - authentication code combination exist?
+     *  -   Is the user allocated to the class?
+     *  -   Has the user signed into the class already?
+     * @param id
+     * @param pin
+     * @param signInResource
+     * @param request
+     * @return MessageResource
+     */
     @RequestMapping(value="/student/{id}/{pin}/signIn", method= RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<MessageResource> signIn(@PathVariable String id,

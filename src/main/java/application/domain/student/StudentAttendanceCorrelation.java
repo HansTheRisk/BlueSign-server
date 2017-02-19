@@ -2,6 +2,9 @@ package application.domain.student;
 
 import application.domain.attendance.Attendance;
 
+/**
+ * This class correlates a student with an attendance record.
+ */
 public class StudentAttendanceCorrelation {
     private Student student;
     private Attendance attendance;

@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * This class represents user dataase rows.
+ */
 public class User implements NaturallyIdentifiableEntity, UserDetails {
 
     private long id;

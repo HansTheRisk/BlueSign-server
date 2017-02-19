@@ -2,6 +2,9 @@ package application.domain.student;
 
 import application.domain.entity.IdentifiableEntity;
 
+/**
+ * This class represents Student database rows.
+ */
 public class Student implements IdentifiableEntity {
 
     private Long id;

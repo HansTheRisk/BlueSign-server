@@ -2,6 +2,10 @@ package application.domain.ipRange;
 
 import application.domain.entity.NaturallyIdentifiableEntity;
 
+/**
+ * Domain class that represents the IP range
+ * for which the system's security has been set.
+ */
 public class IpRange implements NaturallyIdentifiableEntity {
 
     private Long id;

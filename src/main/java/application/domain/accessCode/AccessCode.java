@@ -1,5 +1,8 @@
 package application.domain.accessCode;
 
+/**
+ * This domain class represents an access code for a class.
+ */
 public class AccessCode {
 
     private String classUuid;

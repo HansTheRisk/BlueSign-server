@@ -16,6 +16,9 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This is a scheduled task that generates class access codes every four minutes.
+ */
 @Component
 public class ScheduledTask {
 
@@ -25,7 +28,10 @@ public class ScheduledTask {
     @Autowired
     private AccessCodeService accessCodeService;
 
-//    @Transactional
+    /**
+     * This method regenerates codes every four minutes.
+     */
+    //    @Transactional
 //    @Scheduled(fixedDelay = 240000)
     public void regenerateCodes() {
         List<ScheduledClass> classes = classService.findCurrentlyRunningClasses();
@@ -39,6 +45,12 @@ public class ScheduledTask {
         accessCodeService.insertCodes(accessCodes);
     }
 
+    /**
+     * This method generates a number of unique codes
+     * for the given int amount.
+     * @param numOfCodes
+     * @return Set of Integers
+     */
     private Set<Integer> generateCodes(int numOfCodes) {
         Random random = new Random();
         Set<Integer> codes = new HashSet<>();

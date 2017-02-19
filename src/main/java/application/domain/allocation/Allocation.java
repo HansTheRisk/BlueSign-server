@@ -1,5 +1,9 @@
 package application.domain.allocation;
 
+/**
+ * The Allocation domain class represents the allocation
+ * of student to a scheduled class.
+ */
 public class Allocation {
 
     private String studentUniversityId;

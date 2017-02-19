@@ -8,9 +8,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This class provides basic functionality for operating on dates.
+ */
 @Component
 public class DateUtility {
 
+    /**
+     * This method counts the number of specific days between
+     * two dates.
+     * @param startDate
+     * @param endDate
+     * @param day
+     * @return int
+     */
     public int countDays(Date startDate, Date endDate, DayOfWeek day) {
         int count = 0;
 
@@ -36,6 +47,14 @@ public class DateUtility {
 
     }
 
+    /**
+     * This method lists the dates of the specific day
+     * occurrences between two dates.
+     * @param startDate
+     * @param endDate
+     * @param day
+     * @return List of dates
+     */
     public List<Date> listDays(Date startDate, Date endDate, DayOfWeek day) {
 
         List<Date> dates = new ArrayList<>();
@@ -56,6 +75,12 @@ public class DateUtility {
         return dates;
     }
 
+    /**
+     * This private method converts a day in DayOfWeek format
+     * into a day in Calendar format.
+     * @param day
+     * @return int
+     */
     private int convertDayOfWeekToCalendarDay(DayOfWeek day) {
         int response = -1;
         switch (day) {

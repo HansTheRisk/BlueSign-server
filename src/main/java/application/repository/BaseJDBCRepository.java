@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * Base mother class for repositories.
+ */
 @Component
 public class BaseJDBCRepository {
 
     @Autowired
     protected BaseJdbcTemplate executor;
 
-    protected  <T> ResultSetExtractor<Optional<T>> optionalResultSetExtractor(RowMapper<? extends T> mapper) {
-        return rs -> rs.next() ? Optional.of(mapper.mapRow(rs, 1)) : Optional.empty();
-    }
 }

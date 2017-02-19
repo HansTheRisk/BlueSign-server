@@ -6,6 +6,9 @@ import application.repository.NaturallyIdentifiableRowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Row mapper for mapping user rows to user domain objects
+ */
 public class UserRowMapper implements NaturallyIdentifiableRowMapper<User> {
     @Override
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {

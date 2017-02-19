@@ -2,6 +2,14 @@ package application.domain.attendance;
 
 import java.util.Date;
 
+/**
+ * This domain class represents an Attendance record.
+ * It provides all the necessary details to identify the attendance:
+ *  - The student who attended
+ *  - The attended class
+ *  - The date and time
+ *  - The module code of the class' module
+ */
 public class Attendance {
     private String studentUniversityId;
     private String classUuid;

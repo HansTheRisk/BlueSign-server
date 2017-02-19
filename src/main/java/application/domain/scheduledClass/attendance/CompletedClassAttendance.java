@@ -4,9 +4,14 @@ import application.domain.metrics.AttendanceMetricsAbstract;
 
 import java.util.Date;
 
+/**
+ * This class represents the metrics for a completed class.
+ * x = number of allocated students
+ * y = number of students who attended
+ */
 public class CompletedClassAttendance extends AttendanceMetricsAbstract<Integer>{
-    String classUuid;
-    Date date;
+    private String classUuid;
+    private Date date;
 
     public CompletedClassAttendance(){}
 

@@ -2,14 +2,15 @@ package application.domain.module;
 
 import application.domain.entity.IdentifiableEntity;
 
+/**
+ * The domain class for representing the module
+ * database records.
+ */
 public class Module implements IdentifiableEntity {
 
     private Long id;
-
     private String title;
-
     private String moduleCode;
-
     private String lecturerUuid;
 
     public Module() {

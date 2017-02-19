@@ -11,9 +11,19 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Student repository for operating on the Student table
+ */
 @Component
 public class StudentRepository extends BaseJDBCRepository implements IdentifiableRepository<Student> {
 
+    /**
+     * Returns a list of students who attended a class
+     * and their times of signing into the system.
+     * @param classUuid
+     * @param timestamp
+     * @return List of StudentAttendanceCorrelation
+     */
     public List<StudentAttendanceCorrelation> findAllWhoAttendedAClass(String classUuid, long timestamp) {
         Timestamp timestampObj = new Timestamp(timestamp);
         String sql = "SELECT student.id as studentId, university_id, name, surname, pin_salt, class.uuid AS class_uuid, attendance.date, module.module_code " +
@@ -25,6 +35,13 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
         return executor.query(sql, new Object[]{classUuid, timestampObj}, new StudentAttendanceCorrelationRowMapper());
     }
 
+    /**
+     * Returns a list of students who were late for the class
+     * and their times of signing in.
+     * @param classUuid
+     * @param timestamp
+     * @return List of StudentAttendanceCorrelation
+     */
     public List<StudentAttendanceCorrelation> findAllWhoWereLateForAClass(String classUuid, long timestamp) {
         Timestamp timestampObj = new Timestamp(timestamp);
         String sql = "SELECT student.id as studentId, university_id, name, surname, pin_salt, class.uuid AS class_uuid, attendance.date, module.module_code " +
@@ -38,6 +55,12 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
         return executor.query(sql, new Object[]{classUuid, timestampObj}, new StudentAttendanceCorrelationRowMapper());
     }
 
+    /**
+     * Returns all students who did not attend the class.
+     * @param classUuid
+     * @param timestamp
+     * @return List of Students
+     */
     public List<Student> findAllWhoDidNotAttendAClass(String classUuid, long timestamp) {
         Timestamp timestampObj = new Timestamp(timestamp);
         String sql = "SELECT student_id as studentId, university_id, name, surname, pin_salt " +
@@ -56,6 +79,15 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
         return executor.query(sql, new Object[]{classUuid, classUuid, timestampObj}, new StudentRowMapper());
     }
 
+    /**
+     * Returns correlations of students to modules for a specific class group.
+     * It only maps the student to the number of his attendance records to the
+     * module's specific group or NONE group classes.
+     * The rest of the metrics is calculated in the MetricsService class.
+     * @param moduleCode
+     * @param groupName
+     * @return List of StudentModuleAttendanceCorrelation
+     */
     public List<StudentModuleAttendanceCorrelation> findStudentAttendanceCorrelationForModuleGroup(String moduleCode, String groupName) {
         String sql = "SELECT DISTINCT student.id studentId, university_id, name, surname, pin_salt, " +
                     "(SELECT COUNT(*) " +
