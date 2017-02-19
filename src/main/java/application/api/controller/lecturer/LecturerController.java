@@ -84,8 +84,14 @@ public class LecturerController {
         if (scheduledClass == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(new ScheduledClassDates(scheduledClass, metricsService.getDatesOfCompletedClasses(scheduledClass)
-                                                  .stream().map(date -> new DateResource<>(date))
-                                                  .collect(Collectors.toList())), HttpStatus.OK);
+                                                                                          .stream()
+                                                                                          .sorted((dateOne, dateTwo) -> {
+            if(dateOne.getTime() < dateTwo.getTime())
+                return 1;
+            else
+                return -1;
+        }).map(date -> new DateResource<>(date))
+          .collect(Collectors.toList())), HttpStatus.OK);
     }
 
     @RequestMapping(value = "lecturer/class/{classUuid}/{dateTimestamp}/attendance", method = RequestMethod.GET)
@@ -148,7 +154,17 @@ public class LecturerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<>(metricsService.getStudentAttendanceList(moduleCode)
-                .stream()
+                .stream().sorted((studA, studB) -> {
+                    double studAAttended = studA.getModuleAttendance().getTotalAttended();
+                    double studBAttended = studB.getModuleAttendance().getTotalAttended();
+
+                    double studACompleted = studA.getModuleAttendance().getTotalCompletedClassesToDate();
+                    double studBCompleted = studB.getModuleAttendance().getTotalCompletedClassesToDate();
+                    if((studAAttended / studACompleted) < (studBAttended / studBCompleted))
+                        return 1;
+                    else
+                        return -1;
+                })
                 .map(attendance -> new StudentModuleAttendanceCorrelationResource(attendance))
                 .collect(Collectors.toList()), HttpStatus.OK);
     }

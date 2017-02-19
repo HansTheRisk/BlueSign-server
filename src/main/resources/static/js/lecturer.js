@@ -1,4 +1,4 @@
-var interval = null;
+var interval = 0;
 
 $(document).ready(function(){
     $("#accessCodeContent").hide();
@@ -9,9 +9,12 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$(document).on("click", "#modules button", function(e) {
 	    e.preventDefault();
+	    $("#modules").children("button").removeClass("active");
+	    $(this).addClass('active');
         var moduleCode = $(this).attr("moduleCode");
         var title = $(this).attr("moduleTitle");
         getCall("lecturer/modules/"+moduleCode+"/classes", "json", loadClasses);
+
         $('#moduleDetailsJumbo').empty();
         $('#info').empty();
         $('#loadedClassStats').empty();
@@ -23,6 +26,8 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$(document).on("click", "#classes li", function(e) {
         e.preventDefault();
+        $("#classes").children('li').removeClass('active');
+        $(this).addClass('active');
         $('#info').empty();
         $('#loadedClassStats').empty();
         var class_uuid = $(this).attr("class_uuid");
@@ -33,6 +38,8 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$(document).on("click", "#classesToDate li", function(e) {
         e.preventDefault();
+        $("#classesToDate").children('li').removeClass('active');
+        $(this).addClass('active');
         var class_uuid = $(this).attr("class_uuid");
         var dateTimestamp = $(this).attr("dateTimestamp");
         var moduleCode = $(this).attr("module_code");
@@ -72,8 +79,8 @@ $(document).ready(function(){
         else if(attribute == "#accessCode") {
             $("#attendanceContent").hide();
             $("#accessCodeContent").show();
-//            interval = setInterval(getCall("lecturer/accessCode", "json", loadAccessCode), 10000);
-interval = alert(setInterval(alert("hahah"), 1000));
+            getCall("lecturer/accessCode", "json", loadAccessCode)
+            interval = setInterval("getCall('lecturer/accessCode', 'json', loadAccessCode)", 10000);
         }
 
     })
@@ -181,6 +188,8 @@ function loadClasses(json) {
                                          + startDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' - '
                                          + endDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
                                          + ' ' + JSON.stringify(json[i].day).replace(/"/g, '')
+                                         + '</br>'
+                                         + 'Group: ' + JSON.stringify(json[i].group).replace(/"/g, '')
                                          + '</br>'
                                          + JSON.stringify(json[i].room).replace(/"/g, '')
                                          + '</a></li>').appendTo($('#classes'));

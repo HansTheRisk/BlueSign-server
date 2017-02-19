@@ -39,6 +39,11 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
         return object.getRoom();
     }
 
+    @JsonProperty("group")
+    public String getGroup() {
+        return object.getGroup();
+    }
+
     @JsonProperty("startDate")
     public String getStartDate() {
         return object.getStartDate().toString();
