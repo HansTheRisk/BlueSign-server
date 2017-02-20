@@ -10,13 +10,25 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Repository allowing operations on the access_code table.
+ */
 @Component
 public class AccessCodeRepository extends BaseJDBCRepository {
 
+    /**
+     * This method deletes all the codes in the table.
+     */
     public void deleteCodes() {
         executor.execute("TRUNCATE TABLE access_code");
     }
 
+    /**
+     * This method retrieves an access code for a running class
+     * for the given lecturer.
+     * @param lecturerUuid
+     * @return AccessCodeForClass
+     */
     public AccessCodeForClass getClassAccessCodeForLecturer(String lecturerUuid) {
         String sql = "SELECT class_id, code, class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
                      "(SELECT COUNT(*) "+
@@ -31,6 +43,10 @@ public class AccessCodeRepository extends BaseJDBCRepository {
         return executor.queryForObject(sql, new Object[]{lecturerUuid}, new AccessCodeForClassRowMapper());
     }
 
+    /**
+     * This method inserts access codes into the database.
+     * @param codes
+     */
     public void insertCodes(List<AccessCode> codes) {
         String sql = "INSERT INTO access_code(class_id, code) " +
                       "VALUES((SELECT id FROM class WHERE uuid = ?), ?)";

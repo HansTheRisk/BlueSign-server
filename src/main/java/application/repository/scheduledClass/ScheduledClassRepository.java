@@ -10,9 +10,18 @@ import org.springframework.stereotype.Component;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Repository class for operating on the class database table.
+ */
 @Component
 public class ScheduledClassRepository extends BaseJDBCRepository implements NaturallyIdentifiableRepository <ScheduledClass> {
 
+    /**
+     * This method returns classes for allocated to a student with the given module.
+     * @param universityId
+     * @param moduleCode
+     * @return List of ScheduledClasses
+     */
     public List<ScheduledClass> findClassesByStudentUniveristyIdAndModuleCode(String universityId,
                                                                               String moduleCode) {
         String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
@@ -33,6 +42,12 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.query(sql, new Object[]{universityId, moduleCode}, new ScheduledClassRowMapper());
     }
 
+    /**
+     * This method returns classes belonging to the module
+     * with the given module code.
+     * @param moduleCode
+     * @return List of ScheduledClasses
+     */
     public List<ScheduledClass> findClassesByModuleCode(String moduleCode) {
         String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
                     "(SELECT COUNT(*) " +
@@ -46,6 +61,12 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.query(sql, new Object[]{moduleCode}, new ScheduledClassRowMapper());
     }
 
+    /**
+     * This method returns all classes allocated to the student with the
+     * given university id.
+     * @param universityId
+     * @return List of ScheduledClasses
+     */
     public List<ScheduledClass> findClassesByStudentUniveristyId(String universityId) {
         String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
                     "(SELECT COUNT(*) " +
@@ -64,6 +85,11 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.query(sql, new Object[]{universityId}, new ScheduledClassRowMapper());
     }
 
+    /**
+     * This method returns the class by its time-framed access code
+     * @param code
+     * @return ScheduledClass
+     */
     public ScheduledClass findClassByAuthenticationCode(int code) {
         String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
                     "(SELECT COUNT(*) " +
@@ -80,6 +106,10 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.queryForObject(sql, new Object[]{code}, new ScheduledClassRowMapper());
     }
 
+    /**
+     * This method returns all the currently running classes.
+     * @return List of ScheduledClasses
+     */
     public List<ScheduledClass> findCurrentlyRunningClasses() {
         String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
                     "(SELECT COUNT(*) " +
@@ -102,6 +132,13 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.query(sql, new ScheduledClassRowMapper());
     }
 
+    /**
+     * This method returns attendance for a completed class
+     * identified by the class UUID and the date of completion.
+     * @param classUuid
+     * @param timestamp
+     * @return CompletedClassAttendance
+     */
     public CompletedClassAttendance getCompletedClassAttendance(String classUuid, long timestamp) {
         Timestamp timestampObj = new Timestamp(timestamp);
         String sql = "SELECT ? AS class_uuid, DATE(?) AS date, " +
@@ -114,6 +151,11 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.queryForObject(sql, new Object[]{classUuid, timestampObj, classUuid, classUuid, timestampObj}, new ClassAttendanceRowMapper());
     }
 
+    /**
+     * This method returns a class identified by the given UUID
+     * @param uuid
+     * @return ScheduledClass
+     */
     @Override
     public ScheduledClass findByUuid(String uuid) {
         String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
@@ -128,6 +170,11 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.queryForObject(sql, new Object[]{uuid}, new ScheduledClassRowMapper());
     }
 
+    /**
+     * This method returns a class by its id.
+     * @param id
+     * @return ScheduledClass
+     */
     @Override
     public ScheduledClass findById(Long id) {
         return null;

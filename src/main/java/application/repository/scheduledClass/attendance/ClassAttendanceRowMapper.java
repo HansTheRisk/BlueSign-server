@@ -7,6 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+/**
+ * This row mapper maps results of ClassAttendance queries to the
+ * ClassAttendance objects.
+ */
 public class ClassAttendanceRowMapper implements RowMapper<CompletedClassAttendance>{
     @Override
     public CompletedClassAttendance mapRow(ResultSet rs, int rowNum) throws SQLException {

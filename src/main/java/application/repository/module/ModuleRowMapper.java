@@ -6,6 +6,9 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This row mapper maps Module database rows into Module objects.
+ */
 public class ModuleRowMapper implements RowMapper<Module> {
     @Override
     public Module mapRow(ResultSet resultSet, int i) throws SQLException {

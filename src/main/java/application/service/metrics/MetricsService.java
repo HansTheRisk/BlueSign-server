@@ -22,6 +22,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Service that calculates all the metrics / statistics for
+ * a student, module or class attendance.
+ */
 @Component
 public class MetricsService {
 
@@ -34,6 +38,11 @@ public class MetricsService {
     @Autowired
     private DateUtility dateUtility;
 
+    /**
+     * Returns dates of completed classes' dates of a scheduled class.
+     * @param scheduledClass
+     * @return List of dates
+     */
     public List<Date> getDatesOfCompletedClasses(ScheduledClass scheduledClass) {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
@@ -44,6 +53,16 @@ public class MetricsService {
             return dateUtility.listDays(scheduledClass.getStartDate(), now.getTime(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
     }
 
+    /**
+     * This method returns a list of StudentModuleAttendanceCorrelation.
+     * It identifies all the module groups for a given module and then
+     * performs attendance calculations for each group respectively.
+     *
+     * Custom group attendance = e.g.
+     * (groupA attendance records) / (groupA expected attendance + generic group (NONE) expected attendance)
+     * @param moduleCode
+     * @return List of StudentModuleAttendanceCorrelation
+     */
     public List<StudentModuleAttendanceCorrelation> getStudentAttendanceList(String moduleCode) {
         List<ScheduledClass> classes = classService.findClassesByModuleCode(moduleCode);
         List<StudentModuleAttendanceCorrelation> correlations = new ArrayList<>();
@@ -93,18 +112,45 @@ public class MetricsService {
         return correlations;
     }
 
+    /**
+     * This method creates individual attendance metrics
+     * for single student. For mobile use only.
+     * @param universityId
+     * @return List of IndividualCumulativeModuleAttendance
+     */
     public List<IndividualCumulativeModuleAttendance> getMobileCumulativeModuleMetricsForStudent(String universityId) {
         List<ScheduledClass> classes = classService.findClassesByStudentUniversityId(universityId);
         List<Attendance> attendance = attendanceService.getAttendanceRecordsForStudent(universityId);
         return calculateMobileModuleMetrics(classes, attendance);
     }
 
+    /**
+     * This method gets the average attendance for a module.
+     * @param moduleCode
+     * @return TotalAverageModuleAttendance
+     */
     public TotalAverageModuleAttendance getTotalAverageModuleAttendance(String moduleCode) {
         List<ScheduledClass> classes = classService.findClassesByModuleCode(moduleCode);
         List<Attendance> attendance = attendanceService.getAttendanceRecordsForModule(moduleCode);
         return calculateAverageModuleAttendanceMetrics(moduleCode, classes, attendance);
     }
 
+    /**
+     * Private method that performs the calculations for the
+     * getTotalAverageModuleAttendance() method.
+     *
+     * It calculates the average attendance for each completed class
+     * of the scheduled classes of the given module. Then it totals the
+     * result and returns it with the number indicating the number of
+     * scheduled classes of the module for further calculation.
+     *
+     * TotalAvgPercentageOfAllClasses / number of scheduled classes of the module.
+     *
+     * @param moduleCode
+     * @param classes
+     * @param attendance
+     * @return TotalAverageModuleAttendance
+     */
     private TotalAverageModuleAttendance calculateAverageModuleAttendanceMetrics(String moduleCode, List<ScheduledClass> classes, List<Attendance> attendance) {
         List<Double> classesAvgPercentages = new ArrayList<Double>();
         final int[] classesToDate = {0};
@@ -128,6 +174,17 @@ public class MetricsService {
         return new TotalAverageModuleAttendance(moduleCode, classesAvgPercentages.stream().mapToDouble(perc -> perc.doubleValue()).sum(), classes.size(), classesToDate[0]);
     }
 
+    /**
+     * This private method supports the
+     * getMobileCumulativeModuleMetricsForStudent method.
+     * It performs the attendance calculations for
+     * every class that the student is allocated for and then
+     * groups the results by module code getting the individual
+     * student attendance results for each module.
+     * @param classes
+     * @param attendance
+     * @return List of IndividualCumulativeModuleAttendance
+     */
     private List<IndividualCumulativeModuleAttendance> calculateMobileModuleMetrics(List<ScheduledClass> classes , List<Attendance> attendance) {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
@@ -158,6 +215,13 @@ public class MetricsService {
         return metrics;
     }
 
+    /**
+     * This method calculates the number of completed
+     * classes between two dates for a given scheduled
+     * class.
+     * @param scheduledClass
+     * @return long
+     */
     private long calculateClasses(ScheduledClass scheduledClass) {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
@@ -168,6 +232,13 @@ public class MetricsService {
             return dateUtility.countDays(scheduledClass.getStartDate(), now.getTime(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
     }
 
+    /**
+     * This method calculated the completed classes
+     * for the given scheduled class and returns their
+     * dates.
+     * @param scheduledClass
+     * @return List of Dates
+     */
     private List<Date> calculateClassesDates(ScheduledClass scheduledClass) {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());

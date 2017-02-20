@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+/**
+ * This row mapper maps class database rows to ScheduledClass objects.
+ */
 public class ScheduledClassRowMapper implements NaturallyIdentifiableRowMapper<ScheduledClass> {
     @Override
     public ScheduledClass mapRow(ResultSet rs, int rowNum) throws SQLException {

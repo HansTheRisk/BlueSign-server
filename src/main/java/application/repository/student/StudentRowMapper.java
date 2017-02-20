@@ -6,6 +6,9 @@ import application.repository.IdentifiableRowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This row mapper maps student database rows to Student objects.
+ */
 public class StudentRowMapper implements IdentifiableRowMapper<Student>{
     @Override
     public Student mapRow(ResultSet rs, int rowNum) throws SQLException {

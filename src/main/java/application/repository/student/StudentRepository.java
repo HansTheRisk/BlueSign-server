@@ -103,6 +103,12 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
         return executor.query(sql, new Object[]{moduleCode, groupName, moduleCode, groupName}, new StudentModuleAttendanceCorrelationRowMapper());
     }
 
+    /**
+     * This method returns students and their attendance who are only allocated to group NONE classes
+     * of the given module.
+     * @param moduleCode
+     * @return List of StudentModuleAttendanceCorrelation
+     */
     public List<StudentModuleAttendanceCorrelation> findStudentAttendanceCorrelationForStudentsWithNoGroup(String moduleCode) {
         String sql = "SELECT DISTINCT student.id AS studentId, university_id, name, surname, pin_salt, " +
                      "(SELECT COUNT(*) " +
@@ -122,6 +128,13 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
         return executor.query(sql, new Object[]{moduleCode, moduleCode, moduleCode}, new StudentModuleAttendanceCorrelationRowMapper());
     }
 
+    /**
+     * This method returns a student with the given university id
+     * and pin combination.
+     * @param universityId
+     * @param pin
+     * @return Student
+     */
     public Student findByUniversityIdAndPin(String universityId, String pin) {
         String sql = "SELECT id as studentId, university_id, name, surname, pin_salt " +
                      "FROM student " +
@@ -130,12 +143,21 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                 new Object[]{universityId, pin}, new StudentRowMapper());
     }
 
+    /**
+     * This method returns all the students.
+     * @return List of Students
+     */
     public List<Student> findAll() {
         String sql = "SELECT student.id as studentId, university_id, name, surname, pin_salt " +
                      "FROM student";
         return executor.query(sql, new StudentRowMapper());
     }
 
+    /**
+     * This method returns a student with the given id.
+     * @param id
+     * @return Student
+     */
     @Override
     public Student findById(Long id) {
         String sql = "SELECT student.id as studentId, university_id, name, surname, pin_salt " +

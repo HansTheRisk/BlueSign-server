@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+/**
+ * Row mapper for mapping attendance records into Attendance objects
+ */
 public class AttendanceRowMapper implements RowMapper<Attendance>{
     @Override
     public Attendance mapRow(ResultSet rs, int rowNum) throws SQLException {

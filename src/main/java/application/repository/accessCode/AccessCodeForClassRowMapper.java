@@ -9,6 +9,9 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Row mapper mapping results of AccessCodeForClass queries into AccessCodeForClass objects.
+ */
 public class AccessCodeForClassRowMapper implements RowMapper<AccessCodeForClass>{
     @Override
     public AccessCodeForClass mapRow(ResultSet rs, int rowNum) throws SQLException {

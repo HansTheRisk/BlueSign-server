@@ -13,9 +13,17 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * This repository allows for operating on the Attendance table.
+ */
 @Component
 public class AttendanceRepository extends BaseJDBCRepository {
 
+    /**
+     * Retrieves all the attendance records for a student.
+     * @param universityId
+     * @return List of Attendance
+     */
     public List<Attendance> getAttendanceRecordsForStudent(String universityId) {
         String sql = "SELECT student.university_id, class.uuid AS class_uuid, attendance.date, module.module_code " +
                 "FROM attendance INNER JOIN student " +
@@ -28,6 +36,11 @@ public class AttendanceRepository extends BaseJDBCRepository {
         return executor.query(sql, new Object[]{universityId}, new AttendanceRowMapper());
     }
 
+    /**
+     * Retrieves all the attendance records for a module.
+     * @param moduleCode
+     * @return List of Attendance
+     */
     public List<Attendance> getAttendanceRecordsForModule(String moduleCode) {
         String sql = "SELECT student.university_id, class.uuid AS class_uuid, attendance.date, module.module_code " +
                 "FROM attendance INNER JOIN student " +
@@ -40,6 +53,14 @@ public class AttendanceRepository extends BaseJDBCRepository {
         return executor.query(sql, new Object[]{moduleCode}, new AttendanceRowMapper());
     }
 
+    /**
+     * Retrieves an attendance record by universityId, classUuid and date.
+     * Existential check.
+     * @param universityId
+     * @param classUuid
+     * @param date
+     * @return Attendance
+     */
     public Attendance checkIfAttendanceExists(String universityId, String classUuid, Date date) {
         String sql = "SELECT student.university_id, class.uuid AS class_uuid, attendance.date, module.module_code " +
                 "FROM attendance INNER JOIN student " +
@@ -55,6 +76,11 @@ public class AttendanceRepository extends BaseJDBCRepository {
         return executor.queryForObject(sql, new Object[]{universityId, classUuid, date}, new AttendanceRowMapper());
     }
 
+    /**
+     * Inserts a new attendance record into the database.
+     * @param attendance
+     * @return int
+     */
     @Transactional(rollbackFor = DataAccessException.class)
     public int insertAttendance(Attendance attendance) {
         String sql = "INSERT INTO attendance(student_id, class_id, date) " +

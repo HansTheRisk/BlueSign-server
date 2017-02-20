@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * This service allows operations on the ip_range table.
+ */
 @Component
 public class IpRangeService implements NaturallyIdentifiableService<IpRange> {
 
@@ -17,10 +20,22 @@ public class IpRangeService implements NaturallyIdentifiableService<IpRange> {
     @Autowired
     private IpUtility ipUtility;
 
+    /**
+     * This method returns all the ip
+     * ranges from the db.
+     * @return List of IpRanges
+     */
     public List<IpRange> getAllIpRanges() {
         return ipRangeRepository.findAllRanges();
     }
 
+    /**
+     * This method checks if the given ip
+     * is within range of the stored ip
+     * ranges.
+     * @param ip
+     * @return boolean
+     */
     public boolean checkIfIpInRange(String ip) {
         boolean returnVal = false;
         List<IpRange> ranges = getAllIpRanges();
@@ -38,16 +53,31 @@ public class IpRangeService implements NaturallyIdentifiableService<IpRange> {
         return returnVal;
     }
 
+    /**
+     * Returns ip range by uuid
+     * @param uuid
+     * @return IpRange
+     */
     @Override
     public IpRange findByUUID(String uuid) {
         return null;
     }
 
+    /**
+     * Returns ip range by its id.
+     * @param id
+     * @return IpRange
+     */
     @Override
     public IpRange findById(Long id) {
         return null;
     }
 
+    /**
+     * Saves an ip range.
+     * @param object
+     * @return IpRange
+     */
     @Override
     public IpRange save(IpRange object) {
         return null;

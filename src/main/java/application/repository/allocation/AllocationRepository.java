@@ -4,9 +4,19 @@ import application.domain.allocation.Allocation;
 import application.repository.BaseJDBCRepository;
 import org.springframework.stereotype.Component;
 
+/**
+ * Repository used to operate on allocation records in the database.
+ */
 @Component
 public class AllocationRepository extends BaseJDBCRepository {
 
+    /**
+     * Finds class allocation by studentUniversityId and classUuid.
+     * Existential check.
+     * @param studentUniversityId
+     * @param classUuid
+     * @return Allocation
+     */
     public Allocation findAllocationByStudentIdAndClassUuid(String studentUniversityId, String classUuid) {
         String sql = "SELECT student.university_id, class.uuid " +
                      "FROM allocation INNER JOIN student " +

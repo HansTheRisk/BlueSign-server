@@ -9,6 +9,10 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This row mapper maps results of StudentAttendanceCorrelation queries to the
+ * StudentAttendanceCorrelation objects.
+ */
 public class StudentAttendanceCorrelationRowMapper implements RowMapper<StudentAttendanceCorrelation> {
     @Override
     public StudentAttendanceCorrelation mapRow(ResultSet rs, int rowNum) throws SQLException {

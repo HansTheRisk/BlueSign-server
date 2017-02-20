@@ -6,6 +6,9 @@ import application.repository.NaturallyIdentifiableRowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This row mapper maps the ip ranges stored in the db to IpRange objects.
+ */
 public class IpRangeRowMapper implements NaturallyIdentifiableRowMapper<IpRange>{
     @Override
     public IpRange mapRow(ResultSet rs, int rowNum) throws SQLException {
