@@ -15,7 +15,7 @@ public class ModuleRowMapper implements RowMapper<Module> {
         Module module = new Module();
         module.setId(resultSet.getLong("id"));
         module.setTitle(resultSet.getString("title"));
-        module.setModuleCode(resultSet.getString("module_code"));
+        module.setModuleCode(resultSet.getString("module_code").toUpperCase());
         String lecturerUuid = resultSet.getString("lecturer_uuid");
         if (lecturerUuid != null)
             module.setLecturerUuid(lecturerUuid);

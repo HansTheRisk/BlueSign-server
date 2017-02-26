@@ -5,6 +5,7 @@ import application.repository.module.ModuleRepository;
 import application.service.IdentifiableEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -64,6 +65,20 @@ public class ModuleService implements IdentifiableEntityService<Module> {
      */
     @Override
     public Module save(Module object) {
-        return null;
+        return repository.saveModule(object);
+    }
+
+    /**
+     * Saves a module into the database
+     * and assign students to it.
+     * @param object
+     * @return boolean
+     */
+    @Transactional
+    public boolean saveWithStudentsAllocated(Module object, List<String> studentUuids) {
+        Module module = repository.saveModule(object);
+        //TODO needs a new support table
+
+        return false;
     }
 }

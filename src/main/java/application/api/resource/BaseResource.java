@@ -18,5 +18,9 @@ public class BaseResource<T> {
         this.object = object;
     }
 
+    public T getObject() {
+        return object;
+    }
+
     protected T object;
 }

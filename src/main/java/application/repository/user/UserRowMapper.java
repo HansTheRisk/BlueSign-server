@@ -20,6 +20,7 @@ public class UserRowMapper implements NaturallyIdentifiableRowMapper<User> {
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("psswd_salt"));
         user.setRole(rs.getString("type"));
+        user.setEmail(rs.getString("email"));
         return user;
     }
 }

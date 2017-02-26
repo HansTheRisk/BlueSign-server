@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Service for operations on the Students.
@@ -64,6 +65,15 @@ public class StudentService implements IdentifiableEntityService<Student>{
     }
 
     /**
+     * Finds a student by the given university id.
+     * @param universityId
+     * @return Student
+     */
+    public Student getStudentByUniversityId(String universityId) {
+        return repository.findByUniversityId(universityId);
+    }
+
+    /**
      * Returns StudentModuleAttendanceCorrelations for the given module and module group.
      * Specific module group + NONE group.
      * @param moduleCode
@@ -108,6 +118,8 @@ public class StudentService implements IdentifiableEntityService<Student>{
      */
     @Override
     public Student save(Student object) {
-        return null;
+        Random random = new Random();
+        object.setPin(String.valueOf(random.nextInt(((9999 - 1000))+1)+1000));
+        return repository.saveStudent(object);
     }
 }

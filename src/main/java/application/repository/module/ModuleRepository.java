@@ -1,10 +1,14 @@
 package application.repository.module;
 
 import application.domain.module.Module;
+import application.domain.student.Student;
 import application.repository.BaseJDBCRepository;
 import application.repository.IdentifiableRepository;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -73,5 +77,21 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
         Module module = executor.queryForObject(SQL,
                 new Object[]{id}, new ModuleRowMapper());
         return module;
+    }
+
+    public Module saveModule(Module module) {
+        String sql = "INSERT INTO module(title, module_code, lecturer_id) " +
+                "VALUES(?, ?, ?, (SELECT id FROM user WHERE uuid = ?))";
+        if(executor.update(sql, new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                ps.setString(1, module.getTitle());
+                ps.setString(2, module.getModuleCode().toLowerCase());
+                ps.setString(3, module.getLecturerUuid());
+            }
+        }) == 1)
+            return module;
+        else
+            return null;
     }
 }

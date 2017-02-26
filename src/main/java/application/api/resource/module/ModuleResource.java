@@ -21,6 +21,11 @@ public class ModuleResource extends IdentifiableResource<Module> {
         return object.getModuleCode();
     }
 
+    @JsonProperty("moduleCode")
+    public void setModuleCode(String moduleCode) {
+        object.setModuleCode(moduleCode);
+    }
+
     /**
      * This method returns the title of the module.
      * @return
@@ -28,6 +33,11 @@ public class ModuleResource extends IdentifiableResource<Module> {
     @JsonProperty("title")
     public String getTitle() {
         return object.getTitle();
+    }
+
+    @JsonProperty("title")
+    public void setTitle(String title) {
+        object.setTitle(title);
     }
 
     /**
@@ -38,5 +48,10 @@ public class ModuleResource extends IdentifiableResource<Module> {
     @JsonProperty("lecturerUuid")
     public String getLecturerUuid() {
         return object.getLecturerUuid();
+    }
+
+    @JsonProperty("lecturerUuid")
+    public void setLecturerUuid(String uuid) {
+        object.setLecturerUuid(uuid);
     }
 }

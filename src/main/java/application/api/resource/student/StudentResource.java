@@ -9,6 +9,10 @@ import application.domain.student.Student;
  */
 public class StudentResource extends IdentifiableResource<Student> {
 
+    public StudentResource() {
+        super(new Student());
+    }
+
     public StudentResource(Student object) {
         super(object);
     }
@@ -22,6 +26,11 @@ public class StudentResource extends IdentifiableResource<Student> {
         return object.getUniversityId();
     }
 
+    @JsonProperty("universityId")
+    public void setUniversityId(String universityId) {
+        object.setUniversityId(universityId);
+    }
+
     /**
      * This method returns the name of the student.
      * @return String
@@ -31,6 +40,11 @@ public class StudentResource extends IdentifiableResource<Student> {
         return object.getName();
     }
 
+    @JsonProperty("name")
+    public void setName(String name) {
+        object.setName(name);
+    }
+
     /**
      * This method returns the surname of the student.
      * @return String
@@ -38,6 +52,11 @@ public class StudentResource extends IdentifiableResource<Student> {
     @JsonProperty("surname")
     public String getSurname() {
         return object.getSurname();
+    }
+
+    @JsonProperty("surname")
+    public void setSurname(String surname) {
+        object.setSurname(surname);
     }
 
 }

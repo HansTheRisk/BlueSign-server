@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * This class represents user dataase rows.
+ * This class represents user database rows.
  */
 public class User implements NaturallyIdentifiableEntity, UserDetails {
 
@@ -19,6 +19,7 @@ public class User implements NaturallyIdentifiableEntity, UserDetails {
     private String surname;
     private String psswrdSalt;
     private String role;
+    private String email;
 
     public User() {
 
@@ -58,6 +59,14 @@ public class User implements NaturallyIdentifiableEntity, UserDetails {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

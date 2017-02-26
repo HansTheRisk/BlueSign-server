@@ -7,6 +7,6 @@ username character(25) NOT NULL UNIQUE,
 name character(25),
 surname character(25),
 psswd_salt character(25) NOT NULL,
-type varchar(10) NOT NULL,
+type varchar(15) NOT NULL,
 PRIMARY KEY(id)	
 );

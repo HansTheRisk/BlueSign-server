@@ -5,11 +5,15 @@ import application.domain.student.StudentAttendanceCorrelation;
 import application.domain.student.StudentModuleAttendanceCorrelation;
 import application.repository.BaseJDBCRepository;
 import application.repository.IdentifiableRepository;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * Student repository for operating on the Student table
@@ -144,6 +148,19 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
     }
 
     /**
+     * This method returns a student with the given university id.
+     * @param universityId
+     * @return Student
+     */
+    public Student findByUniversityId(String universityId) {
+        String sql = "SELECT id as studentId, university_id, name, surname, pin_salt " +
+                "FROM student " +
+                "WHERE university_id = ?";
+        return executor.queryForObject(sql,
+                new Object[]{universityId}, new StudentRowMapper());
+    }
+
+    /**
      * This method returns all the students.
      * @return List of Students
      */
@@ -164,5 +181,22 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                      "FROM student WHERE id = ?";
         return executor.queryForObject(sql,
                 new Object[]{id}, new StudentRowMapper());
+    }
+
+    public Student saveStudent(Student student) {
+        String sql = "INSERT INTO student(university_id, name, surname, pin_salt) " +
+                     "VALUES(?, ?, ?, ?)";
+        if(executor.update(sql, new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                ps.setString(1, student.getUniversityId());
+                ps.setString(2, student.getName());
+                ps.setString(3, student.getSurname());
+                ps.setString(4, student.getPin());
+            }
+        }) == 1)
+            return student;
+        else
+            return null;
     }
 }

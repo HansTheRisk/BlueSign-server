@@ -5,6 +5,7 @@ import application.api.resource.NaturallyIdentifiableResource;
 import application.domain.scheduledClass.ScheduledClass;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * This class represents the ScheduledClass as JSON object
@@ -46,6 +47,11 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
         return object.getModuleCode();
     }
 
+    @JsonProperty("moduleCode")
+    public void setModuleCode(String moduleCode) {
+        object.setModuleCode(moduleCode);
+    }
+
     /**
      * This method returns the room where the class
      * is conducted.
@@ -56,6 +62,11 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
         return object.getRoom();
     }
 
+    @JsonProperty("room")
+    public void setRoom(String room) {
+        object.setRoom(room);
+    }
+
     /**
      * This method returns the group of the class.
      * @return String
@@ -63,6 +74,11 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
     @JsonProperty("group")
     public String getGroup() {
         return object.getGroup();
+    }
+
+    @JsonProperty("group")
+    public void setGroup(String group) {
+        object.setRoom(group);
     }
 
     /**
@@ -93,6 +109,10 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
         return object.getStartDate().getTime();
     }
 
+    public void setStartDateTimestamp(long timestamp) {
+        object.setStartDate(new Date(timestamp));
+    }
+
     /**
      * This method returns the end date timestamp for the class.
      * @return
@@ -100,5 +120,9 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
     @JsonProperty("endDateTimestamp")
     public long getEndDateTimestamp() {
         return object.getEndDate().getTime();
+    }
+
+    public void setEndDatetimestamp(long timestamp) {
+        object.setEndDate(new Date(timestamp));
     }
 }

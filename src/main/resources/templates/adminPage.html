@@ -31,53 +31,41 @@
                     <ul id="navTabs" class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#users">Users</a></li>
                         <li><a data-toggle="tab" href="#students">Students</a></li>
+                        <li><a data-toggle="tab" href="#modules">Modules</a></li>
+                        <li><a data-toggle="tab" href="#classes">Classes</a></li>
+                        <li><a data-toggle="tab" href="#ip">Ip Ranges</a></li>
                     </ul>
                 </div>
             </nav>
         </div>
     </div>
     <div id="users">
-        <!--<div class="row">-->
-            <!--<div class="col-md-12">-->
-                <!--<div class="container-fluid">-->
-                    <!--<h4>Your modules:</h4>-->
-                    <!--<div style="margin-bottom: 1%;" id="modules" class="btn-group" role="group" aria-label="..."></div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div id="pills" class="row">-->
-            <!--<div class="col-md-4">-->
-                <!--<div class="container-fluid">-->
-                    <!--<h4>Your classes:</h4>-->
-                    <!--<div id="classesThumbnail" class="thumbnail">-->
-                        <!--<div class="caption">-->
-                            <!--<ul id="classes" class="nav nav-pills nav-stacked"></ul>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-md-4">-->
-                <!--<div class="container-fluid">-->
-                    <!--<h4>Completed classes:</h4>-->
-                    <!--<div id="classesToDateThumb" class="thumbnail">-->
-                        <!--<div class="caption">-->
-                            <!--<ul id="classesToDate" class="nav nav-pills nav-stacked"></ul>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-md-4">-->
-                <!--<div id="classAttendance" class="container-fluid">-->
-                    <!--<h4>Class attendance:</h4>-->
-                    <!--<div id="classAttendanceDetails" class="thumbnail">-->
-                        <!--<div class="caption">-->
-                            <!--<div id="info"></div>-->
-                            <!--<div id="loadedClassStats"></div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div id="pills" class="row">
+            <div class="col-md-4">
+                <div class="container-fluid">
+                    <h4>Users:</h4>
+                    <div id="classesThumbnail" class="thumbnail">
+                        <div class="caption">
+                            <ul id="usersPills" class="nav nav-pills nav-stacked"></ul>
+                        </div>
+                        <p>
+                            <a class="btn btn-primary" callType="addUser" data-toggle="modal" data-target="#myModal" role="button">Add</a>
+                            <a class="btn btn-primary" callType="removeUser" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div id="infoArea" class="container-fluid">
+                    <h4>Details:</h4>
+                    <div id="userDetails" class="thumbnail">
+                        <div class="caption">
+                            <div id="info"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="students">
         <div class="row">
@@ -88,15 +76,46 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="container-fluid">
-                <div style="margin: 1%;height: 60%;" id="details">
-                    <div id="detailsJumbo" class="jumbotron"></div>
+    <div id="modules">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container-fluid">
+
                 </div>
             </div>
         </div>
     </div>
+    <div id="classes">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container-fluid">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ip">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container-fluid">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container-fluid">
+                <div style="margin: 1%;height: 60%;" id="console">
+                    <div id="consoleJumbo" class="jumbotron">
+                        <div id="consoleText"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
@@ -115,6 +134,7 @@
         </div>
     </div>
 </div>
+
 <div class="container-full">
     <div class="row">
         <div class="col-md-12">

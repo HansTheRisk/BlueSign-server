@@ -127,8 +127,11 @@ function loadClassesToDate(json) {
 
 function loadClassAttendance(json) {
     var loadedContent = $('#loadedClassStats');
+    var percent = calculatePercentage(json.attended, json.allocated);
     loadedContent.empty();
-    loadedContent.append($('<h5>Attendance Percentage: '+calculatePercentage(json.attended, json.allocated)+'%</h5>'));
+    loadedContent.append($('<h5>Attendance Percentage:</h5> </br>'+
+        '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="'+percent+'" aria-valuemin="0" aria-valuemax="100" style="width: '+percent+'%";>'
+          +percent+'%</div></div>'));
 
     loadedContent.append($('<p>Allocated to class: '+json.allocated+'</p>'));
     loadedContent.append($('<p>Attended the class: '+json.attended+'</p>'));

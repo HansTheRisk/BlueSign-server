@@ -33,6 +33,15 @@
     margin-bottom: 5%;
 }
 
+#consoleText {
+    overflow: auto;
+    max-height: 200px;
+}
+
+td {
+    padding:0 15px 0 15px;
+}
+
 footer {
     position:absolute;
     bottom:0;
