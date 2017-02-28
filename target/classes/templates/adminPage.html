@@ -44,7 +44,7 @@
             <div class="col-md-4">
                 <div class="container-fluid">
                     <h4>Users:</h4>
-                    <div id="classesThumbnail" class="thumbnail">
+                    <div class="thumbnail">
                         <div class="caption">
                             <ul id="usersPills" class="nav nav-pills nav-stacked"></ul>
                         </div>
@@ -56,11 +56,11 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <div id="infoArea" class="container-fluid">
+                <div class="container-fluid">
                     <h4>Details:</h4>
-                    <div id="userDetails" class="thumbnail">
+                    <div class="thumbnail">
                         <div class="caption">
-                            <div id="info"></div>
+                            <div id="userInfo"></div>
                         </div>
                     </div>
                 </div>
@@ -69,36 +69,136 @@
     </div>
     <div id="students">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <div class="container-fluid">
-
+                    <h4>Students:</h4>
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <ul id="studentsPills" class="nav nav-pills nav-stacked"></ul>
+                        </div>
+                        <p>
+                            <a class="btn btn-primary" callType="addStudent" data-toggle="modal" data-target="#myModal" role="button">Add</a>
+                            <a class="btn btn-primary" callType="removeStudent" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="container-fluid">
+                    <h4>Details:</h4>
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <div id="studentsInfo"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div id="modules">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <div class="container-fluid">
-
+                    <h4>Modules:</h4>
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <ul id="modulesPills" class="nav nav-pills nav-stacked"></ul>
+                        </div>
+                        <p>
+                            <a class="btn btn-primary" callType="addModule" data-toggle="modal" data-target="#myModal" role="button">Add</a>
+                            <a class="btn btn-primary" callType="removeModule" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="container-fluid">
+                    <h4>Details:</h4>
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <div id="moduleInfo"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="container-fluid">
+                    <h4>Allocated students:</h4>
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <ul id="studentsAssignedToModulePills" class="nav nav-pills nav-stacked"></ul>
+                            <p>
+                                <a class="btn btn-primary" callType="addStudentToModule" data-toggle="modal" data-target="#myModal" role="button">Add</a>
+                                <a class="btn btn-primary" callType="removeStudentFromModule" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div id="classes">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <div class="container-fluid">
-
+                    <h4>Classes:</h4>
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <ul id="classesPills" class="nav nav-pills nav-stacked"></ul>
+                        </div>
+                        <p>
+                            <a class="btn btn-primary" callType="addClass" data-toggle="modal" data-target="#myModal" role="button">Add</a>
+                            <a class="btn btn-primary" callType="removeClass" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="container-fluid">
+                    <h4>Details:</h4>
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <div id="classInfo"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="container-fluid">
+                    <h4>Allocated students:</h4>
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <ul id="studentsAssignedToClassPills" class="nav nav-pills nav-stacked"></ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div id="ip">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <div class="container-fluid">
-
+                    <h4>IP ranges:</h4>
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <ul id="ipPills" class="nav nav-pills nav-stacked"></ul>
+                        </div>
+                        <p>
+                            <a class="btn btn-primary" callType="addIp" data-toggle="modal" data-target="#myModal" role="button">Add</a>
+                            <a class="btn btn-primary" callType="removeIp" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="container-fluid">
+                    <h4>Details:</h4>
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <div id="ipInfo"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

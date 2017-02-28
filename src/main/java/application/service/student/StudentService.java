@@ -102,6 +102,21 @@ public class StudentService implements IdentifiableEntityService<Student>{
     }
 
     /**
+     * Updates a students's details (name, surname and email)
+     * in the database.
+     * @param object
+     * @return User
+     */
+    public Student updateStudentDetails(Student object) {
+        return repository.updateStudentDetails(object);
+    }
+
+    public String resetUserPin(String id) {
+        Random random = new Random();
+        return repository.resetStudentPin(id, String.valueOf(random.nextInt(((9999 - 1000))+1)+1000));
+    }
+
+    /**
      * Returns a student by id.
      * @param id
      * @return Student

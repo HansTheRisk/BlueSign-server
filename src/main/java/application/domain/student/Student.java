@@ -11,6 +11,7 @@ public class Student implements IdentifiableEntity {
     private String universityId;
     private String name;
     private String surname;
+    private String email;
     private String pin;
 
     public Student() {
@@ -45,6 +46,14 @@ public class Student implements IdentifiableEntity {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPin() {

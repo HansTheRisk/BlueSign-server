@@ -2,52 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f975b926-186d-492c-9dac-a577eb3132cf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/module/ModuleToCreateResource.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/scheduledClass/ScheduledClassToCreateResource.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/student/CreatedStudentResource.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/user/PasswordResource.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/api/controller/admin/AdminController.class" afterPath="$PROJECT_DIR$/target/classes/application/api/controller/admin/AdminController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/api/resource/BaseResource.class" afterPath="$PROJECT_DIR$/target/classes/application/api/resource/BaseResource.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/api/resource/module/ModuleResource.class" afterPath="$PROJECT_DIR$/target/classes/application/api/resource/module/ModuleResource.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/api/resource/scheduledClass/ScheduledClassResource.class" afterPath="$PROJECT_DIR$/target/classes/application/api/resource/scheduledClass/ScheduledClassResource.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/api/resource/student/StudentResource.class" afterPath="$PROJECT_DIR$/target/classes/application/api/resource/student/StudentResource.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/repository/allocation/AllocationRepository.class" afterPath="$PROJECT_DIR$/target/classes/application/repository/allocation/AllocationRepository.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/repository/module/ModuleRepository.class" afterPath="$PROJECT_DIR$/target/classes/application/repository/module/ModuleRepository.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/repository/module/ModuleRowMapper.class" afterPath="$PROJECT_DIR$/target/classes/application/repository/module/ModuleRowMapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/repository/student/StudentRepository.class" afterPath="$PROJECT_DIR$/target/classes/application/repository/student/StudentRepository.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/repository/user/UserRepository$1.class" afterPath="$PROJECT_DIR$/target/classes/application/repository/user/UserRepository$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/repository/user/UserRepository.class" afterPath="$PROJECT_DIR$/target/classes/application/repository/user/UserRepository.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/service/accessCode/AccessCodeService.class" afterPath="$PROJECT_DIR$/target/classes/application/service/accessCode/AccessCodeService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/service/allocation/AllocationService.class" afterPath="$PROJECT_DIR$/target/classes/application/service/allocation/AllocationService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/service/attendance/AttendanceService.class" afterPath="$PROJECT_DIR$/target/classes/application/service/attendance/AttendanceService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/service/ipRange/IpRangeService.class" afterPath="$PROJECT_DIR$/target/classes/application/service/ipRange/IpRangeService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/service/module/ModuleService.class" afterPath="$PROJECT_DIR$/target/classes/application/service/module/ModuleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/service/student/StudentService.class" afterPath="$PROJECT_DIR$/target/classes/application/service/student/StudentService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/service/user/UserService.class" afterPath="$PROJECT_DIR$/target/classes/application/service/user/UserService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/queries/createClass.sql" afterPath="$PROJECT_DIR$/queries/createClass.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/queries/createUser.sql" afterPath="$PROJECT_DIR$/queries/createUser.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/queries/insertUser.sql" afterPath="$PROJECT_DIR$/queries/insertUser.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/api/resource/BaseResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/BaseResource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/api/resource/module/ModuleResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/module/ModuleResource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/api/resource/scheduledClass/ScheduledClassResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/scheduledClass/ScheduledClassResource.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/api/resource/student/StudentResource.java" afterPath="$PROJECT_DIR$/src/main/java/application/api/resource/student/StudentResource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/domain/user/User.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/user/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/allocation/AllocationRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/allocation/AllocationRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRowMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/domain/student/Student.java" afterPath="$PROJECT_DIR$/src/main/java/application/domain/student/Student.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRowMapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/user/UserRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/user/UserRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/user/UserRowMapper.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/user/UserRowMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/service/module/ModuleService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/module/ModuleService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/service/metrics/MetricsService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/metrics/MetricsService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/service/student/StudentService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/student/StudentService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/service/user/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/user/UserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/css/main.css" afterPath="$PROJECT_DIR$/src/main/resources/static/css/main.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/admin.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/admin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/lecturer.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/lecturer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/adminPage.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/adminPage.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/static/css/main.css" afterPath="$PROJECT_DIR$/target/classes/static/css/main.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/static/js/admin.js" afterPath="$PROJECT_DIR$/target/classes/static/js/admin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/static/js/lecturer.js" afterPath="$PROJECT_DIR$/target/classes/static/js/lecturer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/templates/adminPage.html" afterPath="$PROJECT_DIR$/target/classes/templates/adminPage.html" />
     </list>
     <ignored path="blusign-server.iws" />
@@ -71,58 +43,109 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="admin.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/admin.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="133" column="52" selection-start-line="133" selection-start-column="52" selection-end-line="133" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/student/StudentController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-995">
+              <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="adminPage.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/adminPage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="79" column="75" selection-start-line="79" selection-start-column="65" selection-end-line="79" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StudentRepository.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/student/StudentRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="220" column="71" selection-start-line="220" selection-start-column="71" selection-end-line="220" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="AdminController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="152" column="60" selection-start-line="152" selection-start-column="60" selection-end-line="152" selection-end-column="60" />
+            <state relative-caret-position="174">
+              <caret line="146" column="53" selection-start-line="146" selection-start-column="53" selection-end-line="146" selection-end-column="53" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserResource.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/user/UserResource.java">
+      <file leaf-file-name="StudentService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/service/student/StudentService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+            <state relative-caret-position="192">
+              <caret line="137" column="33" selection-start-line="137" selection-start-column="33" selection-end-line="137" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#715#716#0" expanded="true" />
-                <element signature="e#751#752#0" expanded="true" />
+                <element signature="e#3662#3663#0" expanded="true" />
+                <element signature="e#3724#3725#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/admin.js">
+      <file leaf-file-name="CreatedStudentResource.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/student/CreatedStudentResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4340">
-              <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
-              <folding />
+            <state relative-caret-position="72">
+              <caret line="5" column="46" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
+              <folding>
+                <element signature="e#253#254#0" expanded="true" />
+                <element signature="e#283#284#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/user/UserRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="42" column="35" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/domain/user/User.java">
+      <file leaf-file-name="StudentResource.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/student/StudentResource.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="99">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="e#705#706#0" expanded="true" />
-              </folding>
+              <caret line="9" column="46" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IdentifiableResource.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/IdentifiableResource.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JdbcTemplate.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.3.5.RELEASE/spring-jdbc-4.3.5.RELEASE-sources.jar!/org/springframework/jdbc/core/JdbcTemplate.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="99">
+              <caret line="868" column="0" selection-start-line="868" selection-start-column="0" selection-end-line="868" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -147,12 +170,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/application/repository/IdentifiableRowMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/repository/NaturallyIdentifiableRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/IdentifiableRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/BaseJdbcTemplate.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/BaseJDBCRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRowMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/student/StudentModuleAttendanceCorrelationRowMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/student/StudentAttendanceCorrelationRowMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/scheduledClass/attendance/ClassAttendanceRowMapper.java" />
@@ -169,16 +189,12 @@
         <option value="$PROJECT_DIR$/src/main/java/application/service/NaturallyIdentifiableService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/service/IdentifiableEntityService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/service/scheduledClass/ScheduledClassService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/metrics/MetricsService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/service/ipRange/IpRangeService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/service/attendance/AttendanceService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/service/allocation/AllocationService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/service/accessCode/AccessCodeService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/api/resource/BaseResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/api/resource/student/CreatedStudentResource.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/api/resource/student/StudentResource.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/student/StudentService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/api/resource/module/ModuleResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/api/resource/module/ModuleToCreateResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRowMapper.java" />
@@ -188,16 +204,23 @@
         <option value="$PROJECT_DIR$/src/main/java/application/api/resource/scheduledClass/ScheduledClassResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/allocation/AllocationRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/service/module/ModuleService.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/adminPage.html" />
         <option value="$PROJECT_DIR$/src/main/resources/static/css/main.css" />
         <option value="$PROJECT_DIR$/src/main/resources/static/js/lecturer.js" />
         <option value="$PROJECT_DIR$/src/main/java/application/domain/user/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/user/UserRowMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/api/resource/user/UserResource.java" />
+        <option value="$PROJECT_DIR$/src/main/java/application/api/resource/user/PasswordResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/service/user/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/adminPage.html" />
+        <option value="$PROJECT_DIR$/src/main/java/application/domain/student/Student.java" />
+        <option value="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRowMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/application/api/resource/student/StudentResource.java" />
+        <option value="$PROJECT_DIR$/src/main/java/application/service/metrics/MetricsService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/user/UserRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/application/service/student/StudentService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/static/js/admin.js" />
+        <option value="$PROJECT_DIR$/src/main/java/application/repository/student/StudentRepository.java" />
       </list>
     </option>
   </component>
@@ -214,6 +237,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="-1" />
+    <option name="y" value="-32" />
     <option name="width" value="1366" />
     <option name="height" value="726" />
   </component>
@@ -252,25 +277,25 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../gs-accessing-data-rest/complete/pom.xml" />
-    <property name="SearchEverywhereHistoryKey" value="UserRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/user/UserRepository.java&#10;AdminC&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/admin/AdminController.java&#10;Admin&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/admin/AdminController.java&#10;UserRE&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/resource/user/UserResource.java&#10;UserR&#9;PSI&#9;JAVA://application.repository.user.UserRowMapper&#10;User&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/domain/user/User.java&#10;Stude&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/student/StudentRepository.java&#10;main.css&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/static/css/main.css&#10;lec&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/lecturer/LecturerController.java&#10;lecturer&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/static/js/lecturer.js&#10;Metr&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/metrics/MetricsService.java&#10;ClassRepo&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java&#10;Module&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/module/ModuleRepository.java&#10;Access&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/accessCode/AccessCodeRepository.java&#10;Atte&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/attendance/AttendanceRepository.java&#10;ModuleRE&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/module/ModuleRepository.java&#10;StudentCon&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/student/StudentController.java&#10;StudentS&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/student/StudentService.java&#10;ModuleR&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/module/ModuleRowMapper.java&#10;StudentREp&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/student/StudentRepository.java&#10;Student&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/student/StudentService.java&#10;StudentRE&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/student/StudentRepository.java&#10;UserSer&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/user/UserService.java&#10;BaseRe&#9;PSI&#9;JAVA://application.api.resource.BaseResource&#10;StudentContr&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/student/StudentController.java&#10;pom.x&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;date&#9;PSI&#9;JAVA://application.util.date.DateUtility&#10;Schedu&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java&#10;.pro&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;Me&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/metrics/MetricsService.java&#10;I&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/domain/module/attendance/IndividualCumulativeModuleAttendance.java&#10;Lect&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/lecturer/LecturerController.java&#10;Sche&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/scheduledClass/ScheduledClassRowMapper.java&#10;Metricss&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/metrics/MetricsService.java&#10;Sched&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java&#10;css&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/static/css/main.css&#10;Lecturer&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/lecturer/LecturerController.java&#10;prop&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;AccessCodeSe&#9;PSI&#9;JAVA://application.service.accessCode.AccessCodeService&#10;Acce&#9;PSI&#9;JAVA://application.domain.accessCode.AccessCode&#10;TotalC&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/domain/module/attendance/TotalCumulativeModuleAttendance.java&#10;TotalA&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/resource/module/attendance/TotalCumulativeModuleAttendanceResource.java&#10;Tota&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/domain/module/attendance/TotalAverageModuleAttendance.java&#10;Metri&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/metrics/MetricsService.java&#10;Total&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/domain/module/attendance/TotalCumulativeModuleAttendance.java&#10;ModuleAttenda&#9;PSI&#9;JAVA://application.domain.module.attendance.ModuleAttendance&#10;Inte&#9;PSI&#9;JAVA://java.lang.Integer&#10;Long&#9;PSI&#9;JAVA://java.lang.Long&#10;Abstra&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/domain/metrics/AttendanceMetricsAbstract.java&#10;pom&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml" />
+    <property name="SearchEverywhereHistoryKey" value="Stude&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/resource/student/StudentResource.java&#10;Admin&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/templates/adminPage.html&#10;Userre&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/user/UserRepository.java&#10;UserRE&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/user/UserRepository.java&#10;StudentRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/student/StudentRepository.java&#10;UserRep&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/user/UserRepository.java&#10;UserSer&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/user/UserService.java&#10;UserRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/resource/user/UserResource.java&#10;Metrics&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/metrics/MetricsService.java&#10;ClassRep&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java&#10;ModuleRe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/module/ModuleRepository.java&#10;Student&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/student/StudentRepository.java&#10;StudentSe&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/student/StudentService.java&#10;StudentR&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/student/StudentRepository.java&#10;StudentRes&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/resource/student/StudentResource.java&#10;admi&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/templates/adminPage.html&#10;AdminC&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/admin/AdminController.java&#10;UserR&#9;PSI&#9;JAVA://application.repository.user.UserRowMapper&#10;User&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/domain/user/User.java&#10;main.css&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/static/css/main.css&#10;lec&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/lecturer/LecturerController.java&#10;lecturer&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/static/js/lecturer.js&#10;Metr&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/metrics/MetricsService.java&#10;ClassRepo&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java&#10;Module&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/module/ModuleRepository.java&#10;Access&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/accessCode/AccessCodeRepository.java&#10;Atte&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/attendance/AttendanceRepository.java&#10;ModuleRE&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/module/ModuleRepository.java&#10;StudentCon&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/student/StudentController.java&#10;StudentS&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/student/StudentService.java&#10;ModuleR&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/module/ModuleRowMapper.java&#10;StudentREp&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/student/StudentRepository.java&#10;StudentRE&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/student/StudentRepository.java&#10;BaseRe&#9;PSI&#9;JAVA://application.api.resource.BaseResource&#10;StudentContr&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/student/StudentController.java&#10;pom.x&#9;FILE&#9;file:///home/Projects/blusign-server/pom.xml&#10;date&#9;PSI&#9;JAVA://application.util.date.DateUtility&#10;Schedu&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java&#10;.pro&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;Me&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/metrics/MetricsService.java&#10;I&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/domain/module/attendance/IndividualCumulativeModuleAttendance.java&#10;Lect&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/lecturer/LecturerController.java&#10;Sche&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/scheduledClass/ScheduledClassRowMapper.java&#10;Metricss&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/service/metrics/MetricsService.java&#10;Sched&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java&#10;css&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/static/css/main.css&#10;Lecturer&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/java/application/api/controller/lecturer/LecturerController.java&#10;prop&#9;FILE&#9;file:///home/Projects/blusign-server/src/main/resources/application.properties&#10;AccessCodeSe&#9;PSI&#9;JAVA://application.service.accessCode.AccessCodeService&#10;Acce&#9;PSI&#9;JAVA://application.domain.accessCode.AccessCode" />
     <property name="settings.editor.selected.configurable" value="copyright" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/web" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="main.application.domain.entity.identifier" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/templates" />
       <recent name="$PROJECT_DIR$/src/main/resources/templates/lecturer" />
       <recent name="$PROJECT_DIR$/src/main/resources/static/js" />
       <recent name="$PROJECT_DIR$/src/main/resources/static" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="main.application.domain.entity.identifier" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/web" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Unnamed">
@@ -683,7 +708,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="726" extended-state="0" />
+    <frame x="-1" y="-32" width="1366" height="726" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -693,10 +718,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37802908" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37802908" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21041055" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33431086" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -708,7 +734,6 @@
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="100" y="100" width="1166" height="526" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -723,17 +748,17 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37802908" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37802908" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21041055" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33431086" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4701131" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4701131" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -751,37 +776,13 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java</url>
-          <line>94</line>
-          <properties />
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java</url>
-          <line>93</line>
+          <line>146</line>
           <properties />
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/application/repository/user/UserRepository.java</url>
-          <line>38</line>
-          <properties />
-          <option name="timeStamp" value="64" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.3.5.RELEASE/spring-jdbc-4.3.5.RELEASE-sources.jar!/org/springframework/jdbc/core/JdbcTemplate.java</url>
-          <line>868</line>
-          <properties />
-          <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java</url>
-          <line>162</line>
-          <properties />
-          <option name="timeStamp" value="66" />
+          <option name="timeStamp" value="68" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="67" />
+      <option name="time" value="69" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -790,39 +791,11 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/accessCode/AccessCodeForClassResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/config/security/CustomAuthenticationSuccessHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="55" column="14" selection-start-line="55" selection-start-column="14" selection-end-line="55" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/ipRange/IpRangeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="78" column="22" selection-start-line="78" selection-start-column="22" selection-end-line="78" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/service/allocation/AllocationService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -845,20 +818,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="45" column="98" selection-start-line="45" selection-start-column="98" selection-end-line="45" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/student/CreatedStudentResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#253#254#0" expanded="false" />
-            <element signature="e#283#284#0" expanded="false" />
-            <element signature="e#427#428#0" expanded="false" />
-            <element signature="e#465#466#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -866,14 +826,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/IdentifiableResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="11" column="76" selection-start-line="11" selection-start-column="76" selection-end-line="11" selection-end-column="76" />
           <folding />
         </state>
       </provider>
@@ -890,6 +842,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -897,6 +850,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#535#536#0" expanded="true" />
+            <element signature="e#580#581#0" expanded="true" />
+            <element signature="e#664#665#0" expanded="true" />
+            <element signature="e#712#713#0" expanded="true" />
+            <element signature="e#854#855#0" expanded="true" />
+            <element signature="e#894#895#0" expanded="true" />
+            <element signature="e#963#964#0" expanded="true" />
+            <element signature="e#1001#1002#0" expanded="true" />
+            <element signature="e#1179#1180#0" expanded="true" />
+            <element signature="e#1226#1227#0" expanded="true" />
+            <element signature="e#1308#1309#0" expanded="true" />
+            <element signature="e#1352#1353#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -935,39 +903,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/student/StudentController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="141" column="50" selection-start-line="141" selection-start-column="50" selection-end-line="141" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/attendance/AttendanceRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="86" column="77" selection-start-line="86" selection-start-column="29" selection-end-line="86" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/accessCode/AccessCodeRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="64" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="88" column="68" selection-start-line="88" selection-start-column="68" selection-end-line="88" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="175" column="29" selection-start-line="175" selection-start-column="29" selection-end-line="175" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -1012,48 +951,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/module/ModuleService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="40" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/student/StudentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="83" column="46" selection-start-line="83" selection-start-column="46" selection-end-line="83" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/metrics/MetricsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="91" column="90" selection-start-line="91" selection-start-column="90" selection-end-line="91" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/domain/student/StudentModuleAttendanceCorrelation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-792">
-          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/student/StudentRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-972">
-          <caret line="94" column="52" selection-start-line="94" selection-start-column="52" selection-end-line="94" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -1099,53 +1000,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/adminPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1980">
-          <caret line="110" column="61" selection-start-line="110" selection-start-column="61" selection-end-line="110" selection-end-column="61" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#7;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/student/StudentResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/user/UserRowMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/user/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="65" column="36" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
-          <folding>
-            <element signature="e#1706#1707#0" expanded="true" />
-            <element signature="e#1769#1770#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/user/UserResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#715#716#0" expanded="true" />
-            <element signature="e#751#752#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1195,37 +1054,215 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.3.5.RELEASE/spring-jdbc-4.3.5.RELEASE-sources.jar!/org/springframework/jdbc/core/JdbcTemplate.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/attendance/AttendanceRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="868" column="0" selection-start-line="868" selection-start-column="0" selection-end-line="868" selection-end-column="0" />
+        <state relative-caret-position="1350">
+          <caret line="86" column="77" selection-start-line="86" selection-start-column="29" selection-end-line="86" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/lecturer/LecturerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="592">
+          <caret line="102" column="9" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/user/PasswordResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
           <folding>
-            <element signature="e#30982#31485#0" expanded="true" />
-            <element signature="e#31484#31485#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#325#326#0" expanded="true" />
+            <element signature="e#354#355#0" expanded="true" />
+            <element signature="e#387#388#0" expanded="true" />
+            <element signature="e#414#415#0" expanded="true" />
+            <element signature="e#479#480#0" expanded="true" />
+            <element signature="e#508#509#0" expanded="true" />
+            <element signature="e#586#587#0" expanded="true" />
+            <element signature="e#619#620#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.5.RELEASE/spring-web-4.3.5.RELEASE-sources.jar!/org/springframework/http/HttpStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-128">
+          <caret line="73" column="4" selection-start-line="73" selection-start-column="4" selection-end-line="73" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/student/StudentRowMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="17" column="47" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/module/ModuleRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-834">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/metrics/MetricsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2376">
+          <caret line="132" column="69" selection-start-line="132" selection-start-column="69" selection-end-line="132" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/scheduledClass/ScheduledClassRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-222">
+          <caret line="141" column="53" selection-start-line="141" selection-start-column="53" selection-end-line="141" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/domain/student/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="50" column="30" selection-start-line="50" selection-start-column="30" selection-end-line="50" selection-end-column="30" />
+          <folding>
+            <element signature="e#1081#1082#0" expanded="true" />
+            <element signature="e#1123#1124#0" expanded="true" />
+            <element signature="e#1157#1158#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/user/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="70" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/module/ModuleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/user/UserRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="42" column="35" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
+        <state relative-caret-position="1110">
+          <caret line="81" column="44" selection-start-line="81" selection-start-column="44" selection-end-line="81" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/adminPage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="152" column="60" selection-start-line="152" selection-start-column="60" selection-end-line="152" selection-end-column="60" />
+        <state relative-caret-position="126">
+          <caret line="79" column="75" selection-start-line="79" selection-start-column="65" selection-end-line="79" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.3.5.RELEASE/spring-jdbc-4.3.5.RELEASE-sources.jar!/org/springframework/jdbc/core/JdbcTemplate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="868" column="0" selection-start-line="868" selection-start-column="0" selection-end-line="868" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4340">
-          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+        <state relative-caret-position="126">
+          <caret line="133" column="52" selection-start-line="133" selection-start-column="52" selection-end-line="133" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/student/StudentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="137" column="33" selection-start-line="137" selection-start-column="33" selection-end-line="137" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3662#3663#0" expanded="true" />
+            <element signature="e#3724#3725#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/user/UserResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#444#445#0" expanded="true" />
+            <element signature="e#473#474#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/student/StudentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-995">
+          <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/student/CreatedStudentResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="5" column="46" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
+          <folding>
+            <element signature="e#253#254#0" expanded="true" />
+            <element signature="e#283#284#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/student/StudentResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="9" column="46" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/resource/IdentifiableResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/api/controller/admin/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="146" column="53" selection-start-line="146" selection-start-column="53" selection-end-line="146" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/student/StudentRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="220" column="71" selection-start-line="220" selection-start-column="71" selection-end-line="220" selection-end-column="71" />
           <folding />
         </state>
       </provider>

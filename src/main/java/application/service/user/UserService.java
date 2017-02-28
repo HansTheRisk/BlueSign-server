@@ -66,6 +66,10 @@ public class UserService implements NaturallyIdentifiableService <User>, UserDet
         return userRepository.updateUserDetails(object);
     }
 
+    public boolean resetUserPassword(String uuid, String password) {
+        return userRepository.resetUserPassword(uuid, password);
+    }
+
     /**
      * Gets user by username.
      * @param username

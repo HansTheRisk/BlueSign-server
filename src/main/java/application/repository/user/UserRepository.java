@@ -35,6 +35,17 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
         return executor.queryForObject(sql, new Object[]{username}, new UserRowMapper());
     }
 
+    public boolean resetUserPassword(String uuid, String password) {
+        String sql = "UPDATE user "+
+                     "SET psswd_salt = ? "+
+                     "WHERE uuid = ? ";
+        if(executor.update(sql,
+                new Object[]{password, uuid}) ==1)
+            return true;
+        else
+            return false;
+    }
+
     public User updateUserDetails(User user) {
         String sql = "UPDATE user "+
                      "SET username = ?, " +
@@ -48,7 +59,7 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
                                         user.getSurname(),
                                         user.getEmail(),
                                         user.getUuid()}) ==1)
-            return user;
+            return findByUuid(user.getUuid());
         else
             return null;
     }
@@ -68,7 +79,7 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
                 ps.setString(7, user.getEmail());
             }
         }) == 1)
-            return user;
+            return findByUuid(user.getUuid());
         else
             return null;
     }

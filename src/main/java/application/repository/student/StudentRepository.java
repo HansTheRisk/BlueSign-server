@@ -3,6 +3,7 @@ package application.repository.student;
 import application.domain.student.Student;
 import application.domain.student.StudentAttendanceCorrelation;
 import application.domain.student.StudentModuleAttendanceCorrelation;
+import application.domain.user.User;
 import application.repository.BaseJDBCRepository;
 import application.repository.IdentifiableRepository;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -30,7 +31,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
      */
     public List<StudentAttendanceCorrelation> findAllWhoAttendedAClass(String classUuid, long timestamp) {
         Timestamp timestampObj = new Timestamp(timestamp);
-        String sql = "SELECT student.id as studentId, university_id, name, surname, pin_salt, class.uuid AS class_uuid, attendance.date, module.module_code " +
+        String sql = "SELECT student.id as studentId, university_id, name, surname, email, pin_salt, class.uuid AS class_uuid, attendance.date, module.module_code " +
                      "FROM student " +
                         "INNER JOIN attendance ON student.id = attendance.student_id " +
                         "INNER JOIN class ON attendance.class_id = class.id " +
@@ -48,7 +49,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
      */
     public List<StudentAttendanceCorrelation> findAllWhoWereLateForAClass(String classUuid, long timestamp) {
         Timestamp timestampObj = new Timestamp(timestamp);
-        String sql = "SELECT student.id as studentId, university_id, name, surname, pin_salt, class.uuid AS class_uuid, attendance.date, module.module_code " +
+        String sql = "SELECT student.id as studentId, university_id, name, surname, email, pin_salt, class.uuid AS class_uuid, attendance.date, module.module_code " +
                      "FROM student " +
                         "INNER JOIN attendance ON student.id = attendance.student_id " +
                         "INNER JOIN class ON attendance.class_id = class.id " +
@@ -67,9 +68,9 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
      */
     public List<Student> findAllWhoDidNotAttendAClass(String classUuid, long timestamp) {
         Timestamp timestampObj = new Timestamp(timestamp);
-        String sql = "SELECT student_id as studentId, university_id, name, surname, pin_salt " +
+        String sql = "SELECT student_id as studentId, university_id, name, surname, email, pin_salt " +
                      "FROM " +
-                     "(SELECT student.id as student_id, university_id, name, surname, pin_salt " +
+                     "(SELECT student.id as student_id, university_id, name, surname, email, pin_salt " +
                       "FROM student " +
                         "INNER JOIN allocation ON student.id = allocation.student_id " +
                         "INNER JOIN class ON allocation.class_id = class.id " +
@@ -93,7 +94,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
      * @return List of StudentModuleAttendanceCorrelation
      */
     public List<StudentModuleAttendanceCorrelation> findStudentAttendanceCorrelationForModuleGroup(String moduleCode, String groupName) {
-        String sql = "SELECT DISTINCT student.id studentId, university_id, name, surname, pin_salt, " +
+        String sql = "SELECT DISTINCT student.id studentId, university_id, name, surname, email, pin_salt, " +
                     "(SELECT COUNT(*) " +
                      "FROM attendance INNER JOIN student ON attendance.student_id = student.id " +
                         "INNER JOIN class ON attendance.class_id = class.id " +
@@ -114,7 +115,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
      * @return List of StudentModuleAttendanceCorrelation
      */
     public List<StudentModuleAttendanceCorrelation> findStudentAttendanceCorrelationForStudentsWithNoGroup(String moduleCode) {
-        String sql = "SELECT DISTINCT student.id AS studentId, university_id, name, surname, pin_salt, " +
+        String sql = "SELECT DISTINCT student.id AS studentId, university_id, name, surname, email, pin_salt, " +
                      "(SELECT COUNT(*) " +
                      "FROM attendance INNER JOIN student ON attendance.student_id = student.id " +
                         "INNER JOIN class ON attendance.class_id = class.id " +
@@ -140,7 +141,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
      * @return Student
      */
     public Student findByUniversityIdAndPin(String universityId, String pin) {
-        String sql = "SELECT id as studentId, university_id, name, surname, pin_salt " +
+        String sql = "SELECT id as studentId, university_id, name, surname, email, pin_salt " +
                      "FROM student " +
                      "WHERE university_id = ? AND pin_salt = ?";
         return executor.queryForObject(sql,
@@ -153,7 +154,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
      * @return Student
      */
     public Student findByUniversityId(String universityId) {
-        String sql = "SELECT id as studentId, university_id, name, surname, pin_salt " +
+        String sql = "SELECT id as studentId, university_id, name, surname, email, pin_salt " +
                 "FROM student " +
                 "WHERE university_id = ?";
         return executor.queryForObject(sql,
@@ -165,9 +166,37 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
      * @return List of Students
      */
     public List<Student> findAll() {
-        String sql = "SELECT student.id as studentId, university_id, name, surname, pin_salt " +
+        String sql = "SELECT student.id as studentId, university_id, name, surname, email, pin_salt " +
                      "FROM student";
         return executor.query(sql, new StudentRowMapper());
+    }
+
+    public String resetStudentPin(String id, String pin) {
+        String sql = "UPDATE student "+
+                "SET pin_salt = ? "+
+                "WHERE university_id = ? ";
+        if(executor.update(sql,
+                new Object[]{pin, id}) ==1)
+            return pin;
+        else
+            return null;
+    }
+
+    public Student updateStudentDetails(Student student) {
+        String sql = "UPDATE student "+
+                "SET name = ?, " +
+                "surname = ?, " +
+                "email = ? " +
+                "WHERE university_id = ? ";
+        if(executor.update(sql,
+                new Object[]{
+                        student.getName(),
+                        student.getSurname(),
+                        student.getEmail(),
+                        student.getUniversityId()}) ==1)
+            return findByUniversityId(student.getUniversityId());
+        else
+            return null;
     }
 
     /**
@@ -177,25 +206,28 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
      */
     @Override
     public Student findById(Long id) {
-        String sql = "SELECT student.id as studentId, university_id, name, surname, pin_salt " +
+        String sql = "SELECT student.id as studentId, university_id, name, surname, email, pin_salt " +
                      "FROM student WHERE id = ?";
         return executor.queryForObject(sql,
                 new Object[]{id}, new StudentRowMapper());
     }
 
     public Student saveStudent(Student student) {
-        String sql = "INSERT INTO student(university_id, name, surname, pin_salt) " +
-                     "VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO student(university_id, name, surname, email, pin_salt) " +
+                     "VALUES(?, ?, ?, ?, ?)";
         if(executor.update(sql, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
-                ps.setString(1, student.getUniversityId());
+                ps.setString(1, student.getUniversityId().toLowerCase());
                 ps.setString(2, student.getName());
                 ps.setString(3, student.getSurname());
-                ps.setString(4, student.getPin());
+                ps.setString(4, student.getEmail());
+                ps.setString(5, student.getPin());
             }
-        }) == 1)
+        }) == 1) {
+            student.setId(findByUniversityId(student.getUniversityId()).getId());
             return student;
+        }
         else
             return null;
     }

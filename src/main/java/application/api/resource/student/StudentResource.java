@@ -59,4 +59,18 @@ public class StudentResource extends IdentifiableResource<Student> {
         object.setSurname(surname);
     }
 
+    /**
+     * This method returns email of the student.
+     * @return String
+     */
+    @JsonProperty("email")
+    public String getEmail() {
+        return object.getEmail();
+    }
+
+    @JsonProperty("email")
+    public void setEmail(String email) {
+        object.setEmail(email);
+    }
+
 }
