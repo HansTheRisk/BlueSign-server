@@ -21,8 +21,16 @@ public class UserService implements NaturallyIdentifiableService <User>, UserDet
     @Autowired
     private UserRepository userRepository;
 
+    public User getUserByUuid(String uuid) {
+        return userRepository.findByUuid(uuid);
+    }
+
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    public List<User> getLecturers() {
+        return userRepository.findAllLecturers();
     }
 
     /**

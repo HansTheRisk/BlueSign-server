@@ -1,9 +1,11 @@
 package application.repository.module;
 
+import application.domain.accessCode.AccessCode;
 import application.domain.module.Module;
 import application.domain.student.Student;
 import application.repository.BaseJDBCRepository;
 import application.repository.IdentifiableRepository;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +20,7 @@ import java.util.List;
 public class ModuleRepository extends BaseJDBCRepository implements IdentifiableRepository<Module> {
 
     /**
-     * This method returns all the modules of the student.
+     * This method returns all the modules of the student by class allocation.
      * @param universityId
      * @return List of Modules
      */
@@ -63,7 +65,15 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
                      "INNER JOIN user ON " +
                         "module.lecturer_id = user.id " +
                      "WHERE module_code = ? ";
-        return executor.queryForObject(sql, new Object[]{moduleCode}, new ModuleRowMapper());
+        return executor.queryForObject(sql, new Object[]{moduleCode.toLowerCase()}, new ModuleRowMapper());
+    }
+
+    public List<Module> findAll() {
+        String sql = "SELECT module.id, title, module_code, user.uuid AS lecturer_uuid " +
+                     "FROM module " +
+                     "INNER JOIN user ON " +
+                        "module.lecturer_id = user.id ";
+        return executor.query(sql, new Object[]{}, new ModuleRowMapper());
     }
 
     /**
@@ -81,7 +91,7 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
 
     public Module saveModule(Module module) {
         String sql = "INSERT INTO module(title, module_code, lecturer_id) " +
-                "VALUES(?, ?, ?, (SELECT id FROM user WHERE uuid = ?))";
+                "VALUES(?, ?, (SELECT id FROM user WHERE uuid = ?))";
         if(executor.update(sql, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
@@ -90,8 +100,26 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
                 ps.setString(3, module.getLecturerUuid());
             }
         }) == 1)
-            return module;
+            return getByModuleCode(module.getModuleCode());
         else
             return null;
+    }
+
+    public void insertModuleAllocations(String moduleCode, List<String> studentIds) {
+        String sql = "INSERT INTO module_student(module_id, student_id) " +
+                "VALUES((SELECT id FROM module WHERE module_code = ?), " +
+                "(SELECT id FROM student WHERE university_id = ?))";
+        executor.batchUpdate(sql, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                ps.setString(1, moduleCode);
+                ps.setString(2, studentIds.get(i));
+            }
+
+            @Override
+            public int getBatchSize() {
+                return studentIds.size();
+            }
+        });
     }
 }

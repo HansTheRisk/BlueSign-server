@@ -23,6 +23,13 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
         return executor.query(sql, new UserRowMapper());
     }
 
+    public List<User> findAllLecturers() {
+        String sql = "SELECT id, uuid, username, name, surname, psswd_salt, type, email " +
+                "FROM user " +
+                "WHERE type='ROLE_LECTURER'";
+        return executor.query(sql, new UserRowMapper());
+    }
+
     /**
      * Retrieves a User by the username.
      * @param username

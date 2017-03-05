@@ -78,6 +78,8 @@ public class LecturerController {
     @RequestMapping(value = "lecturer/modules/{moduleCode}/classes", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ScheduledClassResource>> getModulesClasses(@PathVariable String moduleCode) {
+        if (moduleService.getByModuleCode(moduleCode) == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         List<ScheduledClassResource> classes = new ArrayList<>();
         scheduledClassService.findClassesByModuleCode(moduleCode).forEach(scheduledClass -> classes.add(new ScheduledClassResource(scheduledClass)));
         return new ResponseEntity<>(classes, HttpStatus.OK);

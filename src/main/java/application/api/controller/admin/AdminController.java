@@ -1,6 +1,9 @@
 package application.api.controller.admin;
 
+import application.api.controller.lecturer.LecturerController;
 import application.api.resource.message.MessageResource;
+import application.api.resource.module.ModuleResource;
+import application.api.resource.module.ModuleToCreateResource;
 import application.api.resource.scheduledClass.ScheduledClassResource;
 import application.api.resource.student.CreatedStudentResource;
 import application.api.resource.student.StudentResource;
@@ -28,6 +31,9 @@ import java.util.stream.Collectors;
 
 @Controller
 public class AdminController {
+
+    @Autowired
+    LecturerController lecturerController;
 
     @Autowired
     private StudentService studentService;
@@ -64,6 +70,15 @@ public class AdminController {
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "admin/user/{uuid}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity getUser(@PathVariable String uuid) {
+        User user = userService.getUserByUuid(uuid);
+        if(user == null)
+            return new ResponseEntity<>(new MessageResource("User does not exist"), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new UserResource(user), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "admin/user", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<UserResource>> getUsers() {
@@ -71,6 +86,15 @@ public class AdminController {
                                                                  .stream()
                                                                  .map(user -> new UserResource(user))
                                                                  .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "admin/lecturer", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<UserResource>> getLecturers() {
+        return new ResponseEntity<List<UserResource>>(userService.getLecturers()
+                .stream()
+                .map(user -> new UserResource(user))
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "admin/user", method = RequestMethod.POST)
@@ -187,28 +211,51 @@ public class AdminController {
         return null;
     }
 
-//    @RequestMapping(value = "admin/module", method = RequestMethod.POST)
-//    @ResponseBody
-//    public ResponseEntity createModule(@RequestBody ModuleToCreateResource resource) {
-//
-//        if(moduleService.getByModuleCode(resource.getModuleCode()) != null)
-//            return new ResponseEntity(new MessageResource("Module with id: " +resource.getModuleCode()+ " exists already."), HttpStatus.FORBIDDEN);
-//
-//        if(userService.findByUUID(resource.getLecturerUuid()) == null)
-//            return new ResponseEntity(new MessageResource("Provided lecturer does not exist"), HttpStatus.FORBIDDEN);
-//
-//        List<String> studentIds = studentService.findAll().stream().map(student -> student.getUniversityId()).collect(Collectors.toList());
-//        List<String> students = resource.getStudentIds();
-//
-//        if(students.size() == 0)
-//            return new ResponseEntity<>(new MessageResource("A module cannot be created without assigned students"), HttpStatus.FORBIDDEN);
-//
-//        for(int i = 0; i < students.size();  i++) {
-//            if(!studentIds.contains(students.get(i)))
-//                    return new ResponseEntity<>(new MessageResource("A student with id: " +students.get(i)+ " does not exist."), HttpStatus.FORBIDDEN);
-//        }
-//        return new ResponseEntity<>(new ModuleResource(moduleService.saveWithStudentsAllocated(resource.getObject(), students)), HttpStatus.CREATED);
-//    }
+    @RequestMapping(value = "admin/module", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createModule(@RequestBody ModuleToCreateResource resource) {
+
+        ResponseEntity validation = validateModuleToCreateResource(resource);
+        if(validation != null)
+            return validation;
+
+        if(moduleService.getByModuleCode(resource.getModuleCode()) != null)
+            return new ResponseEntity(new MessageResource("Module with id: " +resource.getModuleCode()+ " exists already."), HttpStatus.FORBIDDEN);
+
+        if(userService.findByUUID(resource.getLecturerUuid()) == null)
+            return new ResponseEntity(new MessageResource("Provided lecturer does not exist"), HttpStatus.FORBIDDEN);
+
+        List<String> studentIds = studentService.findAll().stream().map(student -> student.getUniversityId()).collect(Collectors.toList());
+        List<String> students = resource.getStudentIds();
+
+        for(int i = 0; i < students.size();  i++) {
+            if(!studentIds.contains(students.get(i)))
+                    return new ResponseEntity<>(new MessageResource("A student with id: " +students.get(i)+ " does not exist."), HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(new ModuleResource(moduleService.saveWithStudentsAllocated(resource.getObject(), students)), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "admin/module", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<ModuleResource>> getModules() {
+        List<ModuleResource> modules = new ArrayList<>();
+        moduleService.getModules().forEach(module -> modules.add(new ModuleResource(module)));
+        return new ResponseEntity<>(modules, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "admin/module/{code}/classes", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<ScheduledClassResource>> getModulesClasses(@PathVariable String code) {
+        return lecturerController.getModulesClasses(code);
+    }
+
+    @RequestMapping(value = "admin/module/{moduleCode}/students", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<StudentResource>> getModuleStudents(@PathVariable String moduleCode) {
+        List<StudentResource> students = new ArrayList<>();
+        studentService.getStudentsAllocatedToAModule(moduleCode).forEach(student -> students.add(new StudentResource(student)));
+        return new ResponseEntity<>(students, HttpStatus.OK);
+    }
 
     public ResponseEntity createClass() {
         return null;
@@ -251,6 +298,18 @@ public class AdminController {
             return new ResponseEntity(new MessageResource("Missing surname!"), HttpStatus.FORBIDDEN);
         if(resource.getEmail() == null || resource.getEmail().isEmpty())
             return new ResponseEntity(new MessageResource("Missing email!"), HttpStatus.FORBIDDEN);
+        return null;
+    }
+
+    private ResponseEntity validateModuleToCreateResource(ModuleToCreateResource resource) {
+        if(resource.getModuleCode() == null || resource.getModuleCode().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing module coode!"), HttpStatus.FORBIDDEN);
+        if(resource.getTitle() == null || resource.getTitle().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing title!"), HttpStatus.FORBIDDEN);
+        if(resource.getLecturerUuid() == null || resource.getLecturerUuid().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing lecturer!"), HttpStatus.FORBIDDEN);
+        if(resource.getStudentIds() == null || resource.getStudentIds().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing students!"), HttpStatus.FORBIDDEN);
         return null;
     }
 }

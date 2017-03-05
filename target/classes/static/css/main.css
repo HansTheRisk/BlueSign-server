@@ -38,6 +38,13 @@
     max-height: 200px;
 }
 
+#studentsList {
+ margin-left: 20px;
+ height: 100px;
+ overflow: auto;
+ width: auto;
+}
+
 td {
     padding:0 15px 0 15px;
 }

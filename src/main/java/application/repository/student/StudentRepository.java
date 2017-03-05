@@ -22,6 +22,15 @@ import java.util.Random;
 @Component
 public class StudentRepository extends BaseJDBCRepository implements IdentifiableRepository<Student> {
 
+    public List<Student> findAllAllocatedToAModule(String moduleCode) {
+        String sql = "SELECT student_id as studentId, university_id, name, surname, email, pin_salt " +
+                       "FROM student " +
+                          "INNER JOIN module_student ON student.id = student_id " +
+                          "INNER JOIN module ON module.id = module_id " +
+                        "WHERE module.module_code = ? ";
+        return executor.query(sql, new Object[]{moduleCode.toLowerCase()}, new StudentRowMapper());
+    }
+
     /**
      * Returns a list of students who attended a class
      * and their times of signing into the system.

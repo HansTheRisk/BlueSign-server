@@ -48,6 +48,10 @@ public class ModuleService implements IdentifiableEntityService<Module> {
         return repository.getByModuleCode(moduleCode);
     }
 
+    public List<Module> getModules() {
+        return repository.findAll();
+    }
+
     /**
      * Finds a module by its id.
      * @param id
@@ -75,10 +79,9 @@ public class ModuleService implements IdentifiableEntityService<Module> {
      * @return boolean
      */
     @Transactional
-    public boolean saveWithStudentsAllocated(Module object, List<String> studentUuids) {
+    public Module saveWithStudentsAllocated(Module object, List<String> studentUuids) {
         Module module = repository.saveModule(object);
-        //TODO needs a new support table
-
-        return false;
+        repository.insertModuleAllocations(object.getModuleCode(), studentUuids);
+        return module;
     }
 }

@@ -20,6 +20,10 @@ public class StudentService implements IdentifiableEntityService<Student>{
     @Autowired
     private StudentRepository repository;
 
+    public List<Student> getStudentsAllocatedToAModule(String moduleCode) {
+        return repository.findAllAllocatedToAModule(moduleCode);
+    }
+
     /**
      * Gets all students who attended a given completed class.
      * @param classUuid
