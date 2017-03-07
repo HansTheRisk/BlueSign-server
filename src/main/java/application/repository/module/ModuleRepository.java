@@ -1,8 +1,6 @@
 package application.repository.module;
 
-import application.domain.accessCode.AccessCode;
 import application.domain.module.Module;
-import application.domain.student.Student;
 import application.repository.BaseJDBCRepository;
 import application.repository.IdentifiableRepository;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;

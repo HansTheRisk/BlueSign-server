@@ -108,13 +108,39 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                      "FROM attendance INNER JOIN student ON attendance.student_id = student.id " +
                         "INNER JOIN class ON attendance.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
-                     "WHERE student.id = studentId AND module_code = ? AND (group_name = ? OR group_name = 'NONE')) as count " +
+                     "WHERE student.id = studentId AND module_code = ? AND (group_name = ? OR group_name = 'none')) as count " +
                      "FROM student " +
                         "INNER JOIN allocation ON student.id = allocation.student_id " +
                         "INNER JOIN class ON allocation.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
                      "WHERE module_code = ? AND group_name = ?";
-        return executor.query(sql, new Object[]{moduleCode, groupName, moduleCode, groupName}, new StudentModuleAttendanceCorrelationRowMapper());
+        return executor.query(sql, new Object[]{moduleCode.toLowerCase(), groupName, moduleCode.toLowerCase(), groupName}, new StudentModuleAttendanceCorrelationRowMapper());
+    }
+
+    public List<Student> findStudentsAllocatedToAModuleGroup(String moduleCode, String groupName) {
+        String sql = "SELECT DISTINCT student.id studentId, university_id, name, surname, email, pin_salt " +
+                     "FROM student " +
+                        "INNER JOIN allocation ON student.id = allocation.student_id " +
+                        "INNER JOIN class ON allocation.class_id = class.id " +
+                        "INNER JOIN module ON class.module_id = module.id " +
+                     "WHERE module_code = ? AND group_name = ?";
+        return executor.query(sql, new Object[]{moduleCode.toLowerCase(), groupName}, new StudentRowMapper());
+    }
+
+    public List<Student> findStudentsOnlyAllocatedToNoneGroup(String moduleCode) {
+        String sql = "SELECT DISTINCT student.id AS studentId, university_id, name, surname, email, pin_salt " +
+                     "FROM student " +
+                        "INNER JOIN allocation ON student.id = allocation.student_id " +
+                        "INNER JOIN class ON allocation.class_id = class.id " +
+                        "INNER JOIN module ON class.module_id = module.id " +
+                     "WHERE module_code = ? AND group_name = ('none') " +
+                     "AND student.id " +
+                        "NOT IN(SELECT DISTINCT student.id FROM student " +
+                                    "INNER JOIN allocation ON student.id = allocation.student_id " +
+                                    "INNER JOIN class ON allocation.class_id = class.id " +
+                                    "INNER JOIN module ON class.module_id = module.id " +
+                                "WHERE module_code = ? AND group_name !=('none'))";
+        return executor.query(sql, new Object[]{moduleCode.toLowerCase(), moduleCode.toLowerCase()}, new StudentRowMapper());
     }
 
     /**
@@ -129,17 +155,17 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                      "FROM attendance INNER JOIN student ON attendance.student_id = student.id " +
                         "INNER JOIN class ON attendance.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
-                     "WHERE student.id = studentId AND module_code = ? AND group_name = 'NONE') as count FROM student " +
+                     "WHERE student.id = studentId AND module_code = ? AND group_name = 'none') as count FROM student " +
                         "INNER JOIN allocation ON student.id = allocation.student_id " +
                         "INNER JOIN class ON allocation.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
-                     "WHERE module_code = ? AND group_name = ('NONE') and student.id " +
+                     "WHERE module_code = ? AND group_name = ('none') and student.id " +
                      "NOT IN(SELECT DISTINCT student.id FROM student " +
                         "INNER JOIN allocation ON student.id = allocation.student_id " +
                         "INNER JOIN class ON allocation.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
-                     "WHERE module_code = ? AND group_name !=('NONE'))";
-        return executor.query(sql, new Object[]{moduleCode, moduleCode, moduleCode}, new StudentModuleAttendanceCorrelationRowMapper());
+                     "WHERE module_code = ? AND group_name !=('none'))";
+        return executor.query(sql, new Object[]{moduleCode.toLowerCase(), moduleCode.toLowerCase(), moduleCode.toLowerCase()}, new StudentModuleAttendanceCorrelationRowMapper());
     }
 
     /**

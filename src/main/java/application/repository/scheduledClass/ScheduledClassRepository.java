@@ -39,7 +39,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                         "WHERE " +
                             "student.university_id = ? " +
                             "AND module.module_code = ? ";
-        return executor.query(sql, new Object[]{universityId, moduleCode}, new ScheduledClassRowMapper());
+        return executor.query(sql, new Object[]{universityId, moduleCode.toLowerCase()}, new ScheduledClassRowMapper());
     }
 
     /**
@@ -58,7 +58,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
                      "WHERE module.module_code = ? ";
-        return executor.query(sql, new Object[]{moduleCode}, new ScheduledClassRowMapper());
+        return executor.query(sql, new Object[]{moduleCode.toLowerCase()}, new ScheduledClassRowMapper());
     }
 
     /**

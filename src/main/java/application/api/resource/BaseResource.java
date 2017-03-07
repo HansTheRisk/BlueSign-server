@@ -1,5 +1,7 @@
 package application.api.resource;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * This generic class provides the
  * foundations for all the resource classes.
@@ -18,6 +20,7 @@ public class BaseResource<T> {
         this.object = object;
     }
 
+    @JsonIgnore
     public T getObject() {
         return object;
     }

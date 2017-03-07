@@ -24,6 +24,14 @@ public class StudentService implements IdentifiableEntityService<Student>{
         return repository.findAllAllocatedToAModule(moduleCode);
     }
 
+    public List<Student> getStudentsAllocatedToAModuleGroup(String moduleCode, String group) {
+        return repository.findStudentsAllocatedToAModuleGroup(moduleCode, group);
+    }
+
+    public List<Student> getStudentsAllocatedOnlyToNoneGroup(String moduleCode) {
+        return repository.findStudentsOnlyAllocatedToNoneGroup(moduleCode);
+    }
+
     /**
      * Gets all students who attended a given completed class.
      * @param classUuid

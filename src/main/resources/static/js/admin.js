@@ -97,12 +97,24 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-	$(document).on("click", "#modulesDropDown li a", function(e) {
-        $(".dropdown-toggle:first-child").text($(this).text());
-        $(".dropdown-toggle:first-child").val($(this).text());
-        var code = $(this).attr("code");
-        getCall("/admin/module/"+code+"/classes", "json", loadClasses);
-	})
+    $(document).on("change", "#modulesDropDownList", function(e) {
+        var valueSelected = this.value;
+        if(valueSelected === 'null') {
+            $('#crateClassButton').attr('disabled', 'disabled');
+        }
+        else {
+            getCall("/admin/module/"+valueSelected+"/classes", "json", loadClasses);
+            $('#crateClassButton').removeAttr('disabled');
+        }
+    })
+});
+
+$(document).ready(function(){
+    $(document).on("change", "#group", function(e) {
+        var valueSelected = this.value;
+        var moduleCode = $('#modulesDropDownList option:selected').val();
+        getCall("/admin/module/"+moduleCode+"/"+valueSelected+"/student", "json", loadStudentsForClassCreate);
+    })
 });
 
 $(document).ready(function(){
@@ -221,6 +233,62 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+    $(document).on("submit", "#classForm", function(e) {
+        var id = $(this).find("button").attr("id");
+        var weeks = parseInt($('#weeks').val());
+        var days = weeks * 7;
+        var startDate = new Date($('#startDate').val());
+        var endDate = new Date(startDate);
+        var startTime = $('#startTime').val();
+        var endTime = $('#endTime').val();
+        var group = $('#group').val;
+        var locked = $('#studentsList').attr("locked")
+        var selectedModule = $('#modulesDropDownList option:selected').val();
+        var studentIds = [];
+
+        endDate.setDate(endDate.getDate() + days);
+
+
+        if(id=="submit") {
+            if(parseInt(endTime) < parseInt(startTime)) {
+                $('#alertText').empty();
+                $('#alertText').append("End time cannot be smaller than start time!");
+            }
+            else {
+
+                startDate.setHours(startTime);
+                startDate.setMinutes(15);
+                endDate.setHours(endTime);
+                endDate.setMinutes(15);
+
+                if (locked == "false") {
+                    $(this).find('input[type="checkbox"]').each(function(index){
+                        if($(this).is(':checked')) {
+                            studentIds.push($(this).attr("value"));
+                        }
+                    })
+                    if(studentIds.length == 0) {
+                        $('#alertText').empty();
+                        $('#alertText').append("A class for a new group cannot be created without allocated students!");
+                    }
+                    else {
+                        e.preventDefault();
+    //                    var requestData = JSON.stringify({ "moduleCode":moduleCode, "title":title, "lecturerUuid":lecturerUuid, "studentIds":studentIds});
+    //                    postCall("admin/module", "json", requestData, moduleCreateSuccess, userCreateFail);
+                    }
+                }
+                else {
+                        e.preventDefault();
+    //                    var requestData = JSON.stringify({ "moduleCode":moduleCode, "title":title, "lecturerUuid":lecturerUuid, "studentIds":studentIds});
+    //                    postCall("admin/module", "json", requestData, moduleCreateSuccess, userCreateFail);
+                }
+            }
+
+        }
+    })
+});
+
+$(document).ready(function(){
 	$("#myModal").on("show.bs.modal", function(e) {
 	    var type = $(e.relatedTarget).attr("callType")
 		$('.modal-body').empty();
@@ -244,6 +312,9 @@ $(document).ready(function(){
         }
         else if(type == "addModule") {
             loadAddModuleModal();
+        }
+        else if(type == "addClass") {
+            loadAddClassModal();
         }
 	});
 });
@@ -516,6 +587,51 @@ function loadAddModuleModal() {
      }, 500);
 }
 
+function loadAddClassModal() {
+    var today = new Date();
+    var modalBody = $('.modal-body');
+    var moduleCode = $('#modulesDropDownList option:selected').val();
+    modalBody.append($(
+    '<div>' +
+         '<div id="alert" class="alert alert-warning">' +
+            '<a href="#" class="close" data-dismiss="alert"></a>' +
+            '<div id ="alertText"></div>' +
+         '</div>' +
+         '<form id="classForm">' +
+             '<div class="form-group">' +
+                 '<label for="moduleCode">Start date</label>' +
+                 '</br><input id="startDate" type="date" value="'+today.toISOString().substr(0, 10)+'" required/></input>' +
+             '</div>' +
+             '<div class="form-group">' +
+                 '<label>Time</label>' +
+                 '</br>From: <input id="startTime" type="number" min="09" max="17" step="1" required>:15</input>' +
+             '</div>' +
+              '<div class="form-group">' +
+                  'To: <input id="endTime" name="end_time" type="number" min="10" max="18" step="1" required>:15</input>' +
+              '</div>' +
+             '<div class="form-group">' +
+                 '<label for="role">Num of weeks : </label>' +
+                 '</br><input type="number" min="0" max="10" step="1" value="0" name="weeks" id="weeks" required>' +
+             '</div>' +
+              '<div class="form-group">' +
+                  '<label for="group">Group : </label>' +
+                  '<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="group">' +
+                      '<option value="NONE">None</option>' +
+                      '<option value="A">A</option>' +
+                      '<option value="B">B</option>' +
+                      '<option value="C">C</option>' +
+                      '<option value="D">D</option>' +
+                  '</select>' +
+              '</div>' +
+              '<div id="studentFormGroup" class="form-group"><label for="students">Students</label></div>' +
+         '</form>' +
+     '</div>'));
+     getCall("/admin/module/"+moduleCode+"/none/student", "json", loadStudentsForClassCreate);
+     setTimeout(function(){
+       $('#classForm').append('<button id="submit" type="submit" class="btn btn-primary">Submit</button>');
+     }, 500);
+}
+
 function userCreateSuccess(json) {
     var date = new Date();
     $('#myModal .close').click();
@@ -651,6 +767,25 @@ function loadStudentsForModuleCreate(json) {
             }
 }
 
+function loadStudentsForClassCreate(json) {
+            var form = $('#studentFormGroup');
+            form.empty();
+            var students = $('<div id="studentsList"></div>').appendTo(form);
+            var locked = json.locked;
+            for(var i = 0; i < json.students.length; i++) {
+                var studentId = JSON.stringify(json.students[i].universityId).replace(/"/g, '');
+                var name = JSON.stringify(json.students[i].name).replace(/"/g, '');
+                var surname = JSON.stringify(json.students[i].surname).replace(/"/g, '');
+
+                students.append('<label class="checkbox" style="margin-left:20px;"><input class="check" type="checkbox" value="'+studentId+'">'+studentId+' '+name+' '+surname+'</label>');
+            }
+            if(locked == true)
+                $('#studentsList .check').attr('disabled', 'disabled');
+            else
+                $('#studentsList .check').removeAttr('disabled');
+            students.attr("locked", locked);
+}
+
 function loadModules(json) {
             $('#modulesPills').empty();
             $('#moduleInfo').empty();
@@ -687,11 +822,11 @@ function loadModuleStudents(json) {
 
 function loadModulesDropdown(json) {
             $('#modulesDropDown').empty();
-            var div = $('<div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Modules<span class="caret"></span></button></div>').appendTo($('#modulesDropDown'));
-            var dropdown = $('<ul class="dropdown-menu" aria-labelledby="dropdownMenu1"></il>').appendTo(div);
+            var dropdown = $('<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="modulesDropDownList"></select>').appendTo($('#modulesDropDown'));
+            dropdown.append('<option value="null">Select module</option>');
             for(var i = 0; i < json.length; i++) {
                 var moduleCode = JSON.stringify(json[i].moduleCode).replace(/"/g, '');
-                var li = $('<li><a code="'+moduleCode+'">'+moduleCode+'</a></li>').appendTo(dropdown);
+                var li = $('<option value="'+moduleCode+'">'+moduleCode+'</option>').appendTo(dropdown);
             }
 }
 

@@ -2,6 +2,7 @@ package application.api.controller.admin;
 
 import application.api.controller.lecturer.LecturerController;
 import application.api.resource.message.MessageResource;
+import application.api.resource.module.ModuleGroupStudentsResource;
 import application.api.resource.module.ModuleResource;
 import application.api.resource.module.ModuleToCreateResource;
 import application.api.resource.scheduledClass.ScheduledClassResource;
@@ -255,6 +256,30 @@ public class AdminController {
         List<StudentResource> students = new ArrayList<>();
         studentService.getStudentsAllocatedToAModule(moduleCode).forEach(student -> students.add(new StudentResource(student)));
         return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/admin/module/{module}/{group}/student", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<ModuleGroupStudentsResource> getModuleGroupStudents(@PathVariable String module,
+                                                                              @PathVariable String group) {
+
+        List<Student> students;
+        boolean locked = true;
+
+        if(group.toLowerCase().equals("none")) {
+            students = studentService.getStudentsAllocatedToAModule(module);
+        }
+        else {
+            students = studentService.getStudentsAllocatedToAModuleGroup(module, group);
+            if(students.isEmpty()) {
+                students = studentService.getStudentsAllocatedOnlyToNoneGroup(module);
+                if(students.isEmpty()) {
+                    students = studentService.getStudentsAllocatedToAModule(module);
+                }
+                locked = false;
+            }
+        }
+        return new ResponseEntity<>(new ModuleGroupStudentsResource(students.stream().map(stud -> new StudentResource(stud)).collect(Collectors.toList()), locked), HttpStatus.OK);
     }
 
     public ResponseEntity createClass() {

@@ -3,7 +3,7 @@
 <head>
     <title>BluSign - Admin</title>
     <meta charset="utf-8" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/admin.js}"></script>
     <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.css" th:href="@{js/bootstrap-3.3.7-dist/css/bootstrap.css}" />
@@ -155,7 +155,7 @@
                             <ul id="classesPills" class="nav nav-pills nav-stacked"></ul>
                         </div>
                         <p>
-                            <a class="btn btn-primary" callType="addClass" data-toggle="modal" data-target="#myModal" role="button">Add</a>
+                            <a class="btn btn-primary" id="crateClassButton" disabled="true" callType="addClass" data-toggle="modal" data-target="#myModal" role="button">Add</a>
                             <a class="btn btn-primary" callType="removeClass" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
                         </p>
                     </div>
