@@ -1,13 +1,17 @@
 package application.service.scheduledClass;
 
+import application.domain.allocation.Allocation;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.scheduledClass.attendance.CompletedClassAttendance;
 import application.repository.scheduledClass.ScheduledClassRepository;
 import application.service.NaturallyIdentifiableService;
+import application.service.allocation.AllocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service for operating the ScheduledClassRepository
@@ -17,6 +21,8 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
 
     @Autowired
     private ScheduledClassRepository repository;
+    @Autowired
+    private AllocationService allocationService;
 
     /**
      * Finds all the classes allocated to a student by
@@ -101,6 +107,16 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
      */
     @Override
     public ScheduledClass save(ScheduledClass object) {
-        return null;
+        return repository.saveClass(object);
+    }
+
+    @Transactional
+    public ScheduledClass saveWithStudentsAllocated(ScheduledClass object, List<String> studentUuids) {
+        ScheduledClass scheduledClass = repository.saveClass(object);
+        boolean done = allocationService.saveAllocations(studentUuids.stream().map(uuid -> new Allocation(uuid, object.getUuid())).collect(Collectors.toList()));
+        if(done)
+            return scheduledClass;
+        else
+            return null;
     }
 }

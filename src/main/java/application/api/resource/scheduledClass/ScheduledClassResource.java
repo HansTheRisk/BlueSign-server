@@ -78,7 +78,7 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
 
     @JsonProperty("group")
     public void setGroup(String group) {
-        object.setRoom(group);
+        object.setGroup(group);
     }
 
     /**
@@ -109,6 +109,7 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
         return object.getStartDate().getTime();
     }
 
+    @JsonProperty("startDateTimestamp")
     public void setStartDateTimestamp(long timestamp) {
         object.setStartDate(new Date(timestamp));
     }
@@ -122,7 +123,8 @@ public class ScheduledClassResource extends NaturallyIdentifiableResource<Schedu
         return object.getEndDate().getTime();
     }
 
-    public void setEndDatetimestamp(long timestamp) {
+    @JsonProperty("endDateTimestamp")
+    public void setEndDateTimestamp(long timestamp) {
         object.setEndDate(new Date(timestamp));
     }
 }

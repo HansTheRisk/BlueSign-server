@@ -28,7 +28,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                           "INNER JOIN module_student ON student.id = student_id " +
                           "INNER JOIN module ON module.id = module_id " +
                         "WHERE module.module_code = ? ";
-        return executor.query(sql, new Object[]{moduleCode.toLowerCase()}, new StudentRowMapper());
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase()}, new StudentRowMapper());
     }
 
     /**
@@ -114,7 +114,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                         "INNER JOIN class ON allocation.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
                      "WHERE module_code = ? AND group_name = ?";
-        return executor.query(sql, new Object[]{moduleCode.toLowerCase(), groupName, moduleCode.toLowerCase(), groupName}, new StudentModuleAttendanceCorrelationRowMapper());
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase(), groupName.toUpperCase(), moduleCode.toUpperCase(), groupName.toUpperCase()}, new StudentModuleAttendanceCorrelationRowMapper());
     }
 
     public List<Student> findStudentsAllocatedToAModuleGroup(String moduleCode, String groupName) {
@@ -124,7 +124,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                         "INNER JOIN class ON allocation.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
                      "WHERE module_code = ? AND group_name = ?";
-        return executor.query(sql, new Object[]{moduleCode.toLowerCase(), groupName}, new StudentRowMapper());
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase(), groupName.toUpperCase()}, new StudentRowMapper());
     }
 
     public List<Student> findStudentsOnlyAllocatedToNoneGroup(String moduleCode) {
@@ -140,7 +140,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                                     "INNER JOIN class ON allocation.class_id = class.id " +
                                     "INNER JOIN module ON class.module_id = module.id " +
                                 "WHERE module_code = ? AND group_name !=('none'))";
-        return executor.query(sql, new Object[]{moduleCode.toLowerCase(), moduleCode.toLowerCase()}, new StudentRowMapper());
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase(), moduleCode.toUpperCase()}, new StudentRowMapper());
     }
 
     /**
@@ -165,7 +165,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                         "INNER JOIN class ON allocation.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
                      "WHERE module_code = ? AND group_name !=('none'))";
-        return executor.query(sql, new Object[]{moduleCode.toLowerCase(), moduleCode.toLowerCase(), moduleCode.toLowerCase()}, new StudentModuleAttendanceCorrelationRowMapper());
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase(), moduleCode.toUpperCase(), moduleCode.toUpperCase()}, new StudentModuleAttendanceCorrelationRowMapper());
     }
 
     /**

@@ -63,7 +63,7 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
                      "INNER JOIN user ON " +
                         "module.lecturer_id = user.id " +
                      "WHERE module_code = ? ";
-        return executor.queryForObject(sql, new Object[]{moduleCode.toLowerCase()}, new ModuleRowMapper());
+        return executor.queryForObject(sql, new Object[]{moduleCode.toUpperCase()}, new ModuleRowMapper());
     }
 
     public List<Module> findAll() {
@@ -94,7 +94,7 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
                 ps.setString(1, module.getTitle());
-                ps.setString(2, module.getModuleCode().toLowerCase());
+                ps.setString(2, module.getModuleCode().toUpperCase());
                 ps.setString(3, module.getLecturerUuid());
             }
         }) == 1)

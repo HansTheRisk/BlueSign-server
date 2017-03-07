@@ -53,6 +53,7 @@ public class AllocationRepository extends BaseJDBCRepository {
                 return allocations.size();
             }
         });
+
     }
 
 }

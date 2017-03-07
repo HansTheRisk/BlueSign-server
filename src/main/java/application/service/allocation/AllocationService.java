@@ -1,8 +1,11 @@
 package application.service.allocation;
 
+import application.domain.allocation.Allocation;
 import application.repository.allocation.AllocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * This service is an interface for the Allocation Repository
@@ -25,6 +28,13 @@ public class AllocationService {
             return false;
         else
             return true;
+    }
+
+    public boolean saveAllocations(List<Allocation> allocations) {
+        if(allocationRepository.insertAllocations(allocations).length != 0)
+            return true;
+        else
+            return false;
     }
 
 }

@@ -1,14 +1,19 @@
 package application.repository.scheduledClass;
 
+import application.domain.module.Module;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.scheduledClass.attendance.CompletedClassAttendance;
 import application.repository.BaseJDBCRepository;
 import application.repository.NaturallyIdentifiableRepository;
 import application.repository.scheduledClass.attendance.ClassAttendanceRowMapper;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Repository class for operating on the class database table.
@@ -39,7 +44,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                         "WHERE " +
                             "student.university_id = ? " +
                             "AND module.module_code = ? ";
-        return executor.query(sql, new Object[]{universityId, moduleCode.toLowerCase()}, new ScheduledClassRowMapper());
+        return executor.query(sql, new Object[]{universityId, moduleCode.toUpperCase()}, new ScheduledClassRowMapper());
     }
 
     /**
@@ -58,7 +63,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
                      "WHERE module.module_code = ? ";
-        return executor.query(sql, new Object[]{moduleCode.toLowerCase()}, new ScheduledClassRowMapper());
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase()}, new ScheduledClassRowMapper());
     }
 
     /**
@@ -179,4 +184,41 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
     public ScheduledClass findById(Long id) {
         return null;
     }
+
+    public ScheduledClass saveClass(ScheduledClass sclass) {
+        sclass.setUuid(UUID.randomUUID().toString());
+        String sql = "INSERT INTO class(uuid, module_id, start_date, end_date, room, group_name) " +
+                "VALUES(?, (SELECT id FROM module WHERE module_code = ?), ?, ?, ?, ?)";
+        if(executor.update(sql, new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                ps.setString(1, sclass.getUuid());
+                ps.setString(2, sclass.getModuleCode().toUpperCase());
+                ps.setTimestamp(3, new Timestamp(sclass.getStartDate().getTime()));
+                ps.setTimestamp(4, new Timestamp(sclass.getEndDate().getTime()));
+                ps.setString(5, sclass.getRoom().toUpperCase());
+                ps.setString(6, sclass.getGroup().toUpperCase());
+            }
+        }) == 1)
+            return findByUuid(sclass.getUuid());
+        else
+            return null;
+    }
+
+//    public ScheduledClass saveClass(ScheduledClass sclass) {
+//        String sql = "INSERT INTO allocation(student_id, class_id) " +
+//                     "VALUES((SELECT id FROM student WHERE uuid = ?), " +
+//                            "(SELECT id FROM class WHERE uuid = ?))";
+//        if(executor.update(sql, new PreparedStatementSetter() {
+//            @Override
+//            public void setValues(PreparedStatement ps) throws SQLException {
+//                ps.setString(1, module.getTitle());
+//                ps.setString(2, module.getModuleCode().toLowerCase());
+//                ps.setString(3, module.getLecturerUuid());
+//            }
+//        }) == 1)
+//            return findByUuid(sclass.getUuid());
+//        else
+//            return null;
+//    }
 }

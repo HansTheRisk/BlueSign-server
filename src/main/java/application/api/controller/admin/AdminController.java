@@ -6,10 +6,12 @@ import application.api.resource.module.ModuleGroupStudentsResource;
 import application.api.resource.module.ModuleResource;
 import application.api.resource.module.ModuleToCreateResource;
 import application.api.resource.scheduledClass.ScheduledClassResource;
+import application.api.resource.scheduledClass.ScheduledClassToCreateResource;
 import application.api.resource.student.CreatedStudentResource;
 import application.api.resource.student.StudentResource;
 import application.api.resource.user.PasswordResource;
 import application.api.resource.user.UserResource;
+import application.domain.scheduledClass.ScheduledClass;
 import application.domain.student.Student;
 import application.domain.user.User;
 import application.service.module.ModuleService;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -196,7 +199,7 @@ public class AdminController {
     public ResponseEntity resetStudentPin(@PathVariable String id) {
         Student student = studentService.getStudentByUniversityId(id);
         if(student == null)
-            return new ResponseEntity<>(new MessageResource("Student does not exist"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new MessageResource("Student does not exist"), HttpStatus.NOT_FOUND);
         String pin = studentService.resetUserPin(id);
         if(pin == null)
             return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
@@ -260,13 +263,16 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/module/{module}/{group}/student", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<ModuleGroupStudentsResource> getModuleGroupStudents(@PathVariable String module,
+    public ResponseEntity getModuleGroupStudents(@PathVariable String module,
                                                                               @PathVariable String group) {
 
         List<Student> students;
         boolean locked = true;
 
-        if(group.toLowerCase().equals("none")) {
+        if(moduleService.getByModuleCode(module) == null)
+            return new ResponseEntity<>(new MessageResource("Module with code: "+module+" does not exist."), HttpStatus.NOT_FOUND);
+
+        if(group.toUpperCase().equals("NONE")) {
             students = studentService.getStudentsAllocatedToAModule(module);
         }
         else {
@@ -282,8 +288,39 @@ public class AdminController {
         return new ResponseEntity<>(new ModuleGroupStudentsResource(students.stream().map(stud -> new StudentResource(stud)).collect(Collectors.toList()), locked), HttpStatus.OK);
     }
 
-    public ResponseEntity createClass() {
-        return null;
+    @RequestMapping(value = "admin/class", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createClass(@RequestBody ScheduledClassToCreateResource resource) {
+        ScheduledClass sclass;
+        List<Student> students;
+        ResponseEntity validation = validateClassToCreateResource(resource);
+        if(validation != null)
+            return validation;
+
+        if(moduleService.getByModuleCode(resource.getModuleCode()) == null)
+            return new ResponseEntity<>(new MessageResource("Module with code: "+resource.getModuleCode()+" does not exist."), HttpStatus.NOT_FOUND);
+
+        if(resource.getGroup().toUpperCase().equals("NONE")) {
+            sclass = scheduledClassService.saveWithStudentsAllocated(resource.getObject(), studentService.getStudentsAllocatedToAModule(resource.getModuleCode())
+                                                                                                                                       .stream()
+                                                                                                                                       .map(stud -> stud.getUniversityId())
+                                                                                                                                       .collect(Collectors.toList()));
+        }
+        else {
+            students = studentService.getStudentsAllocatedToAModuleGroup(resource.getModuleCode(), resource.getGroup());
+            if(students.isEmpty()) {
+                validation = validateNewModuleClassGroupStudents(resource.getStudentsToAllocate(), resource.getModuleCode());
+                if(validation != null)
+                    return validation;
+                sclass = scheduledClassService.saveWithStudentsAllocated(resource.getObject(), resource.getStudentsToAllocate());
+            }
+            else {
+                sclass = scheduledClassService.saveWithStudentsAllocated(resource.getObject(), students.stream()
+                                                                                              .map(stud -> stud.getUniversityId())
+                                                                                              .collect(Collectors.toList()));
+            }
+        }
+        return new ResponseEntity<>(new ScheduledClassResource(sclass), HttpStatus.CREATED);
     }
 
     private ResponseEntity validateUserCreateResource(UserResource resource) {
@@ -328,13 +365,47 @@ public class AdminController {
 
     private ResponseEntity validateModuleToCreateResource(ModuleToCreateResource resource) {
         if(resource.getModuleCode() == null || resource.getModuleCode().isEmpty())
-            return new ResponseEntity(new MessageResource("Missing module coode!"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity(new MessageResource("Missing module code!"), HttpStatus.FORBIDDEN);
         if(resource.getTitle() == null || resource.getTitle().isEmpty())
             return new ResponseEntity(new MessageResource("Missing title!"), HttpStatus.FORBIDDEN);
         if(resource.getLecturerUuid() == null || resource.getLecturerUuid().isEmpty())
             return new ResponseEntity(new MessageResource("Missing lecturer!"), HttpStatus.FORBIDDEN);
         if(resource.getStudentIds() == null || resource.getStudentIds().isEmpty())
             return new ResponseEntity(new MessageResource("Missing students!"), HttpStatus.FORBIDDEN);
+        return null;
+    }
+
+    private ResponseEntity validateClassToCreateResource(ScheduledClassToCreateResource resource) {
+        List<String> groups = new ArrayList(Arrays.asList("NONE", "A", "B", "C", "D"));
+        if(resource.getModuleCode() == null || resource.getModuleCode().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing module code!"), HttpStatus.FORBIDDEN);
+        if(resource.getStartDate() == null)
+            return new ResponseEntity(new MessageResource("No start date provided"), HttpStatus.FORBIDDEN);
+        if(resource.getEndDate() == null)
+            return new ResponseEntity(new MessageResource("No end date provided"), HttpStatus.FORBIDDEN);
+        if(resource.getStartDateTimestamp() > resource.getEndDateTimestamp())
+            return new ResponseEntity(new MessageResource("Invalid start or end date!"), HttpStatus.FORBIDDEN);
+        if(resource.getGroup() == null || resource.getGroup().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing group name!"), HttpStatus.FORBIDDEN);
+        if(!groups.contains(resource.getGroup().toUpperCase()))
+            return new ResponseEntity(new MessageResource("Invalid group name"), HttpStatus.FORBIDDEN);
+        if(resource.getRoom() == null || resource.getRoom().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing room number!"), HttpStatus.FORBIDDEN);
+        return null;
+    }
+
+    private ResponseEntity validateNewModuleClassGroupStudents(List<String> students, String moduleCode) {
+        if(students.isEmpty())
+            return new ResponseEntity<>(new MessageResource("No students provided for first class of the group!"), HttpStatus.FORBIDDEN);
+
+        List<String> moduleStudentsIds = studentService.getStudentsAllocatedToAModule(moduleCode)
+                                                       .stream()
+                                                       .map(stud -> stud.getUniversityId())
+                                                                        .collect(Collectors.toList());
+        for(int i = 0; i < students.size();  i++) {
+            if(!moduleStudentsIds.contains(students.get(i)))
+                return new ResponseEntity<>(new MessageResource("A student with id: " +students.get(i)+ " is not allocated to module or does not exist."), HttpStatus.FORBIDDEN);
+        }
         return null;
     }
 }

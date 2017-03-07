@@ -241,9 +241,10 @@ $(document).ready(function(){
         var endDate = new Date(startDate);
         var startTime = $('#startTime').val();
         var endTime = $('#endTime').val();
-        var group = $('#group').val;
+        var group = $('#group option:selected').val();
         var locked = $('#studentsList').attr("locked")
         var selectedModule = $('#modulesDropDownList option:selected').val();
+        var room = $('#room').val();
         var studentIds = [];
 
         endDate.setDate(endDate.getDate() + days);
@@ -273,14 +274,14 @@ $(document).ready(function(){
                     }
                     else {
                         e.preventDefault();
-    //                    var requestData = JSON.stringify({ "moduleCode":moduleCode, "title":title, "lecturerUuid":lecturerUuid, "studentIds":studentIds});
-    //                    postCall("admin/module", "json", requestData, moduleCreateSuccess, userCreateFail);
+                        var requestData = JSON.stringify({ "moduleCode":selectedModule, "room":room, "group":group, "startDateTimestamp":startDate.getTime(), "studentIds":studentIds, "endDateTimestamp":endDate.getTime()});
+                        postCall("admin/class", "json", requestData, classCreateSuccess, userCreateFail);
                     }
                 }
                 else {
                         e.preventDefault();
-    //                    var requestData = JSON.stringify({ "moduleCode":moduleCode, "title":title, "lecturerUuid":lecturerUuid, "studentIds":studentIds});
-    //                    postCall("admin/module", "json", requestData, moduleCreateSuccess, userCreateFail);
+                        var requestData = JSON.stringify({ "moduleCode":selectedModule, "room":room, "group":group, "startDateTimestamp":startDate.getTime(), "endDateTimestamp":endDate.getTime()});
+                        postCall("admin/class", "json", requestData, classCreateSuccess, userCreateFail);
                 }
             }
 
@@ -623,6 +624,10 @@ function loadAddClassModal() {
                       '<option value="D">D</option>' +
                   '</select>' +
               '</div>' +
+              '<div class="form-group">' +
+                 '<label for="room">Room</label>' +
+                 '<input type="text" class="form-control" id="room" placeholder="Room" required></input>' +
+              '</div>' +
               '<div id="studentFormGroup" class="form-group"><label for="students">Students</label></div>' +
          '</form>' +
      '</div>'));
@@ -699,7 +704,14 @@ function moduleCreateSuccess(json) {
     $('#consoleText').append(': Module with code: ' +json.moduleCode+ ' created.');
     getCall("/admin/module", "json", loadModules);
 }
-
+function classCreateSuccess(json) {
+    var date = new Date();
+    $('#myModal .close').click();
+    $('#consoleText').append('</br>');
+    $('#consoleText').append(date.toLocaleString());
+    $('#consoleText').append(': Class with uuid: ' +json.uuid+ ' created.');
+    getCall("/admin/"+json.moduleCode+"/class", "json", loadClasses);
+}
 function removeUser(uuid) {
 
 }
