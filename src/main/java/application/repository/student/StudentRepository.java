@@ -31,6 +31,23 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
         return executor.query(sql, new Object[]{moduleCode.toUpperCase()}, new StudentRowMapper());
     }
 
+    public List<Student> findAllAllocatedToAModuleButNotToItsClasses(String moduleCode) {
+        String sql = "SELECT student_id as studentId, university_id, name, surname, email, pin_salt " +
+                     "FROM " +
+                        "(SELECT student.id as student_id, university_id, name, surname, email, pin_salt " +
+                            "FROM student " +
+                                "INNER JOIN module_student ON student.id = student_id " +
+                                "INNER JOIN module ON module.id = module_id " +
+                            "WHERE module.module_code = ?) allocatedToModule " +
+                                "LEFT JOIN (SELECT student.id AS studId FROM student " +
+                                    "INNER JOIN allocation ON student.id = allocation.student_id " +
+                                    "INNER JOIN class ON allocation.class_id = class.id " +
+                                    "INNER JOIN module ON class.module_id = module.id " +
+                                "WHERE module.module_code = ?) allocatedToModuleClass ON " +
+                            "allocatedToModule.student_id = allocatedToModuleClass.studId WHERE allocatedToModuleClass.studId IS NULL";
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase(), moduleCode.toUpperCase()}, new StudentRowMapper());
+    }
+
     /**
      * Returns a list of students who attended a class
      * and their times of signing into the system.

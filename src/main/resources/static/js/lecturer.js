@@ -3,7 +3,7 @@ var interval = 0;
 $(document).ready(function(){
     $("#accessCodeContent").hide();
     $("#attendanceContent").show();
-    getCall("/lecturer/modules", "json", loadModules);
+    getCall("/lecturer/module", "json", loadModules);
 });
 
 $(document).ready(function(){
@@ -13,13 +13,13 @@ $(document).ready(function(){
 	    $(this).addClass('active');
         var moduleCode = $(this).attr("moduleCode");
         var title = $(this).attr("moduleTitle");
-        getCall("lecturer/modules/"+moduleCode+"/classes", "json", loadClasses);
+        getCall("lecturer/module/"+moduleCode+"/classes", "json", loadClasses);
 
         $('#moduleDetailsJumbo').empty();
         $('#info').empty();
         $('#loadedClassStats').empty();
         $('#moduleDetailsJumbo').append('<p>'+moduleCode+': '+ title + '</p>');
-        getCall("lecturer/modules/"+moduleCode+"/totalAverageAttendance", "json", loadModuleAttendance);
+        getCall("lecturer/module/"+moduleCode+"/totalAverageAttendance", "json", loadModuleAttendance);
 	})
 });
 
@@ -175,7 +175,7 @@ function loadModuleAttendanceModal(json) {
 function loadModuleAttendance(json) {
     $('#moduleDetailsJumbo').append('<h4>Completed classes to date: '+ json.totalClassesCompletedToDate + '</h4>');
     $('#moduleDetailsJumbo').append('<h4>Average class attendance percentage: '+ calculatePercentage(json.totaledClassAttendanceAveragePercentages, json.numberOfClasses) + '%</h4>');
-    $('#moduleDetailsJumbo').append('<p><a class="btn btn-primary" callType="module_attendance" link="lecturer/modules/'+json.moduleCode+'/attendanceList" data-toggle="modal" data-target="#myModal" role="button">Attendance list</a></p>');
+    $('#moduleDetailsJumbo').append('<p><a class="btn btn-primary" callType="module_attendance" link="lecturer/module/'+json.moduleCode+'/attendanceList" data-toggle="modal" data-target="#myModal" role="button">Attendance list</a></p>');
 }
 
 function loadClasses(json) {

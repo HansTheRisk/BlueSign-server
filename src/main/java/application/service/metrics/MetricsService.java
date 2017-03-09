@@ -156,12 +156,12 @@ public class MetricsService {
         final int[] classesToDate = {0};
 
         classes.forEach(scheduledClass -> {
-            double allocated = scheduledClass.getAllocated();
+            double allocated = scheduledClass.getAllocated(); //TODO: Move this
             List<Double> completedClassesAttendancePercentages = new ArrayList<Double>();
             List<Date> completedClasses = calculateClassesDates(scheduledClass);
             classesToDate[0] += completedClasses.size();
 
-            completedClasses.forEach(completedClass -> {
+            completedClasses.forEach(completedClass -> {  //TODO: Inside HERE for each completed class
                 double records = attendance.stream().filter(record -> (record.getClassUuid().equals(scheduledClass.getUuid())
                                                                     && DateUtils.isSameDay(record.getDate(), completedClass))).count();
                 completedClassesAttendancePercentages.add(Double.valueOf(records / allocated));

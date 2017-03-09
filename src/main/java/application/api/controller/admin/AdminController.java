@@ -247,13 +247,13 @@ public class AdminController {
         return new ResponseEntity<>(modules, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "admin/module/{code}/classes", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/module/{code}/class", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ScheduledClassResource>> getModulesClasses(@PathVariable String code) {
         return lecturerController.getModulesClasses(code);
     }
 
-    @RequestMapping(value = "admin/module/{moduleCode}/students", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/module/{moduleCode}/student", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentResource>> getModuleStudents(@PathVariable String moduleCode) {
         List<StudentResource> students = new ArrayList<>();
@@ -280,7 +280,7 @@ public class AdminController {
             if(students.isEmpty()) {
                 students = studentService.getStudentsAllocatedOnlyToNoneGroup(module);
                 if(students.isEmpty()) {
-                    students = studentService.getStudentsAllocatedToAModule(module);
+                    students = studentService.getStudentsAllocatedToAModuleButNotToItsClasses(module);
                 }
                 locked = false;
             }

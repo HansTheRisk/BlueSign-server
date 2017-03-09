@@ -92,7 +92,7 @@ $(document).ready(function(){
         info.append('<p><table cellspacing="2"><tr><th></th><th></th></tr><tr><td>Lecturer: </td><td><div id="lecturerInfo"></td></tr></table><p>');
         info.append('<p><a class="btn btn-primary" callType="editModule" data-toggle="modal" data-target="#myModal" role="button">Edit</a></p>');
         getCall("admin/user/"+lecturerUuid, "json", loadLecturer);
-        getCall("admin/module/"+moduleCode+"/students", "json", loadModuleStudents)
+        getCall("admin/module/"+moduleCode+"/student", "json", loadModuleStudents)
 	})
 });
 
@@ -101,10 +101,12 @@ $(document).ready(function(){
         var valueSelected = this.value;
         if(valueSelected === 'null') {
             $('#crateClassButton').attr('disabled', 'disabled');
+            $('#crateClassButton').addClass("disabledButton");
         }
         else {
-            getCall("/admin/module/"+valueSelected+"/classes", "json", loadClasses);
+            getCall("/admin/module/"+valueSelected+"/class", "json", loadClasses);
             $('#crateClassButton').removeAttr('disabled');
+            $('#crateClassButton').removerClass("disabledButton");
         }
     })
 });
@@ -252,6 +254,7 @@ $(document).ready(function(){
 
         if(id=="submit") {
             if(parseInt(endTime) < parseInt(startTime)) {
+                e.preventDefault();
                 $('#alertText').empty();
                 $('#alertText').append("End time cannot be smaller than start time!");
             }
@@ -269,6 +272,7 @@ $(document).ready(function(){
                         }
                     })
                     if(studentIds.length == 0) {
+                        e.preventDefault();
                         $('#alertText').empty();
                         $('#alertText').append("A class for a new group cannot be created without allocated students!");
                     }

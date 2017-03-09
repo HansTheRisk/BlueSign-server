@@ -61,7 +61,7 @@ public class LecturerController {
      * @param auth
      * @return List of ModuleResource
      */
-    @RequestMapping(value = "lecturer/modules", method = RequestMethod.GET)
+    @RequestMapping(value = "lecturer/module", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ModuleResource>> getModules(@Autowired Authentication auth) {
         List<ModuleResource> modules = new ArrayList<>();
@@ -75,7 +75,7 @@ public class LecturerController {
      * @param moduleCode
      * @return  List of ScheduledClassResources
      */
-    @RequestMapping(value = "lecturer/modules/{moduleCode}/classes", method = RequestMethod.GET)
+    @RequestMapping(value = "lecturer/module/{moduleCode}/class", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ScheduledClassResource>> getModulesClasses(@PathVariable String moduleCode) {
         if (moduleService.getByModuleCode(moduleCode) == null)
@@ -91,7 +91,7 @@ public class LecturerController {
      * @param moduleCode
      * @return TotalAverageModuleAttendanceResource
      */
-    @RequestMapping(value = "lecturer/modules/{moduleCode}/totalAverageAttendance", method = RequestMethod.GET)
+    @RequestMapping(value = "lecturer/module/{moduleCode}/totalAverageAttendance", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<TotalAverageModuleAttendanceResource> getModuleTotalAverageAttendance(@PathVariable String moduleCode) {
         if (moduleService.getByModuleCode(moduleCode) != null)
@@ -210,7 +210,7 @@ public class LecturerController {
      * @param moduleCode
      * @return List of StudentModuleAttendanceCorrelationResource
      */
-    @RequestMapping(value = "lecturer/modules/{moduleCode}/attendanceList", method = RequestMethod.GET)
+    @RequestMapping(value = "lecturer/module/{moduleCode}/attendanceList", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentModuleAttendanceCorrelationResource>> getModuleAttendanceList(@PathVariable String moduleCode) {
         Module module = moduleService.getByModuleCode(moduleCode);

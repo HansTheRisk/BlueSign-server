@@ -49,6 +49,10 @@ td {
     padding:0 15px 0 15px;
 }
 
+.disabledButton {
+    pointer-events: none;
+}
+
 footer {
     position:absolute;
     bottom:0;
