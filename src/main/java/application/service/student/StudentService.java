@@ -23,6 +23,9 @@ public class StudentService implements IdentifiableEntityService<Student>{
     public List<Student> getStudentsAllocatedToAModule(String moduleCode) {
         return repository.findAllAllocatedToAModule(moduleCode);
     }
+    public List<Student> getStudentsAllocatedToAClass(String uuid) {
+        return repository.findAllAllocatedToAClass(uuid);
+    }
 
     public List<Student> getStudentsAllocatedToAModuleButNotToItsClasses(String moduleCode) {
         return repository.findAllAllocatedToAModuleButNotToItsClasses(moduleCode);

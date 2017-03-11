@@ -1,6 +1,5 @@
 package application.repository.scheduledClass;
 
-import application.domain.module.Module;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.scheduledClass.attendance.CompletedClassAttendance;
 import application.repository.BaseJDBCRepository;
@@ -204,21 +203,4 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         else
             return null;
     }
-
-//    public ScheduledClass saveClass(ScheduledClass sclass) {
-//        String sql = "INSERT INTO allocation(student_id, class_id) " +
-//                     "VALUES((SELECT id FROM student WHERE uuid = ?), " +
-//                            "(SELECT id FROM class WHERE uuid = ?))";
-//        if(executor.update(sql, new PreparedStatementSetter() {
-//            @Override
-//            public void setValues(PreparedStatement ps) throws SQLException {
-//                ps.setString(1, module.getTitle());
-//                ps.setString(2, module.getModuleCode().toLowerCase());
-//                ps.setString(3, module.getLecturerUuid());
-//            }
-//        }) == 1)
-//            return findByUuid(sclass.getUuid());
-//        else
-//            return null;
-//    }
 }

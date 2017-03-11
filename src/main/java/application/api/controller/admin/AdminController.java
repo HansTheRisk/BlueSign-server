@@ -1,6 +1,7 @@
 package application.api.controller.admin;
 
 import application.api.controller.lecturer.LecturerController;
+import application.api.resource.ip.IpRangeResource;
 import application.api.resource.message.MessageResource;
 import application.api.resource.module.ModuleGroupStudentsResource;
 import application.api.resource.module.ModuleResource;
@@ -11,13 +12,16 @@ import application.api.resource.student.CreatedStudentResource;
 import application.api.resource.student.StudentResource;
 import application.api.resource.user.PasswordResource;
 import application.api.resource.user.UserResource;
+import application.domain.ipRange.IpRange;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.student.Student;
 import application.domain.user.User;
+import application.service.ipRange.IpRangeService;
 import application.service.module.ModuleService;
 import application.service.scheduledClass.ScheduledClassService;
 import application.service.student.StudentService;
 import application.service.user.UserService;
+import application.util.ip.IpUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +54,9 @@ public class AdminController {
 
     @Autowired
     private ModuleService moduleService;
+
+    @Autowired
+    private IpRangeService ipRangeService;
 
     @RequestMapping("/admin")
     public String admin() {
@@ -253,6 +260,14 @@ public class AdminController {
         return lecturerController.getModulesClasses(code);
     }
 
+    @RequestMapping(value = "admin/class/{uuid}/student", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity getClassStudents(@PathVariable String uuid) {
+        if(scheduledClassService.findByUUID(uuid) == null)
+            return new ResponseEntity<>(new MessageResource("Class with does not exist."), HttpStatus.NOT_FOUND);
+        return new ResponseEntity(studentService.getStudentsAllocatedToAClass(uuid).stream().map(stud -> new StudentResource(stud)).collect(Collectors.toList()), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "admin/module/{moduleCode}/student", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentResource>> getModuleStudents(@PathVariable String moduleCode) {
@@ -321,6 +336,36 @@ public class AdminController {
             }
         }
         return new ResponseEntity<>(new ScheduledClassResource(sclass), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "admin/ip", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<IpRangeResource>> getIpRanges() {
+        return new ResponseEntity<List<IpRangeResource>>(ipRangeService.getAllIpRanges()
+                                                                       .stream()
+                                                                       .map(range -> new IpRangeResource(range))
+                                                                       .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "admin/ip", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createIpRange(@RequestBody IpRangeResource resource) {
+        ResponseEntity validation = validateIpRangeResource(resource);
+        if(validation != null)
+            return validation;
+
+        return new ResponseEntity(new IpRangeResource(ipRangeService.save(resource.getObject())), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "admin/ip/{uuid}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity deleteIpRange(@PathVariable String uuid) {
+        if(ipRangeService.findByUUID(uuid) == null)
+            return new ResponseEntity(new MessageResource("Range not found!"), HttpStatus.NOT_FOUND);
+        if(ipRangeService.delete(uuid))
+            return new ResponseEntity(HttpStatus.OK);
+        else
+            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.ACCEPTED);
     }
 
     private ResponseEntity validateUserCreateResource(UserResource resource) {
@@ -406,6 +451,19 @@ public class AdminController {
             if(!moduleStudentsIds.contains(students.get(i)))
                 return new ResponseEntity<>(new MessageResource("A student with id: " +students.get(i)+ " is not allocated to module or does not exist."), HttpStatus.FORBIDDEN);
         }
+        return null;
+    }
+
+    private ResponseEntity validateIpRangeResource(IpRangeResource resource) {
+        IpUtility util = new IpUtility();
+        if(resource.getRangeStart() == null || resource.getRangeStart().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing ip range start!"), HttpStatus.FORBIDDEN);
+        if(resource.getRangeEnd() == null || resource.getRangeEnd().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing ip range end!"), HttpStatus.FORBIDDEN);
+        if(!util.validate(resource.getRangeStart()))
+            return new ResponseEntity(new MessageResource("Invalid range start ip address!"), HttpStatus.FORBIDDEN);
+        if(!util.validate(resource.getRangeEnd()))
+            return new ResponseEntity(new MessageResource("Invalid range end ip address!"), HttpStatus.FORBIDDEN);
         return null;
     }
 }

@@ -3,6 +3,7 @@ package application.util.ip;
 import com.google.common.net.InetAddresses;
 import org.springframework.stereotype.Component;
 
+import java.net.Inet6Address;
 import java.net.InetAddress;
 
 /**
@@ -35,6 +36,10 @@ public class IpUtility {
             return true;
         else
             return false;
+    }
+
+    public boolean validate(String ip) {
+        return InetAddresses.isInetAddress(ip);
     }
 
     /**

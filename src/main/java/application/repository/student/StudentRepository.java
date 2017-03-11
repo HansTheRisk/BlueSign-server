@@ -31,6 +31,15 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
         return executor.query(sql, new Object[]{moduleCode.toUpperCase()}, new StudentRowMapper());
     }
 
+    public List<Student> findAllAllocatedToAClass(String uuid) {
+        String sql = "SELECT student_id as studentId, university_id, name, surname, email, pin_salt " +
+                "FROM student " +
+                "INNER JOIN allocation ON allocation.student_id = student.id " +
+                "INNER JOIN class ON class.id = allocation.class_id " +
+                "WHERE class.uuid = ? ";
+        return executor.query(sql, new Object[]{uuid}, new StudentRowMapper());
+    }
+
     public List<Student> findAllAllocatedToAModuleButNotToItsClasses(String moduleCode) {
         String sql = "SELECT student_id as studentId, university_id, name, surname, email, pin_salt " +
                      "FROM " +

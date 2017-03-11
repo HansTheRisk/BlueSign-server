@@ -60,7 +60,7 @@ public class IpRangeService implements NaturallyIdentifiableService<IpRange> {
      */
     @Override
     public IpRange findByUUID(String uuid) {
-        return null;
+        return ipRangeRepository.findByUuid(uuid);
     }
 
     /**
@@ -70,7 +70,7 @@ public class IpRangeService implements NaturallyIdentifiableService<IpRange> {
      */
     @Override
     public IpRange findById(Long id) {
-        return null;
+        return ipRangeRepository.findById(id);
     }
 
     /**
@@ -80,6 +80,10 @@ public class IpRangeService implements NaturallyIdentifiableService<IpRange> {
      */
     @Override
     public IpRange save(IpRange object) {
-        return null;
+        return ipRangeRepository.save(object);
+    }
+
+    public boolean delete(String uuid) {
+        return ipRangeRepository.delete(uuid);
     }
 }

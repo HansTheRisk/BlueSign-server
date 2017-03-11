@@ -19,6 +19,9 @@ $(document).ready(function(){
             getCall("/admin/module", "json", loadModules);
         }
         else if(attribute == "#classes") {
+            $('#classesPills').empty();
+            $('#studentsAssignedToClassPills').empty();
+            $('#crateClassButton').removeAttr('data-target');
             getCall("/admin/module", "json", loadModulesDropdown);
         }
         else if(attribute == "#ip") {
@@ -97,16 +100,34 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+	$(document).on("click", "#classesPills li", function(e) {
+        e.preventDefault();
+        $("#classesPills").children('li').removeClass('active');
+        $(this).addClass('active');
+
+        var classUuid = $(this).attr("class_uuid");
+        getCall("admin/class/"+classUuid+"/student", "json", loadClassStudents);
+	})
+});
+
+$(document).ready(function(){
+	$(document).on("click", "#ipPills li", function(e) {
+        e.preventDefault();
+        $(this).addClass('active');
+	})
+});
+
+$(document).ready(function(){
     $(document).on("change", "#modulesDropDownList", function(e) {
         var valueSelected = this.value;
         if(valueSelected === 'null') {
             $('#crateClassButton').attr('disabled', true);
-            $('#crateClassButton').addClass("disabledButton");
+            $('#crateClassButton').removeAttr('data-target');
         }
         else {
             getCall("/admin/module/"+valueSelected+"/class", "json", loadClasses);
             $('#crateClassButton').attr('disabled', false);
-            $('#crateClassButton').removerClass("disabledButton");
+            $('#crateClassButton').attr('data-target', '#myModal');
         }
     })
 });
@@ -294,33 +315,58 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+    $(document).on("submit", "#ipForm", function(e) {
+        var id = $(this).find("button").attr("id");
+        var selectedIp = $('#ipPills .active');
+        var start = $('#rangeStart').val();
+        var end = $('#rangeEnd').val();
+
+        if(id=="submit") {
+            e.preventDefault();
+            var requestData = JSON.stringify({ "ipRangeStart":start, "ipRangeEnd":end});
+            postCall("admin/ip", "json", requestData, ipCreateSuccess, userCreateFail);
+        }
+        else if(id=="delete") {
+            e.preventDefault();
+            deleteCall("admin/ip/"+selectedIp.attr("uuid"), "json", userCreateFail, ipRemoveSuccess);
+        }
+    })
+});
+
+$(document).ready(function(){
 	$("#myModal").on("show.bs.modal", function(e) {
-	    var type = $(e.relatedTarget).attr("callType")
-		$('.modal-body').empty();
-		if(type == "addUser") {
-		    loadAddUserModal();
-		}
-		else if(type == "editUser") {
-            loadEditUserModal();
-		}
-        else if(type == "resetPassword") {
-            loadResetPasswordModal();
-        }
-        else if(type == "addStudent") {
-            loadAddStudentModal();
-        }
-        else if(type == "editStudent") {
-            loadEditStudentModal();
-        }
-        else if(type == "resetPin") {
-            loadPinResetModal();
-        }
-        else if(type == "addModule") {
-            loadAddModuleModal();
-        }
-        else if(type == "addClass") {
-            loadAddClassModal();
-        }
+            var type = $(e.relatedTarget).attr("callType")
+            $('.modal-body').empty();
+            if(type == "addUser") {
+                loadAddUserModal();
+            }
+            else if(type == "editUser") {
+                loadEditUserModal();
+            }
+            else if(type == "resetPassword") {
+                loadResetPasswordModal();
+            }
+            else if(type == "addStudent") {
+                loadAddStudentModal();
+            }
+            else if(type == "editStudent") {
+                loadEditStudentModal();
+            }
+            else if(type == "resetPin") {
+                loadPinResetModal();
+            }
+            else if(type == "addModule") {
+                loadAddModuleModal();
+            }
+            else if(type == "addClass") {
+                loadAddClassModal();
+            }
+            else if(type == "addIp") {
+                loadAddIpModal();
+            }
+            else if(type == "removeIp") {
+                loadRemoveIpModal();
+            }
 	});
 });
 
@@ -347,6 +393,22 @@ function getCall(url, type, method, failMethod) {
     $.ajax({
       type: "GET",
       url: url,
+      dataType: type,
+      cache: false,
+      success: method,
+      error: failMethod
+    });
+}
+
+function deleteCall(url, type, method, failMethod) {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $.ajax({
+      type: "DELETE",
+      url: url,
+      beforeSend: function(xhr){
+                          xhr.setRequestHeader(header, token);
+                  },
       dataType: type,
       cache: false,
       success: method,
@@ -604,7 +666,7 @@ function loadAddClassModal() {
          '</div>' +
          '<form id="classForm">' +
              '<div class="form-group">' +
-                 '<label for="moduleCode">Start date</label>' +
+                 '<label for="startDate">Start date</label>' +
                  '</br><input id="startDate" type="date" value="'+today.toISOString().substr(0, 10)+'" required/></input>' +
              '</div>' +
              '<div class="form-group">' +
@@ -639,6 +701,41 @@ function loadAddClassModal() {
      setTimeout(function(){
        $('#classForm').append('<button id="submit" type="submit" class="btn btn-primary">Submit</button>');
      }, 500);
+}
+
+function loadAddIpModal() {
+    var today = new Date();
+    var modalBody = $('.modal-body');
+    modalBody.append($(
+    '<div>' +
+         '<div id="alert" class="alert alert-warning">' +
+            '<a href="#" class="close" data-dismiss="alert"></a>' +
+            '<div id ="alertText"></div>' +
+         '</div>' +
+         '<form id="ipForm">' +
+             '<div class="form-group">' +
+                 '<label for="rangeStart">Range start</label>' +
+                 '</br><input id="rangeStart" type="text" value="127.0.0.1" required/></input>' +
+             '</div>' +
+              '<div class="form-group">' +
+                  '<label for="rangeEnd">Range end</label>' +
+                  '</br><input id="rangeEnd" type="text" value="127.0.0.1" required/></input>' +
+              '</div>' +
+         '</form>' +
+     '</div>'));
+     $('#ipForm').append('<button id="submit" type="submit" class="btn btn-primary">Submit</button>');
+}
+
+function loadRemoveIpModal() {
+    var modalBody = $('.modal-body');
+    modalBody.append($(
+    '<div id="ipForm">' +
+         '<div id="alert" class="alert alert-warning">' +
+            '<a href="#" class="close" data-dismiss="alert"></a>' +
+            '<div id ="alertText"></div>' +
+         '</div>' +
+         '<form><button id="delete" type="submit" class="btn btn-primary">Confirm</button></form>' + +
+     '</div>'));
 }
 
 function userCreateSuccess(json) {
@@ -714,10 +811,25 @@ function classCreateSuccess(json) {
     $('#consoleText').append('</br>');
     $('#consoleText').append(date.toLocaleString());
     $('#consoleText').append(': Class with uuid: ' +json.uuid+ ' created.');
-    getCall("/admin/"+json.moduleCode+"/class", "json", loadClasses);
+    getCall("/admin/module/"+json.moduleCode+"/class", "json", loadClasses);
 }
-function removeUser(uuid) {
 
+function ipCreateSuccess(json) {
+    var date = new Date();
+    $('#myModal .close').click();
+    $('#consoleText').append('</br>');
+    $('#consoleText').append(date.toLocaleString());
+    $('#consoleText').append(': Ip range with uuid: ' +json.uuid+ ' created.');
+    getCall("/admin/ip", "json", loadIps);
+}
+
+function ipRemoveSuccess(json) {
+    var date = new Date();
+    $('#myModal .close').click();
+    $('#consoleText').append('</br>');
+    $('#consoleText').append(date.toLocaleString());
+    $('#consoleText').append(': Ip range removed.');
+    getCall("/admin/ip", "json", loadIps);
 }
 
 function loadUsers(json) {
@@ -836,6 +948,22 @@ function loadModuleStudents(json) {
             }
 }
 
+function loadClassStudents(json) {
+    $('#studentsAssignedToClassPills').empty();
+    for(var i = 0; i < json.length; i++) {
+        var studentId = JSON.stringify(json[i].universityId).replace(/"/g, '');
+        var name = JSON.stringify(json[i].name).replace(/"/g, '');
+        var surname = JSON.stringify(json[i].surname).replace(/"/g, '');
+        var email = JSON.stringify(json[i].email).replace(/"/g, '');
+
+        var href = $('<a href="#"></a>');
+        var item = $('<li role="presentation" universityId="'+studentId+'" name="'+name+'" surname="'+surname+'" email="'+email+'"></li>').appendTo($('#studentsAssignedToClassPills'));
+
+        href.append(name + " " + surname);
+        item.append(href);
+    }
+}
+
 function loadModulesDropdown(json) {
             $('#modulesDropDown').empty();
             var dropdown = $('<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="modulesDropDownList"></select>').appendTo($('#modulesDropDown'));
@@ -871,4 +999,19 @@ function loadLecturer(json) {
     var surname = JSON.stringify(json.surname).replace(/"/g, '');
     $('#lecturerInfo').empty();
     $('#lecturerInfo').append(name+" "+surname);
+}
+
+function loadIps(json) {
+    $('#ipPills').empty();
+    for(var i = 0; i < json.length; i++) {
+        var uuid = JSON.stringify(json[i].uuid).replace(/"/g, '');
+        var start = JSON.stringify(json[i].ipRangeStart).replace(/"/g, '');
+        var end = JSON.stringify(json[i].ipRangeEnd).replace(/"/g, '');
+
+        var href = $('<a href="#"></a>');
+        var item = $('<li role="presentation" uuid="'+uuid+'" start="'+start+'" end="'+end+'"></li>').appendTo($('#ipPills'));
+
+        href.append(start + " - " + end);
+        item.append(href);
+    }
 }
