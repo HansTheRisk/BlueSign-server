@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public class AllocationRepository extends BaseJDBCRepository {
      * @return Allocation
      */
     public Allocation findAllocationByStudentIdAndClassUuid(String studentUniversityId, String classUuid) {
-        String sql = "SELECT student.university_id, class.uuid " +
+        String sql = "SELECT student.university_id, class.uuid, start, end " +
                      "FROM allocation INNER JOIN student " +
                         "ON allocation.student_id = student.id " +
                      "INNER JOIN class " +
@@ -33,19 +35,30 @@ public class AllocationRepository extends BaseJDBCRepository {
         return executor.queryForObject(sql, new Object[]{studentUniversityId, classUuid}, new AllocationRowMapper());
     }
 
+    public List<Allocation> findAllModulesClassesAllocations(String moduleCode) {
+        String sql = "SELECT student.university_id, class.uuid, start, end " +
+                     "FROM allocation " +
+                        "INNER JOIN student ON allocation.student_id = student.id " +
+                        "INNER JOIN class ON allocation.class_id = class.id " +
+                        "INNER JOIN module ON class.module_id = module.id " +
+                     "WHERE module_code = ?";
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase()}, new AllocationRowMapper());
+    }
+
     /**
      * This method inserts access codes into the database.
      * @param allocations
      */
     public int[] insertAllocations(List<Allocation> allocations) {
-        String sql = "INSERT INTO allocation(student_id, class_id) " +
+        String sql = "INSERT INTO allocation(student_id, class_id, start) " +
                 "VALUES((SELECT id FROM student WHERE university_id = ?), " +
-                       "(SELECT id FROM class WHERE uuid = ?))";
+                       "(SELECT id FROM class WHERE uuid = ?), ?)";
         return executor.batchUpdate(sql, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 ps.setString(1, allocations.get(i).getStudentUniversityId());
                 ps.setString(2, allocations.get(i).getClassUuid());
+                ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             }
 
             @Override

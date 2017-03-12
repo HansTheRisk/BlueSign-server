@@ -19,6 +19,9 @@ $(document).ready(function(){
             getCall("/admin/module", "json", loadModules);
         }
         else if(attribute == "#classes") {
+            $('#classesPills').empty();
+            $('#studentsAssignedToClassPills').empty();
+            $('#crateClassButton').removeAttr('data-target');
             getCall("/admin/module", "json", loadModulesDropdown);
         }
         else if(attribute == "#ip") {
@@ -110,6 +113,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$(document).on("click", "#ipPills li", function(e) {
         e.preventDefault();
+        $("#ipPills").children('li').removeClass('active');
         $(this).addClass('active');
 	})
 });
@@ -340,6 +344,9 @@ $(document).ready(function(){
             else if(type == "editUser") {
                 loadEditUserModal();
             }
+            else if(type == "removeUser") {
+                loadRemoveUserModal();
+            }
             else if(type == "resetPassword") {
                 loadResetPasswordModal();
             }
@@ -349,14 +356,32 @@ $(document).ready(function(){
             else if(type == "editStudent") {
                 loadEditStudentModal();
             }
+            else if(type == "removeStudent") {
+                loadEditStudentModal();
+            }
             else if(type == "resetPin") {
                 loadPinResetModal();
             }
             else if(type == "addModule") {
                 loadAddModuleModal();
             }
+            else if(type == "editModule") {
+                loadEditModuleModal();
+            }
+            else if(type == "removeModule") {
+                loadRemoveModuleModal();
+            }
+            else if(type == "addStudentToModule") {
+                loadAddStudentToModuleModal();
+            }
+            else if(type == "removeStudentFromModule") {
+                loadRemoveStudentFromModuleModal();
+            }
             else if(type == "addClass") {
                 loadAddClassModal();
+            }
+            else if(type == "removeClass") {
+                loadRemoveClassModal();
             }
             else if(type == "addIp") {
                 loadAddIpModal();
@@ -825,7 +850,7 @@ function ipRemoveSuccess(json) {
     $('#myModal .close').click();
     $('#consoleText').append('</br>');
     $('#consoleText').append(date.toLocaleString());
-    $('#consoleText').append(': Ip range with uuid: ' +json.uuid+ ' removed.');
+    $('#consoleText').append(': Ip range removed.');
     getCall("/admin/ip", "json", loadIps);
 }
 

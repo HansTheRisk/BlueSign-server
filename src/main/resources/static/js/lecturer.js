@@ -13,7 +13,7 @@ $(document).ready(function(){
 	    $(this).addClass('active');
         var moduleCode = $(this).attr("moduleCode");
         var title = $(this).attr("moduleTitle");
-        getCall("lecturer/module/"+moduleCode+"/classes", "json", loadClasses);
+        getCall("lecturer/module/"+moduleCode+"/class", "json", loadClasses);
 
         $('#moduleDetailsJumbo').empty();
         $('#info').empty();
@@ -169,7 +169,8 @@ function loadModuleAttendanceModal(json) {
             row = $('<tr></tr>').appendTo(tableContent);
             row.append($('<th scope="row">'+(i+1)+'</th><td>'+json[i].universityId+'</td><td>'+json[i].name+'</td><td>'+json[i].surname+'</td><td>'+percentage+'</td>'));
         }
-        $('.modal-body').append("<p>Average percentage: "+calculatePercentage(totalPerc, (json.length * 100))+"%</p>")
+        $('.modal-body').append("<p>Average percentage: "+calculatePercentage(totalPerc, (json.length * 100))+"%</p>");
+        $('.modal-body').append("<p><font color="red">Students removed from module not included in the list!</font></p>");
 }
 
 function loadModuleAttendance(json) {

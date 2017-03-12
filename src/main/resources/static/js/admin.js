@@ -16,6 +16,7 @@ $(document).ready(function(){
             getCall("/admin/student", "json", loadStudents);
         }
         else if(attribute == "#modules") {
+            $('#studentsAssignedToModulePills').empty();
             getCall("/admin/module", "json", loadModules);
         }
         else if(attribute == "#classes") {
@@ -113,6 +114,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$(document).on("click", "#ipPills li", function(e) {
         e.preventDefault();
+        $("#ipPills").children('li').removeClass('active');
         $(this).addClass('active');
 	})
 });
@@ -343,6 +345,9 @@ $(document).ready(function(){
             else if(type == "editUser") {
                 loadEditUserModal();
             }
+            else if(type == "removeUser") {
+                loadRemoveUserModal();
+            }
             else if(type == "resetPassword") {
                 loadResetPasswordModal();
             }
@@ -352,14 +357,32 @@ $(document).ready(function(){
             else if(type == "editStudent") {
                 loadEditStudentModal();
             }
+            else if(type == "removeStudent") {
+                loadEditStudentModal();
+            }
             else if(type == "resetPin") {
                 loadPinResetModal();
             }
             else if(type == "addModule") {
                 loadAddModuleModal();
             }
+            else if(type == "editModule") {
+                loadEditModuleModal();
+            }
+            else if(type == "removeModule") {
+                loadRemoveModuleModal();
+            }
+            else if(type == "addStudentToModule") {
+                loadAddStudentToModuleModal();
+            }
+            else if(type == "removeStudentFromModule") {
+                loadRemoveStudentFromModuleModal();
+            }
             else if(type == "addClass") {
                 loadAddClassModal();
+            }
+            else if(type == "removeClass") {
+                loadRemoveClassModal();
             }
             else if(type == "addIp") {
                 loadAddIpModal();

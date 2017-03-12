@@ -42,7 +42,8 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                             "ON allocation.student_id = student.id " +
                         "WHERE " +
                             "student.university_id = ? " +
-                            "AND module.module_code = ? ";
+                            "AND module.module_code = ? " +
+                            "AND allocation.end IS NULL";
         return executor.query(sql, new Object[]{universityId, moduleCode.toUpperCase()}, new ScheduledClassRowMapper());
     }
 
@@ -76,7 +77,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                     "(SELECT COUNT(*) " +
                      "FROM class INNER JOIN allocation " +
                         "ON class.id = allocation.class_id " +
-                     "WHERE class.id = cl_id) as allocated " +
+                     "WHERE class.id = cl_id AND allocation.end IS NULL) as allocated " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -85,7 +86,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                         "INNER JOIN student " +
                             "ON allocation.student_id = student.id " +
                         "WHERE " +
-                            "student.university_id = ? ";
+                            "student.university_id = ? AND allocation.end IS NULL";
         return executor.query(sql, new Object[]{universityId}, new ScheduledClassRowMapper());
     }
 
@@ -148,11 +149,13 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         String sql = "SELECT ? AS class_uuid, DATE(?) AS date, " +
                             "(SELECT COUNT(*) FROM allocation " +
                                 "INNER JOIN class ON class_id = class.id " +
-                             "WHERE class.uuid = ?) AS allocated, " +
+                             "WHERE class.uuid = ?" +
+                                "AND (TIMESTAMP(allocation.start) < TIMESTAMP(DATE(?), TIME(class.start_date))" +
+                                "AND (allocation.end IS NULL OR (TIMESTAMP(allocation.end) > TIMESTAMP(DATE(?), TIME(class.end_date)))))) AS allocated, " +
                             "(SELECT COUNT(*) FROM attendance " +
                                 "INNER JOIN class ON class_id = class.id " +
                             "WHERE class.uuid = ? AND DATE(date) = DATE(?)) AS attended ";
-        return executor.queryForObject(sql, new Object[]{classUuid, timestampObj, classUuid, classUuid, timestampObj}, new ClassAttendanceRowMapper());
+        return executor.queryForObject(sql, new Object[]{classUuid, timestampObj, classUuid, timestampObj, timestampObj, classUuid, timestampObj}, new ClassAttendanceRowMapper());
     }
 
     /**
@@ -166,7 +169,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                     "(SELECT COUNT(*) " +
                      "FROM class INNER JOIN allocation " +
                         "ON class.id = allocation.class_id " +
-                     "WHERE class.id = cl_id) as allocated " +
+                     "WHERE class.id = cl_id AND allocation.end IS NULL) as allocated " +
                 "FROM class " +
                 "INNER JOIN module " +
                 "ON class.module_id = module.id " +

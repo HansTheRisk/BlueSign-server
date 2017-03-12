@@ -37,4 +37,8 @@ public class AllocationService {
             return false;
     }
 
+    public List<Allocation> getModulesClassesAllocations(String moduleCode) {
+        return allocationRepository.findAllModulesClassesAllocations(moduleCode);
+    }
+
 }

@@ -63,16 +63,6 @@ public class AdminController {
         return "adminPage";
     }
 
-    @RequestMapping(value = "admin/class/{universityId}/{moduleCode}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<List<ScheduledClassResource>> getModules(@PathVariable String universityId,
-                                                                   @PathVariable String moduleCode) {
-        List<ScheduledClassResource> classes = new ArrayList<>();
-        scheduledClassService.findClassesByStudentUniveristyIdAndModuleCode(universityId, moduleCode).forEach(scheduledClass ->
-                classes.add(new ScheduledClassResource(scheduledClass)));
-        return new ResponseEntity<>(classes, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "admin/student", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentResource>> getStudents() {

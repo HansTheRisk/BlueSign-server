@@ -1,10 +1,12 @@
 package application.service.metrics;
 
+import application.domain.allocation.Allocation;
 import application.domain.module.attendance.TotalAverageModuleAttendance;
 import application.domain.attendance.Attendance;
 import application.domain.module.attendance.IndividualCumulativeModuleAttendance;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.student.StudentModuleAttendanceCorrelation;
+import application.service.allocation.AllocationService;
 import application.service.attendance.AttendanceService;
 import application.service.scheduledClass.ScheduledClassService;
 import application.service.student.StudentService;
@@ -37,6 +39,8 @@ public class MetricsService {
     private AttendanceService attendanceService;
     @Autowired
     private DateUtility dateUtility;
+    @Autowired
+    private AllocationService allocationService;
 
     /**
      * Returns dates of completed classes' dates of a scheduled class.
@@ -132,7 +136,8 @@ public class MetricsService {
     public TotalAverageModuleAttendance getTotalAverageModuleAttendance(String moduleCode) {
         List<ScheduledClass> classes = classService.findClassesByModuleCode(moduleCode);
         List<Attendance> attendance = attendanceService.getAttendanceRecordsForModule(moduleCode);
-        return calculateAverageModuleAttendanceMetrics(moduleCode, classes, attendance);
+        List<Allocation> allocations = allocationService.getModulesClassesAllocations(moduleCode);
+        return calculateAverageModuleAttendanceMetrics(moduleCode, classes, attendance, allocations);
     }
 
     /**
@@ -151,17 +156,31 @@ public class MetricsService {
      * @param attendance
      * @return TotalAverageModuleAttendance
      */
-    private TotalAverageModuleAttendance calculateAverageModuleAttendanceMetrics(String moduleCode, List<ScheduledClass> classes, List<Attendance> attendance) {
+    private TotalAverageModuleAttendance calculateAverageModuleAttendanceMetrics(String moduleCode, List<ScheduledClass> classes, List<Attendance> attendance, List<Allocation> allocations) {
         List<Double> classesAvgPercentages = new ArrayList<Double>();
         final int[] classesToDate = {0};
 
         classes.forEach(scheduledClass -> {
-            double allocated = scheduledClass.getAllocated(); //TODO: Move this
             List<Double> completedClassesAttendancePercentages = new ArrayList<Double>();
             List<Date> completedClasses = calculateClassesDates(scheduledClass);
             classesToDate[0] += completedClasses.size();
 
-            completedClasses.forEach(completedClass -> {  //TODO: Inside HERE for each completed class
+            completedClasses.forEach(completedClass -> {
+
+                Date startDate = addTimeToDate(completedClass,
+                                               scheduledClass.getStartDate().getHours(),
+                                               scheduledClass.getStartDate().getMinutes(),
+                                               scheduledClass.getStartDate().getSeconds());
+
+                Date endDate = addTimeToDate(completedClass,
+                                             scheduledClass.getEndDate().getHours(),
+                                             scheduledClass.getEndDate().getMinutes(),
+                                             scheduledClass.getEndDate().getSeconds());
+
+                double allocated = allocations.stream().filter(allocation -> (allocation.getClassUuid().equals(scheduledClass.getUuid()))
+                                                                              && (allocation.getStart().getTime() < startDate.getTime()
+                                                                              && (allocation.getEnd() == null) || allocation.getEnd().getTime() > endDate.getTime())).count();
+
                 double records = attendance.stream().filter(record -> (record.getClassUuid().equals(scheduledClass.getUuid())
                                                                     && DateUtils.isSameDay(record.getDate(), completedClass))).count();
                 completedClassesAttendancePercentages.add(Double.valueOf(records / allocated));
@@ -172,6 +191,15 @@ public class MetricsService {
         });
 
         return new TotalAverageModuleAttendance(moduleCode, classesAvgPercentages.stream().mapToDouble(perc -> perc.doubleValue()).sum(), classes.size(), classesToDate[0]);
+    }
+
+    private Date addTimeToDate(Date date, int hours, int minutes, int seconds) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date.getTime());
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
+        calendar.set(Calendar.MINUTE, minutes);
+        calendar.set(Calendar.SECOND, seconds);
+        return calendar.getTime();
     }
 
     /**
