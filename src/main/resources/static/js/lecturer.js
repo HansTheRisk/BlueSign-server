@@ -170,7 +170,7 @@ function loadModuleAttendanceModal(json) {
             row.append($('<th scope="row">'+(i+1)+'</th><td>'+json[i].universityId+'</td><td>'+json[i].name+'</td><td>'+json[i].surname+'</td><td>'+percentage+'</td>'));
         }
         $('.modal-body').append("<p>Average percentage: "+calculatePercentage(totalPerc, (json.length * 100))+"%</p>");
-        $('.modal-body').append("<p><font color="red">Students removed from module not included in the list!</font></p>");
+        $('.modal-body').append('<p><font color="red">Students removed from module not included in the list!</font></p>');
 }
 
 function loadModuleAttendance(json) {

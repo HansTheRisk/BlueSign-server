@@ -177,13 +177,21 @@ public class MetricsService {
                                              scheduledClass.getEndDate().getMinutes(),
                                              scheduledClass.getEndDate().getSeconds());
 
-                double allocated = allocations.stream().filter(allocation -> (allocation.getClassUuid().equals(scheduledClass.getUuid()))
-                                                                              && (allocation.getStart().getTime() < startDate.getTime()
-                                                                              && (allocation.getEnd() == null) || allocation.getEnd().getTime() > endDate.getTime())).count();
+                double allocated = allocations.stream().filter(allocation -> {
+                    boolean sameClass = allocation.getClassUuid().equals(scheduledClass.getUuid());
+
+                    if(sameClass && ((allocation.getStart().getTime() < startDate.getTime()) && allocation.getEnd() == null))
+                        return true;
+                    else if(sameClass && ((allocation.getStart().getTime() < startDate.getTime()) && allocation.getEnd().getTime() > endDate.getTime()))
+                        return true;
+                    else
+                        return false;
+
+                }).count();
 
                 double records = attendance.stream().filter(record -> (record.getClassUuid().equals(scheduledClass.getUuid())
                                                                     && DateUtils.isSameDay(record.getDate(), completedClass))).count();
-                completedClassesAttendancePercentages.add(Double.valueOf(records / allocated));
+                completedClassesAttendancePercentages.add(Double.valueOf(allocated!=0 ? records/allocated : 0));
             });
             classesAvgPercentages.add((completedClassesAttendancePercentages.stream()
                                                                            .mapToDouble(perc -> perc.doubleValue())

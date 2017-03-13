@@ -31,7 +31,7 @@ public class AllocationRepository extends BaseJDBCRepository {
                      "INNER JOIN class " +
                         "ON allocation.class_id = class.id " +
                      "WHERE university_id = ? " +
-                     "AND uuid = ? ";
+                     "AND uuid = ? AND allocation.end IS NULL";
         return executor.queryForObject(sql, new Object[]{studentUniversityId, classUuid}, new AllocationRowMapper());
     }
 

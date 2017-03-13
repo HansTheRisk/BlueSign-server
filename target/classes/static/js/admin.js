@@ -16,6 +16,7 @@ $(document).ready(function(){
             getCall("/admin/student", "json", loadStudents);
         }
         else if(attribute == "#modules") {
+            $('#studentsAssignedToModulePills').empty();
             getCall("/admin/module", "json", loadModules);
         }
         else if(attribute == "#classes") {

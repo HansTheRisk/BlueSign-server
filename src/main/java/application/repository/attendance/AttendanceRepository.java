@@ -66,7 +66,6 @@ public class AttendanceRepository extends BaseJDBCRepository {
                 "FROM attendance INNER JOIN student " +
                 "   ON attendance.student_id = student.id " +
                 "INNER JOIN class " +
-
                 "   ON attendance.class_id = class.id " +
                 "INNER JOIN module ON " +
                 "   class.module_id = module.id " +
