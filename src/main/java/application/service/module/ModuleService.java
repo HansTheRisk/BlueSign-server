@@ -1,9 +1,15 @@
 package application.service.module;
 
 import application.domain.module.Module;
+import application.repository.allocation.AllocationRepository;
+import application.repository.attendance.AttendanceRepository;
 import application.repository.module.ModuleRepository;
+import application.repository.scheduledClass.ScheduledClassRepository;
 import application.service.IdentifiableEntityService;
+import application.service.allocation.AllocationService;
+import application.service.attendance.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +23,12 @@ public class ModuleService implements IdentifiableEntityService<Module> {
 
     @Autowired
     private ModuleRepository repository;
+    @Autowired
+    private AllocationRepository allocationRepository;
+    @Autowired
+    private AttendanceRepository attendanceRepository;
+    @Autowired
+    private ScheduledClassRepository scheduledClassRepository;
 
     /**
      * This method returns all the modules the student
@@ -78,10 +90,21 @@ public class ModuleService implements IdentifiableEntityService<Module> {
      * @param object
      * @return boolean
      */
-    @Transactional
+    @Transactional(rollbackFor = DataAccessException.class)
     public Module saveWithStudentsAllocated(Module object, List<String> studentUuids) {
         Module module = repository.saveModule(object);
         repository.insertModuleAllocations(object.getModuleCode(), studentUuids);
         return module;
+    }
+
+    @Transactional(rollbackFor = DataAccessException.class)
+    public boolean removeModule(String moduleCode) {
+        boolean value = true;
+        value = value && repository.removeModuleAllocations(moduleCode);
+        value = value && allocationRepository.deleteAllocationsToModulesClasses(moduleCode);
+        value = value && attendanceRepository.deleteAttendanceRecordsForModule(moduleCode);
+        value = value && scheduledClassRepository.deleteModulesClasses(moduleCode);
+        value = value && repository.removeModule(moduleCode);
+        return value;
     }
 }

@@ -56,10 +56,7 @@ public class AttendanceService {
      * @return boolean
      */
     public boolean insertAttendance(Attendance attendance) {
-        if (attendanceRepository.insertAttendance(attendance) == 0)
-            return false;
-        else
-            return true;
+        return attendanceRepository.insertAttendance(attendance);
     }
 
 }

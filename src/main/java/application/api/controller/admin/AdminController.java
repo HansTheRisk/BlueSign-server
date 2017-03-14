@@ -243,6 +243,15 @@ public class AdminController {
         return new ResponseEntity<>(modules, HttpStatus.OK);
     }
 
+
+    @RequestMapping(value = "admin/module/{module}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity deleteModule(@PathVariable String moduleCode) {
+        if(moduleService.getByModuleCode(moduleCode) == null)
+            return new ResponseEntity(new MessageResource("Module not found!"), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(moduleService.removeModule(moduleCode), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "admin/module/{code}/class", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ScheduledClassResource>> getModulesClasses(@PathVariable String code) {

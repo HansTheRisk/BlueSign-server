@@ -85,4 +85,23 @@ public class AllocationRepository extends BaseJDBCRepository {
 
     }
 
+    public boolean cancelAllocationsToModulesClasses(String moduleCode) {
+        String sql = "UPDATE allocation " +
+                        "SET allocation.end = ? " +
+                     "FROM allocation " +
+                        "INNER JOIN class ON allocation.class_id = class.id " +
+                        "INNER JOIN module ON class.module_id = module.id " +
+                     "WHERE module.module_code = ? ";
+        return executor.update(sql, new Object[]{new Timestamp(System.currentTimeMillis()), moduleCode}) == 1 ? true : false;
+    }
+
+    public boolean deleteAllocationsToModulesClasses(String moduleCode) {
+        String sql = "DELETE allocation " +
+                     "FROM allocation " +
+                        "INNER JOIN class ON allocation.class_id = class.id " +
+                        "INNER JOIN module ON class.module_id = module.id " +
+                     "WHERE module.module_code = ? ";
+        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
+    }
+
 }

@@ -120,4 +120,17 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
             }
         });
     }
+
+    public boolean removeModuleAllocations(String moduleCode) {
+        String sql = "DELETE module_student " +
+                     "FROM module_student " +
+                        "INNER JOIN module ON module_student.id = module.id " +
+                     "WHERE module.module_code = ?";
+        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
+    }
+
+    public boolean removeModule(String moduleCode) {
+        String sql = "DELETE FROM module WHERE module_code = ?";
+        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
+    }
 }

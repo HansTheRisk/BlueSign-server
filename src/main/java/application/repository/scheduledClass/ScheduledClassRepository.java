@@ -206,4 +206,12 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         else
             return null;
     }
+
+    public boolean deleteModulesClasses(String moduleCode) {
+        String sql = "DELETE class " +
+                     "FROM class " +
+                        "INNER JOIN module ON class.module_id = module.id " +
+                     "WHERE module.module_code = ?";
+        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
+    }
 }

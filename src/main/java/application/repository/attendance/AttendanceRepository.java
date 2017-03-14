@@ -81,7 +81,7 @@ public class AttendanceRepository extends BaseJDBCRepository {
      * @return int
      */
     @Transactional(rollbackFor = DataAccessException.class)
-    public int insertAttendance(Attendance attendance) {
+    public boolean insertAttendance(Attendance attendance) {
         String sql = "INSERT INTO attendance(student_id, class_id, date) " +
                      "VALUES((SELECT id FROM student WHERE university_id = ?), " +
                             "(SELECT id FROM class WHERE uuid = ?), ?)";
@@ -92,7 +92,17 @@ public class AttendanceRepository extends BaseJDBCRepository {
                 ps.setString(2, attendance.getClassUuid());
                 ps.setTimestamp(3, new Timestamp(attendance.getDate().getTime()));
             }
-        });
+        }) == 1 ? true : false;
+    }
+
+    @Transactional(rollbackFor = DataAccessException.class)
+    public boolean deleteAttendanceRecordsForModule(String moduleCode) {
+        String sql = "DELETE attendance" +
+                     "FROM attendance " +
+                        "INNER JOIN class ON attendance.class_id = class.id " +
+                        "INNER JOIN module ON class.module_id = module.id " +
+                     "WHERE module.module_code = ?";
+        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
     }
 
 }
