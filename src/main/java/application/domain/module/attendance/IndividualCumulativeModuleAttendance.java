@@ -9,7 +9,7 @@ package application.domain.module.attendance;
 public class IndividualCumulativeModuleAttendance extends ModuleAttendance<Long>{
 
     public IndividualCumulativeModuleAttendance() {
-        super();
+        super(0L, 0L);
     }
 
     public IndividualCumulativeModuleAttendance(String moduleCode, long totalCompletedToDate, long totalAttended) {

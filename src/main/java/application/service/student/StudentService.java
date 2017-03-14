@@ -130,7 +130,7 @@ public class StudentService implements IdentifiableEntityService<Student>{
         return repository.updateStudentDetails(object);
     }
 
-    public String resetUserPin(String id) {
+    public String resetStudentPin(String id) {
         Random random = new Random();
         return repository.resetStudentPin(id, String.valueOf(random.nextInt(((9999 - 1000))+1)+1000));
     }

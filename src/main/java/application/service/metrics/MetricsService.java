@@ -180,9 +180,9 @@ public class MetricsService {
                 double allocated = allocations.stream().filter(allocation -> {
                     boolean sameClass = allocation.getClassUuid().equals(scheduledClass.getUuid());
 
-                    if(sameClass && ((allocation.getStart().getTime() < startDate.getTime()) && allocation.getEnd() == null))
+                    if(sameClass && ((allocation.getStart().getTime() <= startDate.getTime()) && allocation.getEnd() == null))
                         return true;
-                    else if(sameClass && ((allocation.getStart().getTime() < startDate.getTime()) && allocation.getEnd().getTime() > endDate.getTime()))
+                    else if(sameClass && ((allocation.getStart().getTime() <= startDate.getTime()) && allocation.getEnd().getTime() > endDate.getTime()))
                         return true;
                     else
                         return false;
@@ -193,7 +193,8 @@ public class MetricsService {
                                                                     && DateUtils.isSameDay(record.getDate(), completedClass))).count();
                 completedClassesAttendancePercentages.add(Double.valueOf(allocated!=0 ? records/allocated : 0));
             });
-            classesAvgPercentages.add((completedClassesAttendancePercentages.stream()
+            if(!completedClassesAttendancePercentages.isEmpty())
+                classesAvgPercentages.add((completedClassesAttendancePercentages.stream()
                                                                            .mapToDouble(perc -> perc.doubleValue())
                                                                            .sum()) / completedClassesAttendancePercentages.size());
         });

@@ -12,6 +12,10 @@ public class ModuleAttendance<T extends Number> extends AttendanceMetricsAbstrac
 
     public ModuleAttendance(){}
 
+    public ModuleAttendance(T x, T y) {
+        super(x, y);
+    }
+
     public ModuleAttendance(String moduleCode, T x, T y) {
         super(x, y);
         this.moduleCode = moduleCode;

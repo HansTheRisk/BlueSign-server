@@ -12,7 +12,6 @@ import application.api.resource.student.CreatedStudentResource;
 import application.api.resource.student.StudentResource;
 import application.api.resource.user.PasswordResource;
 import application.api.resource.user.UserResource;
-import application.domain.ipRange.IpRange;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.student.Student;
 import application.domain.user.User;
@@ -41,7 +40,7 @@ import java.util.stream.Collectors;
 public class AdminController {
 
     @Autowired
-    LecturerController lecturerController;
+    private LecturerController lecturerController;
 
     @Autowired
     private StudentService studentService;
@@ -197,7 +196,7 @@ public class AdminController {
         Student student = studentService.getStudentByUniversityId(id);
         if(student == null)
             return new ResponseEntity<>(new MessageResource("Student does not exist"), HttpStatus.NOT_FOUND);
-        String pin = studentService.resetUserPin(id);
+        String pin = studentService.resetStudentPin(id);
         if(pin == null)
             return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
         else {

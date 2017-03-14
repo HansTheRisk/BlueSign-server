@@ -45,10 +45,6 @@ public class AllocationRepository extends BaseJDBCRepository {
         return executor.query(sql, new Object[]{moduleCode.toUpperCase()}, new AllocationRowMapper());
     }
 
-    /**
-     * This method inserts access codes into the database.
-     * @param allocations
-     */
     public int[] insertAllocations(List<Allocation> allocations) {
         String sql = "INSERT INTO allocation(student_id, class_id, start) " +
                 "VALUES((SELECT id FROM student WHERE university_id = ?), " +
@@ -59,6 +55,26 @@ public class AllocationRepository extends BaseJDBCRepository {
                 ps.setString(1, allocations.get(i).getStudentUniversityId());
                 ps.setString(2, allocations.get(i).getClassUuid());
                 ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            }
+
+            @Override
+            public int getBatchSize() {
+                return allocations.size();
+            }
+        });
+
+    }
+
+    public int[] insertAllocations(List<Allocation> allocations, long timestamp) {
+        String sql = "INSERT INTO allocation(student_id, class_id, start) " +
+                "VALUES((SELECT id FROM student WHERE university_id = ?), " +
+                "(SELECT id FROM class WHERE uuid = ?), ?)";
+        return executor.batchUpdate(sql, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                ps.setString(1, allocations.get(i).getStudentUniversityId());
+                ps.setString(2, allocations.get(i).getClassUuid());
+                ps.setTimestamp(3, new Timestamp(timestamp));
             }
 
             @Override

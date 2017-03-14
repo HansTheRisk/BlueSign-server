@@ -33,7 +33,7 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
                             "allocation.student_id = student.id " +
                         "INNER JOIN user ON " +
                             "module.lecturer_id = user.id " +
-                    "WHERE student.university_id = ? AND allocation.end IS NULL " +
+                    "WHERE student.university_id = ? " +
                     "GROUP BY module.id";
         return executor.query(sql, new Object[]{universityId}, new ModuleRowMapper());
     }

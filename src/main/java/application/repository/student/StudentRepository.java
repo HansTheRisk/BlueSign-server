@@ -110,7 +110,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                         "INNER JOIN allocation ON student.id = allocation.student_id " +
                         "INNER JOIN class ON allocation.class_id = class.id " +
                       "WHERE class.uuid = ?" +
-                        "AND (TIMESTAMP(allocation.start) < TIMESTAMP(DATE(?), TIME(class.start_date)) " +
+                        "AND (TIMESTAMP(allocation.start) <= TIMESTAMP(DATE(?), TIME(class.start_date)) " +
                         "AND (allocation.end IS NULL OR (TIMESTAMP(allocation.end) > TIMESTAMP(DATE(?), TIME(class.end_date)))))) allocated " +
                         "LEFT JOIN (SELECT student.id FROM student " +
                         "INNER JOIN attendance ON student.id = attendance.student_id " +

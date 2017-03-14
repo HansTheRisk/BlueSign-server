@@ -150,7 +150,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                             "(SELECT COUNT(*) FROM allocation " +
                                 "INNER JOIN class ON class_id = class.id " +
                              "WHERE class.uuid = ?" +
-                                "AND (TIMESTAMP(allocation.start) < TIMESTAMP(DATE(?), TIME(class.start_date))" +
+                                "AND (TIMESTAMP(allocation.start) <= TIMESTAMP(DATE(?), TIME(class.start_date))" +
                                 "AND (allocation.end IS NULL OR (TIMESTAMP(allocation.end) > TIMESTAMP(DATE(?), TIME(class.end_date)))))) AS allocated, " +
                             "(SELECT COUNT(*) FROM attendance " +
                                 "INNER JOIN class ON class_id = class.id " +

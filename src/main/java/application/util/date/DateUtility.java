@@ -57,6 +57,9 @@ public class DateUtility {
      */
     public List<Date> listDays(Date startDate, Date endDate, DayOfWeek day) {
 
+        if(startDate.getTime() > endDate.getTime())
+            return new ArrayList<>();
+
         List<Date> dates = new ArrayList<>();
         Calendar start = Calendar.getInstance();
         Calendar end = Calendar.getInstance();

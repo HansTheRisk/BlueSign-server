@@ -37,6 +37,13 @@ public class AllocationService {
             return false;
     }
 
+    public boolean saveAllocations(List<Allocation> allocations, long timestamp) {
+        if(allocationRepository.insertAllocations(allocations, timestamp).length != 0)
+            return true;
+        else
+            return false;
+    }
+
     public List<Allocation> getModulesClassesAllocations(String moduleCode) {
         return allocationRepository.findAllModulesClassesAllocations(moduleCode);
     }

@@ -113,7 +113,7 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
     @Transactional
     public ScheduledClass saveWithStudentsAllocated(ScheduledClass object, List<String> studentUuids) {
         ScheduledClass scheduledClass = repository.saveClass(object);
-        boolean done = allocationService.saveAllocations(studentUuids.stream().map(uuid -> new Allocation(uuid, object.getUuid())).collect(Collectors.toList()));
+        boolean done = allocationService.saveAllocations(studentUuids.stream().map(uuid -> new Allocation(uuid, object.getUuid())).collect(Collectors.toList()), scheduledClass.getStartDate().getTime());
         if(done)
             return scheduledClass;
         else
