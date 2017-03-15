@@ -31,10 +31,7 @@ public class AllocationService {
     }
 
     public boolean saveAllocations(List<Allocation> allocations) {
-        if(allocationRepository.insertAllocations(allocations).length != 0)
-            return true;
-        else
-            return false;
+        return allocationRepository.insertAllocations(allocations);
     }
 
     public boolean saveAllocations(List<Allocation> allocations, long timestamp) {

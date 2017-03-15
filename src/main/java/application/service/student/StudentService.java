@@ -3,7 +3,6 @@ package application.service.student;
 import application.domain.student.Student;
 import application.domain.student.StudentAttendanceCorrelation;
 import application.domain.student.StudentModuleAttendanceCorrelation;
-import application.repository.allocation.AllocationRepository;
 import application.repository.student.StudentRepository;
 import application.service.IdentifiableEntityService;
 import application.service.allocation.AllocationService;
@@ -127,6 +126,10 @@ public class StudentService implements IdentifiableEntityService<Student>{
         return repository.findAll();
     }
 
+    public List<Student> getStudentAvailableToAllocateToModule(String moduleCode) {
+        return repository.findStudentAvailableToAllocateToModule(moduleCode);
+    }
+
     /**
      * Updates a students's details (name, surname and email)
      * in the database.
@@ -145,7 +148,7 @@ public class StudentService implements IdentifiableEntityService<Student>{
     public boolean removeStudent(String universityId) {
         boolean value = true;
         value = value && allocationService.cancelStudentsAllocationsToClasses(universityId);
-        value = value && moduleService.removeStudentsModuleAllocations(universityId);
+        value = value && moduleService.removeStudentsAllocationsToModules(universityId);
         value = value && repository.deactivateStudent(universityId);
         return value;
     }

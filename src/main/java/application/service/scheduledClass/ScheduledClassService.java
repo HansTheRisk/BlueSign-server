@@ -84,6 +84,10 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
         return repository.getCompletedClassAttendance(classUuid, timestamp);
     }
 
+    public List<ScheduledClass> getClassesOfModuleGroup(String moduleCode, String group) {
+        return repository.findClassesOfModuleGroup(moduleCode, group);
+    }
+
     @Transactional(rollbackFor = DataAccessException.class)
     public boolean removeClass(String classUuid) {
         boolean value = true;

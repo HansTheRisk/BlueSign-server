@@ -32,7 +32,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                     "(SELECT COUNT(*) " +
                      "FROM class INNER JOIN allocation " +
                         "ON class.id = allocation.class_id " +
-                     "WHERE class.id = cl_id) as allocated " +
+                     "WHERE class.id = cl_id AND allocation.end IS NULL) as allocated " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -58,12 +58,24 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                     "(SELECT COUNT(*) " +
                         "FROM class INNER JOIN allocation " +
                      "ON class.id = allocation.class_id " +
-                     "WHERE class.id = cl_id) as allocated " +
+                     "WHERE class.id = cl_id AND allocation.end IS NULL) as allocated " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
                      "WHERE module.module_code = ? ";
         return executor.query(sql, new Object[]{moduleCode.toUpperCase()}, new ScheduledClassRowMapper());
+    }
+
+    public List<ScheduledClass> findClassesOfModuleGroup(String moduleCode, String group) {
+        String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
+                "(SELECT COUNT(*) " +
+                    "FROM class INNER JOIN allocation " +
+                        "ON class.id = allocation.class_id " +
+                    "WHERE class.id = cl_id AND allocation.end IS NULL) as allocated " +
+                "FROM class INNER JOIN module " +
+                    "ON class.module_id = module.id " +
+                "WHERE module.module_code = ? AND (class.group_name = ? OR class.group_name = 'NONE') ";
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase(), group.toUpperCase()}, new ScheduledClassRowMapper());
     }
 
     /**
@@ -100,7 +112,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                     "(SELECT COUNT(*) " +
                      "FROM class INNER JOIN allocation " +
                         "ON class.id = allocation.class_id " +
-                     "WHERE class.id = cl_id) as allocated " +
+                     "WHERE class.id = cl_id AND allocation.end IS NULL) as allocated " +
                      "FROM class " +
                         "INNER JOIN module " +
                             "ON class.module_id = module.id " +
@@ -120,7 +132,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                     "(SELECT COUNT(*) " +
                      "FROM class INNER JOIN allocation " +
                         "ON class.id = allocation.class_id " +
-                     "WHERE class.id = cl_id) as allocated " +
+                     "WHERE class.id = cl_id AND allocation.end IS NULL) as allocated " +
                 "FROM class " +
                 "INNER JOIN module " +
                     "ON class.module_id = module.id " +

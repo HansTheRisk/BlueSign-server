@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -45,11 +46,11 @@ public class AllocationRepository extends BaseJDBCRepository {
         return executor.query(sql, new Object[]{moduleCode.toUpperCase()}, new AllocationRowMapper());
     }
 
-    public int[] insertAllocations(List<Allocation> allocations) {
+    public boolean insertAllocations(List<Allocation> allocations) {
         String sql = "INSERT INTO allocation(student_id, class_id, start) " +
                 "VALUES((SELECT id FROM student WHERE university_id = ?), " +
                        "(SELECT id FROM class WHERE uuid = ?), ?)";
-        return executor.batchUpdate(sql, new BatchPreparedStatementSetter() {
+        return Arrays.asList(executor.batchUpdate(sql, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 ps.setString(1, allocations.get(i).getStudentUniversityId());
@@ -61,7 +62,7 @@ public class AllocationRepository extends BaseJDBCRepository {
             public int getBatchSize() {
                 return allocations.size();
             }
-        });
+        })).contains(0) ? false : true;
 
     }
 
@@ -92,6 +93,17 @@ public class AllocationRepository extends BaseJDBCRepository {
                         "INNER JOIN student ON allocation.student_id = student.id " +
                      "WHERE student.university_id = ? ";
         return executor.update(sql, new Object[]{new Timestamp(System.currentTimeMillis()), universityId}) == 1 ? true : false;
+    }
+
+    public boolean cancelStudentsAllocationsToModulesClasses(String moduleCode, String universityId) {
+        String sql = "UPDATE allocation " +
+                "SET allocation.end = ? " +
+                "FROM allocation " +
+                "INNER JOIN student ON allocation.student_id = student.id " +
+                "INNER JOIN class ON allocation.class_id = class.id " +
+                "INNER JOIN module ON class.module_id = module.id " +
+                "WHERE student.university_id = ? AND module.module_code = ?";
+        return executor.update(sql, new Object[]{new Timestamp(System.currentTimeMillis()), universityId, moduleCode.toUpperCase()}) == 1 ? true : false;
     }
 
     public boolean deleteAllocationsToModulesClasses(String moduleCode) {

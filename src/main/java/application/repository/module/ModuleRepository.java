@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -67,6 +68,14 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
         return executor.queryForObject(sql, new Object[]{moduleCode.toUpperCase()}, new ModuleRowMapper());
     }
 
+    public List<ModuleGroup> getModuleGroups(String moduleCode) {
+        String sql = "SELECT DISTINCT group_name " +
+                     "FROM class INNER JOIN module " +
+                        "ON class.module_id = module.id " +
+                     "WHERE module_code = ? ";
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase()}, new ModuleGroupRowMapper());
+    }
+
     public List<Module> findAll() {
         String sql = "SELECT module.id, title, module_code, user.uuid AS lecturer_uuid " +
                      "FROM module " +
@@ -104,11 +113,11 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
             return null;
     }
 
-    public void insertModuleAllocations(String moduleCode, List<String> studentIds) {
+    public boolean insertModuleAllocations(String moduleCode, List<String> studentIds) {
         String sql = "INSERT INTO module_student(module_id, student_id) " +
                 "VALUES((SELECT id FROM module WHERE module_code = ?), " +
                 "(SELECT id FROM student WHERE university_id = ?))";
-        executor.batchUpdate(sql, new BatchPreparedStatementSetter() {
+        return Arrays.asList(executor.batchUpdate(sql, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 ps.setString(1, moduleCode);
@@ -119,7 +128,7 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
             public int getBatchSize() {
                 return studentIds.size();
             }
-        });
+        })).contains(0) ? false : true;
     }
 
     public Module updateModuleDetails(Module module) {
@@ -135,12 +144,21 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
             return null;
     }
 
-    public boolean removeStudentsModuleAllocations(String studentUniversityId) {
+    public boolean removeStudentsAllocationsToModules(String studentUniversityId) {
         String sql = "DELETE module_student " +
                 "FROM module_student " +
-                "INNER JOIN student ON module_student.id = student.id " +
+                "INNER JOIN student ON module_student.student_id = student.id " +
                 "WHERE student.university_id = ?";
         return executor.update(sql, new Object[]{studentUniversityId}) == 1 ? true : false;
+    }
+
+    public boolean removeStudentsAllocationToModule(String moduleCode, String studentUniversityId) {
+        String sql = "DELETE module_student " +
+                "FROM module_student " +
+                "INNER JOIN student ON module_student.student_id = student.id " +
+                "INNER JOIN module ON module_student.module_id = module.id " +
+                "WHERE student.university_id = ? AND module.module_code = ?";
+        return executor.update(sql, new Object[]{studentUniversityId, moduleCode.toUpperCase()}) == 1 ? true : false;
     }
 
     public boolean removeModuleAllocations(String moduleCode) {

@@ -22,6 +22,19 @@ import java.util.Random;
 @Component
 public class StudentRepository extends BaseJDBCRepository implements IdentifiableRepository<Student> {
 
+    public List<Student> findStudentAvailableToAllocateToModule(String moduleCode) {
+        String sql = "SELECT student_id as studentId, university_id, name, surname, email, pin_salt " +
+                "FROM " +
+                "(SELECT student.id as student_id, university_id, name, surname, email, pin_salt " +
+                "FROM student WHERE expired = 0) students " +
+                "LEFT JOIN (SELECT student.id AS studId FROM student " +
+                "INNER JOIN module_student ON student.id = student_id " +
+                "INNER JOIN module ON module.id = module_id " +
+                "WHERE module.module_code = ?) allocatedToModule ON " +
+                "students.student_id = allocatedToModule.studId WHERE allocatedToModule.studId IS NULL";
+        return executor.query(sql, new Object[]{moduleCode.toUpperCase()}, new StudentRowMapper());
+    }
+
     public List<Student> findAllAllocatedToAModule(String moduleCode) {
         String sql = "SELECT student_id as studentId, university_id, name, surname, email, pin_salt " +
                        "FROM student " +
@@ -206,7 +219,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
     public Student findByUniversityIdAndPin(String universityId, String pin) {
         String sql = "SELECT id as studentId, university_id, name, surname, email, pin_salt " +
                      "FROM student " +
-                     "WHERE university_id = ? AND pin_salt = ?";
+                     "WHERE university_id = ? AND pin_salt = ? AND expired = 0";
         return executor.queryForObject(sql,
                 new Object[]{universityId, pin}, new StudentRowMapper());
     }
