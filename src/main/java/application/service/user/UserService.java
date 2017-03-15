@@ -4,10 +4,12 @@ import application.domain.user.User;
 import application.repository.user.UserRepository;
 import application.service.NaturallyIdentifiableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,6 +33,14 @@ public class UserService implements NaturallyIdentifiableService <User>, UserDet
 
     public List<User> getLecturers() {
         return userRepository.findAllLecturers();
+    }
+
+    @Transactional(rollbackFor = DataAccessException.class)
+    public boolean removeUser(String uuid) {
+        boolean value = true;
+        value = value && userRepository.swapAllLecturersModulesToNONELecturer(uuid);
+        value = value && userRepository.removeUser(uuid);
+        return value;
     }
 
     /**

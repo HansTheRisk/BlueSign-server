@@ -134,7 +134,7 @@ public class StudentController {
                                                   @RequestBody SignInResource signInResource,
                                                   HttpServletRequest request) {
 
-        ScheduledClass scheduledClass = scheduledClassService.findClassByAuthenticationCode(signInResource.getCode());
+        ScheduledClass scheduledClass = scheduledClassService.getClassByAuthenticationCode(signInResource.getCode());
         Date now = new Date(System.currentTimeMillis());
         String address = request.getHeader("X-FORWARDED-FOR").split("\\s*,\\s*")[0];
 

@@ -8,6 +8,11 @@ import application.domain.module.Module;
  * This class represents modules in JSON form.
  */
 public class ModuleResource extends IdentifiableResource<Module> {
+
+    public ModuleResource() {
+        super(new Module());
+    }
+
     public ModuleResource(Module object) {
         super(object);
     }

@@ -6,7 +6,9 @@ import application.domain.scheduledClass.attendance.CompletedClassAttendance;
 import application.repository.scheduledClass.ScheduledClassRepository;
 import application.service.NaturallyIdentifiableService;
 import application.service.allocation.AllocationService;
+import application.service.attendance.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,8 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
     private ScheduledClassRepository repository;
     @Autowired
     private AllocationService allocationService;
+    @Autowired
+    private AttendanceService attendanceService;
 
     /**
      * Finds all the classes allocated to a student by
@@ -31,7 +35,7 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
      * @param moduleCode
      * @return List of ScheduledClasses
      */
-    public List<ScheduledClass> findClassesByStudentUniveristyIdAndModuleCode(String universityId, String moduleCode) {
+    public List<ScheduledClass> getClassesByStudentUniveristyIdAndModuleCode(String universityId, String moduleCode) {
         return repository.findClassesByStudentUniveristyIdAndModuleCode(universityId, moduleCode);
     }
 
@@ -40,7 +44,7 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
      * @param moduleCode
      * @return List of ScheduledClasses
      */
-    public List<ScheduledClass> findClassesByModuleCode(String moduleCode) {
+    public List<ScheduledClass> getClassesByModuleCode(String moduleCode) {
         return repository.findClassesByModuleCode(moduleCode);
     }
 
@@ -49,7 +53,7 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
      * @param universityId
      * @return List of ScheduledClasses
      */
-    public List<ScheduledClass> findClassesByStudentUniversityId(String universityId) {
+    public List<ScheduledClass> getClassesByStudentUniversityId(String universityId) {
         return repository.findClassesByStudentUniveristyId(universityId);
     }
 
@@ -58,7 +62,7 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
      * @param code
      * @return ScheduledClass
      */
-    public ScheduledClass findClassByAuthenticationCode(int code) {
+    public ScheduledClass getClassByAuthenticationCode(int code) {
         return repository.findClassByAuthenticationCode(code);
     }
 
@@ -66,7 +70,7 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
      * Finds all the currently running classes.
      * @return  List of ScheduledClasses
      */
-    public List<ScheduledClass> findCurrentlyRunningClasses() {
+    public List<ScheduledClass> getCurrentlyRunningClasses() {
         return repository.findCurrentlyRunningClasses();
     }
 
@@ -78,6 +82,15 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
      */
     public CompletedClassAttendance getClassAttendance(String classUuid, long timestamp) {
         return repository.getCompletedClassAttendance(classUuid, timestamp);
+    }
+
+    @Transactional(rollbackFor = DataAccessException.class)
+    public boolean removeClass(String classUuid) {
+        boolean value = true;
+        value = value && allocationService.deleteAllAllocationsToAClass(classUuid);
+        value = value && attendanceService.deleteAttendanceRecordsForAClass(classUuid);
+        value = value && repository.removeClass(classUuid);
+        return value;
     }
 
     /**

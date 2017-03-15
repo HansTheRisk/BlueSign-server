@@ -1,6 +1,7 @@
 package application.repository.module;
 
 import application.domain.module.Module;
+import application.domain.user.User;
 import application.repository.BaseJDBCRepository;
 import application.repository.IdentifiableRepository;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -33,7 +34,7 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
                             "allocation.student_id = student.id " +
                         "INNER JOIN user ON " +
                             "module.lecturer_id = user.id " +
-                    "WHERE student.university_id = ? " +
+                    "WHERE student.university_id = ? AND allocation.end IS NULL " +
                     "GROUP BY module.id";
         return executor.query(sql, new Object[]{universityId}, new ModuleRowMapper());
     }
@@ -121,10 +122,31 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
         });
     }
 
+    public Module updateModuleDetails(Module module) {
+        String sql = "UPDATE module "+
+                "SET title = ?, " +
+                "lecturer_id = (SELECT id FROM user WHERE uuid = ?), " +
+                "WHERE module_code = ? ";
+        if(executor.update(sql,
+                new Object[]{module.getTitle(),
+                        module.getLecturerUuid(), module.getModuleCode().toUpperCase()}) ==1)
+            return getByModuleCode(module.getModuleCode().toUpperCase());
+        else
+            return null;
+    }
+
+    public boolean removeStudentsModuleAllocations(String studentUniversityId) {
+        String sql = "DELETE module_student " +
+                "FROM module_student " +
+                "INNER JOIN student ON module_student.id = student.id " +
+                "WHERE student.university_id = ?";
+        return executor.update(sql, new Object[]{studentUniversityId}) == 1 ? true : false;
+    }
+
     public boolean removeModuleAllocations(String moduleCode) {
         String sql = "DELETE module_student " +
                      "FROM module_student " +
-                        "INNER JOIN module ON module_student.id = module.id " +
+                        "INNER JOIN module ON module_student.module_id = module.id " +
                      "WHERE module.module_code = ?";
         return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
     }

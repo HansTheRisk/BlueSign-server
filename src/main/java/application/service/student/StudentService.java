@@ -3,8 +3,11 @@ package application.service.student;
 import application.domain.student.Student;
 import application.domain.student.StudentAttendanceCorrelation;
 import application.domain.student.StudentModuleAttendanceCorrelation;
+import application.repository.allocation.AllocationRepository;
 import application.repository.student.StudentRepository;
 import application.service.IdentifiableEntityService;
+import application.service.allocation.AllocationService;
+import application.service.module.ModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +22,10 @@ public class StudentService implements IdentifiableEntityService<Student>{
 
     @Autowired
     private StudentRepository repository;
+    @Autowired
+    private AllocationService allocationService;
+    @Autowired
+    private ModuleService moduleService;
 
     public List<Student> getStudentsAllocatedToAModule(String moduleCode) {
         return repository.findAllAllocatedToAModule(moduleCode);
@@ -133,6 +140,14 @@ public class StudentService implements IdentifiableEntityService<Student>{
     public String resetStudentPin(String id) {
         Random random = new Random();
         return repository.resetStudentPin(id, String.valueOf(random.nextInt(((9999 - 1000))+1)+1000));
+    }
+
+    public boolean removeStudent(String universityId) {
+        boolean value = true;
+        value = value && allocationService.cancelStudentsAllocationsToClasses(universityId);
+        value = value && moduleService.removeStudentsModuleAllocations(universityId);
+        value = value && repository.deactivateStudent(universityId);
+        return value;
     }
 
     /**

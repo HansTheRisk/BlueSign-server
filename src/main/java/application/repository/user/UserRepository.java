@@ -3,7 +3,9 @@ package application.repository.user;
 import application.domain.user.User;
 import application.repository.BaseJDBCRepository;
 import application.repository.NaturallyIdentifiableRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
@@ -19,7 +21,7 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
 
     public List<User> findAll() {
         String sql = "SELECT id, uuid, username, name, surname, psswd_salt, type, email " +
-                "FROM user ";
+                     "FROM user WHERE username != 'NONE'";
         return executor.query(sql, new UserRowMapper());
     }
 
@@ -38,7 +40,7 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
     public User findByUsername(String username) {
         String sql = "SELECT id, uuid, username, name, surname, psswd_salt, type, email " +
                 "FROM user " +
-                "WHERE username = ?";
+                "WHERE username = ? AND username != 'NONE'";
         return executor.queryForObject(sql, new Object[]{username}, new UserRowMapper());
     }
 
@@ -48,6 +50,17 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
                      "WHERE uuid = ? ";
         if(executor.update(sql,
                 new Object[]{password, uuid}) ==1)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean swapAllLecturersModulesToNONELecturer(String lecturerUuid) {
+        String sql = "UPDATE module "+
+                "SET lecturer_id = (SELECT id FROM user WHERE username = 'NONE') " +
+                "WHERE lecturer_id = (SELECT id FROM user WHERE uuid = ?)";
+        if(executor.update(sql,
+                new Object[]{lecturerUuid}) ==1)
             return true;
         else
             return false;
@@ -69,6 +82,13 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
             return findByUuid(user.getUuid());
         else
             return null;
+    }
+
+    public boolean removeUser(String uuid) {
+        String sql = "DELETE user " +
+                "FROM user " +
+                "WHERE user.uuid = ? ";
+        return executor.update(sql, new Object[]{uuid}) == 1 ? true : false;
     }
 
     public User saveUser(User user) {

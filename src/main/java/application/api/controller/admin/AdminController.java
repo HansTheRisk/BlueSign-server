@@ -24,6 +24,7 @@ import application.util.ip.IpUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -138,12 +139,12 @@ public class AdminController {
     @RequestMapping(value = "admin/user/{uuid}/password", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity resetUserPassword(@RequestBody PasswordResource resource,
-                                          @PathVariable String uuid) {
+                                            @PathVariable String uuid) {
         User user = userService.findByUUID(uuid);
         if(resource.getPassword() == null)
             return new ResponseEntity<>(new MessageResource("Password cannot be null."), HttpStatus.FORBIDDEN);
         if(user == null)
-            return new ResponseEntity<>(new MessageResource("User does not exist"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new MessageResource("User does not exist"), HttpStatus.NOT_FOUND);
         if(userService.resetUserPassword(uuid, resource.getPassword()) == false)
             return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
         else
@@ -152,10 +153,16 @@ public class AdminController {
 
     @RequestMapping(value = "admin/user/{uuid}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity deleteUser(@PathVariable String uuid) {
+    public ResponseEntity deleteUser(@Autowired Authentication auth,
+                                     @PathVariable String uuid) {
         if(userService.findByUUID(uuid) == null)
-            return new ResponseEntity<>(new MessageResource("User does not exist"), HttpStatus.FORBIDDEN);
-        return null;
+            return new ResponseEntity<>(new MessageResource("User does not exist"), HttpStatus.NOT_FOUND);
+        if(((User)auth.getPrincipal()).getUuid().equals(uuid))
+            return new ResponseEntity<>(new MessageResource("Cannot delete your own account!"), HttpStatus.FORBIDDEN);
+        if(userService.removeUser(uuid))
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "admin/student", method = RequestMethod.POST)
@@ -208,7 +215,12 @@ public class AdminController {
     @RequestMapping(value = "admin/student/{universityId}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity deleteStudent(@PathVariable String universityId) {
-        return null;
+        if(studentService.getStudentByUniversityId(universityId) == null)
+            return new ResponseEntity<>(new MessageResource("Student does not exist"), HttpStatus.NOT_FOUND);
+        if(studentService.removeStudent(universityId))
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "admin/module", method = RequestMethod.POST)
@@ -235,6 +247,24 @@ public class AdminController {
         return new ResponseEntity<>(new ModuleResource(moduleService.saveWithStudentsAllocated(resource.getObject(), students)), HttpStatus.CREATED);
     }
 
+    @RequestMapping(value = "admin/module/{codeCode}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity editModule(@RequestBody ModuleResource resource,
+                                     @PathVariable String moduleCode) {
+
+        ResponseEntity validation = validateEditModuleResource(resource);
+        if(validation != null)
+            return validation;
+
+        if(moduleService.getByModuleCode(resource.getModuleCode()) == null)
+            return new ResponseEntity(new MessageResource("Module with id: " +resource.getModuleCode()+ " does not exist"), HttpStatus.NOT_FOUND);
+
+        if(userService.findByUUID(resource.getLecturerUuid()) == null)
+            return new ResponseEntity(new MessageResource("Provided lecturer does not exist"), HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(new ModuleResource(moduleService.updateModuleDetails(resource.getObject())), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "admin/module", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<ModuleResource>> getModules() {
@@ -244,12 +274,15 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value = "admin/module/{module}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "admin/module/{moduleCode}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity deleteModule(@PathVariable String moduleCode) {
         if(moduleService.getByModuleCode(moduleCode) == null)
             return new ResponseEntity(new MessageResource("Module not found!"), HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(moduleService.removeModule(moduleCode), HttpStatus.OK);
+        if(moduleService.removeModule(moduleCode))
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "admin/module/{code}/class", method = RequestMethod.GET)
@@ -277,7 +310,7 @@ public class AdminController {
     @RequestMapping(value = "/admin/module/{module}/{group}/student", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity getModuleGroupStudents(@PathVariable String module,
-                                                                              @PathVariable String group) {
+                                                 @PathVariable String group) {
 
         List<Student> students;
         boolean locked = true;
@@ -334,6 +367,17 @@ public class AdminController {
             }
         }
         return new ResponseEntity<>(new ScheduledClassResource(sclass), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "admin/class/{uuid}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity deleteClass(@PathVariable String uuid) {
+        if(scheduledClassService.findByUUID(uuid) == null)
+            return new ResponseEntity(new MessageResource("Class not found!"), HttpStatus.NOT_FOUND);
+        if(scheduledClassService.removeClass(uuid))
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "admin/ip", method = RequestMethod.GET)
@@ -415,6 +459,16 @@ public class AdminController {
             return new ResponseEntity(new MessageResource("Missing lecturer!"), HttpStatus.FORBIDDEN);
         if(resource.getStudentIds() == null || resource.getStudentIds().isEmpty())
             return new ResponseEntity(new MessageResource("Missing students!"), HttpStatus.FORBIDDEN);
+        return null;
+    }
+
+    private ResponseEntity validateEditModuleResource(ModuleResource resource) {
+        if(resource.getModuleCode() == null || resource.getModuleCode().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing module code!"), HttpStatus.FORBIDDEN);
+        if(resource.getTitle() == null || resource.getTitle().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing title!"), HttpStatus.FORBIDDEN);
+        if(resource.getLecturerUuid() == null || resource.getLecturerUuid().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing lecturer!"), HttpStatus.FORBIDDEN);
         return null;
     }
 

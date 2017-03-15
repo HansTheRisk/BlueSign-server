@@ -6,8 +6,6 @@ import application.repository.attendance.AttendanceRepository;
 import application.repository.module.ModuleRepository;
 import application.repository.scheduledClass.ScheduledClassRepository;
 import application.service.IdentifiableEntityService;
-import application.service.allocation.AllocationService;
-import application.service.attendance.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
@@ -64,6 +62,10 @@ public class ModuleService implements IdentifiableEntityService<Module> {
         return repository.findAll();
     }
 
+    public boolean removeStudentsModuleAllocations(String studentUniversityId) {
+        return repository.removeStudentsModuleAllocations(studentUniversityId);
+    }
+
     /**
      * Finds a module by its id.
      * @param id
@@ -106,5 +108,9 @@ public class ModuleService implements IdentifiableEntityService<Module> {
         value = value && scheduledClassRepository.deleteModulesClasses(moduleCode);
         value = value && repository.removeModule(moduleCode);
         return value;
+    }
+
+    public Module updateModuleDetails(Module module) {
+        return repository.updateModuleDetails(module);
     }
 }

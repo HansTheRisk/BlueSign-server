@@ -19,6 +19,7 @@ public class AttendanceService {
 
     /**
      * This method returns all attendance records for a student.
+     *
      * @param universityId
      * @return List of Attendance.
      */
@@ -28,6 +29,7 @@ public class AttendanceService {
 
     /**
      * Returns all Attendance records for given module.
+     *
      * @param moduleCode
      * @return List of Attendance
      */
@@ -37,6 +39,7 @@ public class AttendanceService {
 
     /**
      * Checks if an attendance record already exists.
+     *
      * @param studentId
      * @param classUuid
      * @param date
@@ -52,6 +55,7 @@ public class AttendanceService {
     /**
      * This method inserts a new attendance record
      * into the database.
+     *
      * @param attendance
      * @return boolean
      */
@@ -59,4 +63,7 @@ public class AttendanceService {
         return attendanceRepository.insertAttendance(attendance);
     }
 
+    public boolean deleteAttendanceRecordsForAClass(String classUuid) {
+        return attendanceRepository.deleteAttendanceRecordsForAClass(classUuid);
+    }
 }

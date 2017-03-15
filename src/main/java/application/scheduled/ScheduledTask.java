@@ -5,9 +5,7 @@ import application.domain.scheduledClass.ScheduledClass;
 import application.service.accessCode.AccessCodeService;
 import application.service.scheduledClass.ScheduledClassService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,7 +32,7 @@ public class ScheduledTask {
     //    @Transactional
 //    @Scheduled(fixedDelay = 240000)
     public void regenerateCodes() {
-        List<ScheduledClass> classes = classService.findCurrentlyRunningClasses();
+        List<ScheduledClass> classes = classService.getCurrentlyRunningClasses();
         List<Integer> codes = generateCodes(classes.size()).stream().collect(Collectors.toList());
         List<AccessCode> accessCodes = new ArrayList<>();
 

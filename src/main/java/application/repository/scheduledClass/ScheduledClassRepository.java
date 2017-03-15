@@ -150,8 +150,8 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                             "(SELECT COUNT(*) FROM allocation " +
                                 "INNER JOIN class ON class_id = class.id " +
                              "WHERE class.uuid = ?" +
-                                "AND (TIMESTAMP(allocation.start) <= TIMESTAMP(DATE(?), TIME(class.start_date))" +
-                                "AND (allocation.end IS NULL OR (TIMESTAMP(allocation.end) > TIMESTAMP(DATE(?), TIME(class.end_date)))))) AS allocated, " +
+                                "AND (TIMESTAMP(allocation.start) < TIMESTAMP(DATE(?), TIME(class.end_date))" +
+                                "AND (allocation.end IS NULL OR (TIMESTAMP(allocation.end) > TIMESTAMP(DATE(?), TIME(class.start_date)))))) AS allocated, " +
                             "(SELECT COUNT(*) FROM attendance " +
                                 "INNER JOIN class ON class_id = class.id " +
                             "WHERE class.uuid = ? AND DATE(date) = DATE(?)) AS attended ";
@@ -213,5 +213,10 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                         "INNER JOIN module ON class.module_id = module.id " +
                      "WHERE module.module_code = ?";
         return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
+    }
+
+    public boolean removeClass(String classUuid) {
+        String sql = "DELETE FROM class WHERE uuid = ?";
+        return executor.update(sql, new Object[]{classUuid}) == 1 ? true : false;
     }
 }

@@ -219,7 +219,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
     public Student findByUniversityId(String universityId) {
         String sql = "SELECT id as studentId, university_id, name, surname, email, pin_salt " +
                 "FROM student " +
-                "WHERE university_id = ?";
+                "WHERE university_id = ? AND expired = 0";
         return executor.queryForObject(sql,
                 new Object[]{universityId}, new StudentRowMapper());
     }
@@ -230,7 +230,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
      */
     public List<Student> findAll() {
         String sql = "SELECT student.id as studentId, university_id, name, surname, email, pin_salt " +
-                     "FROM student";
+                     "FROM student WHERE expired = 0";
         return executor.query(sql, new StudentRowMapper());
     }
 
@@ -262,6 +262,13 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
             return null;
     }
 
+    public boolean deactivateStudent(String studentUniversityId) {
+        String sql = "UPDATE student "+
+                     "SET university_id = ?, expired = 0" +
+                     "WHERE university = ? ";
+        return executor.update(sql, new Object[]{("EXPIRED{"+studentUniversityId+"}"), studentUniversityId}) ==1 ? true : false;
+    }
+
     /**
      * This method returns a student with the given id.
      * @param id
@@ -276,8 +283,8 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
     }
 
     public Student saveStudent(Student student) {
-        String sql = "INSERT INTO student(university_id, name, surname, email, pin_salt) " +
-                     "VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO student(university_id, name, surname, email, pin_salt, expired) " +
+                     "VALUES(?, ?, ?, ?, ?, 1)";
         if(executor.update(sql, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {

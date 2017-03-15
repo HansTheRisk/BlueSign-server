@@ -105,4 +105,13 @@ public class AttendanceRepository extends BaseJDBCRepository {
         return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
     }
 
+    @Transactional(rollbackFor = DataAccessException.class)
+    public boolean deleteAttendanceRecordsForAClass(String classUuid) {
+        String sql = "DELETE attendance" +
+                "FROM attendance " +
+                "INNER JOIN class ON attendance.class_id = class.id " +
+                "WHERE class.uuid = ?";
+        return executor.update(sql, new Object[]{classUuid}) == 1 ? true : false;
+    }
+
 }

@@ -48,4 +48,12 @@ public class AllocationService {
         return allocationRepository.findAllModulesClassesAllocations(moduleCode);
     }
 
+    public boolean cancelStudentsAllocationsToClasses(String universityId) {
+        return allocationRepository.cancelStudentsAllocationsToClasses(universityId);
+    }
+
+    public boolean deleteAllAllocationsToAClass(String classUuid) {
+        return allocationRepository.deleteAllocationsToAClass(classUuid);
+    }
+
 }

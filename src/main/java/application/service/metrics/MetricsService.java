@@ -68,7 +68,7 @@ public class MetricsService {
      * @return List of StudentModuleAttendanceCorrelation
      */
     public List<StudentModuleAttendanceCorrelation> getStudentAttendanceList(String moduleCode) {
-        List<ScheduledClass> classes = classService.findClassesByModuleCode(moduleCode);
+        List<ScheduledClass> classes = classService.getClassesByModuleCode(moduleCode);
         List<StudentModuleAttendanceCorrelation> correlations = new ArrayList<>();
         final long[] common = {0};
 
@@ -123,7 +123,7 @@ public class MetricsService {
      * @return List of IndividualCumulativeModuleAttendance
      */
     public List<IndividualCumulativeModuleAttendance> getMobileCumulativeModuleMetricsForStudent(String universityId) {
-        List<ScheduledClass> classes = classService.findClassesByStudentUniversityId(universityId);
+        List<ScheduledClass> classes = classService.getClassesByStudentUniversityId(universityId);
         List<Attendance> attendance = attendanceService.getAttendanceRecordsForStudent(universityId);
         return calculateMobileModuleMetrics(classes, attendance);
     }
@@ -134,7 +134,7 @@ public class MetricsService {
      * @return TotalAverageModuleAttendance
      */
     public TotalAverageModuleAttendance getTotalAverageModuleAttendance(String moduleCode) {
-        List<ScheduledClass> classes = classService.findClassesByModuleCode(moduleCode);
+        List<ScheduledClass> classes = classService.getClassesByModuleCode(moduleCode);
         List<Attendance> attendance = attendanceService.getAttendanceRecordsForModule(moduleCode);
         List<Allocation> allocations = allocationService.getModulesClassesAllocations(moduleCode);
         return calculateAverageModuleAttendanceMetrics(moduleCode, classes, attendance, allocations);
@@ -180,9 +180,9 @@ public class MetricsService {
                 double allocated = allocations.stream().filter(allocation -> {
                     boolean sameClass = allocation.getClassUuid().equals(scheduledClass.getUuid());
 
-                    if(sameClass && ((allocation.getStart().getTime() <= startDate.getTime()) && allocation.getEnd() == null))
+                    if(sameClass && ((allocation.getStart().getTime() < endDate.getTime()) && allocation.getEnd() == null))
                         return true;
-                    else if(sameClass && ((allocation.getStart().getTime() <= startDate.getTime()) && allocation.getEnd().getTime() > endDate.getTime()))
+                    else if(sameClass && ((allocation.getStart().getTime() < endDate.getTime()) && allocation.getEnd().getTime() > startDate.getTime()))
                         return true;
                     else
                         return false;
