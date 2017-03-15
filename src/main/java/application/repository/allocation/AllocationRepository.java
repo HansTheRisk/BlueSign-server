@@ -88,22 +88,20 @@ public class AllocationRepository extends BaseJDBCRepository {
 
     public boolean cancelStudentsAllocationsToClasses(String universityId) {
         String sql = "UPDATE allocation " +
-                        "SET allocation.end = ? " +
-                     "FROM allocation " +
-                        "INNER JOIN student ON allocation.student_id = student.id " +
+                     "INNER JOIN student ON allocation.student_id = student.id " +
+                     "SET allocation.end = ? " +
                      "WHERE student.university_id = ? ";
-        return executor.update(sql, new Object[]{new Timestamp(System.currentTimeMillis()), universityId}) == 1 ? true : false;
+        return executor.update(sql, new Object[]{new Timestamp(System.currentTimeMillis()), universityId}) >= 0 ? true : false;
     }
 
     public boolean cancelStudentsAllocationsToModulesClasses(String moduleCode, String universityId) {
         String sql = "UPDATE allocation " +
-                "SET allocation.end = ? " +
-                "FROM allocation " +
                 "INNER JOIN student ON allocation.student_id = student.id " +
                 "INNER JOIN class ON allocation.class_id = class.id " +
                 "INNER JOIN module ON class.module_id = module.id " +
+                "SET allocation.end = ? " +
                 "WHERE student.university_id = ? AND module.module_code = ?";
-        return executor.update(sql, new Object[]{new Timestamp(System.currentTimeMillis()), universityId, moduleCode.toUpperCase()}) == 1 ? true : false;
+        return executor.update(sql, new Object[]{new Timestamp(System.currentTimeMillis()), universityId, moduleCode.toUpperCase()}) >= 0 ? true : false;
     }
 
     public boolean deleteAllocationsToModulesClasses(String moduleCode) {
@@ -112,7 +110,7 @@ public class AllocationRepository extends BaseJDBCRepository {
                         "INNER JOIN class ON allocation.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
                      "WHERE module.module_code = ? ";
-        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
+        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) >= 0 ? true : false;
     }
 
     public boolean deleteAllocationsToAClass(String classUuid) {
@@ -120,7 +118,7 @@ public class AllocationRepository extends BaseJDBCRepository {
                 "FROM allocation " +
                 "INNER JOIN class ON allocation.class_id = class.id " +
                 "WHERE class.uuid = ? ";
-        return executor.update(sql, new Object[]{classUuid}) == 1 ? true : false;
+        return executor.update(sql, new Object[]{classUuid}) >= 0 ? true : false;
     }
 
 }

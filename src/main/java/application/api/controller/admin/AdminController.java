@@ -72,6 +72,51 @@ public class AdminController {
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "admin/student", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createStudent(@RequestBody StudentResource resource) {
+        ResponseEntity validation = validateStudentResource(resource);
+        if (validation != null)
+            return validation;
+        if (studentService.getStudentByUniversityId(resource.getUniversityId()) != null)
+            return new ResponseEntity<>(new MessageResource("Student with id: " + resource.getUniversityId() + " already exists"), HttpStatus.FORBIDDEN);
+        Student student = studentService.save(resource.getObject());
+        if (student != null)
+            return new ResponseEntity<>(new CreatedStudentResource(student), HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
+    }
+
+    @RequestMapping(value = "admin/student/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public ResponseEntity updateStudentDetails(@RequestBody StudentResource resource,
+                                               @PathVariable String id) {
+        ResponseEntity validation = validateStudentResource(resource);
+        if (validation != null)
+            return validation;
+        if (studentService.getStudentByUniversityId(id) == null)
+            return new ResponseEntity<>(new MessageResource("Student with id: " + id + " does not exist."), HttpStatus.NOT_FOUND);
+        resource.setUniversityId(id);
+        Student student = studentService.updateStudentDetails(resource.getObject());
+        if (student != null)
+            return new ResponseEntity<>(new CreatedStudentResource(student), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
+    }
+
+    @RequestMapping(value = "admin/student/{universityId}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity deleteStudent(@PathVariable String universityId) {
+        if(universityId.length() > 9)
+            return new ResponseEntity<>(new MessageResource("Invalid student id!"), HttpStatus.FORBIDDEN);
+        if (studentService.getStudentByUniversityId(universityId) == null)
+            return new ResponseEntity<>(new MessageResource("Student does not exist"), HttpStatus.NOT_FOUND);
+        if (studentService.removeStudent(universityId))
+            return new ResponseEntity<>(new MessageResource("Student with id: "+universityId+" removed."), HttpStatus.OK);
+        else
+            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.FORBIDDEN);
+    }
+
     @RequestMapping(value = "admin/module/{moduleCode}/studentAvailable", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<StudentResource>> getStudentsAvailableToAddToModule(String moduleCode) {
@@ -100,7 +145,7 @@ public class AdminController {
         if (moduleService.addAStudentToModule(moduleCode, resource.getUniversityId(), group))
             return new ResponseEntity<>(HttpStatus.OK);
         else
-            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "admin/module/{moduleCode}/student", method = RequestMethod.PUT)
@@ -117,9 +162,9 @@ public class AdminController {
             return new ResponseEntity(new MessageResource("Student with id: " + studentUniversityId + " does not exist or is not allocated to the module"), HttpStatus.NOT_FOUND);
 
         if (moduleService.removeStudentFromModule(moduleCode, studentUniversityId))
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(new MessageResource("Student with id: "+studentUniversityId+" removed from module: "+moduleCode), HttpStatus.OK);
         else
-            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "admin/module/{moduleCode}/groups", method = RequestMethod.GET)
@@ -170,7 +215,7 @@ public class AdminController {
         if (user != null)
             return new ResponseEntity<>(new UserResource(user), HttpStatus.CREATED);
         else
-            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "admin/user/{uuid}", method = RequestMethod.PUT)
@@ -192,7 +237,7 @@ public class AdminController {
         if (user != null)
             return new ResponseEntity<>(new UserResource(user), HttpStatus.OK);
         else
-            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "admin/user/{uuid}/password", method = RequestMethod.POST)
@@ -205,7 +250,7 @@ public class AdminController {
         if (user == null)
             return new ResponseEntity<>(new MessageResource("User does not exist"), HttpStatus.NOT_FOUND);
         if (userService.resetUserPassword(uuid, resource.getPassword()) == false)
-            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
         else
             return new ResponseEntity<>(new UserResource(user), HttpStatus.OK);
     }
@@ -219,41 +264,9 @@ public class AdminController {
         if (((User) auth.getPrincipal()).getUuid().equals(uuid))
             return new ResponseEntity<>(new MessageResource("Cannot delete your own account!"), HttpStatus.FORBIDDEN);
         if (userService.removeUser(uuid))
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(new MessageResource("User with uuid " +uuid+ " deleted."), HttpStatus.OK);
         else
-            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.ACCEPTED);
-    }
-
-    @RequestMapping(value = "admin/student", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity createStudent(@RequestBody StudentResource resource) {
-        ResponseEntity validation = validateStudentResource(resource);
-        if (validation != null)
-            return validation;
-        if (studentService.getStudentByUniversityId(resource.getUniversityId()) != null)
-            return new ResponseEntity<>(new MessageResource("Student with id: " + resource.getUniversityId() + " already exists"), HttpStatus.FORBIDDEN);
-        Student student = studentService.save(resource.getObject());
-        if (student != null)
-            return new ResponseEntity<>(new CreatedStudentResource(student), HttpStatus.CREATED);
-        else
-            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
-    }
-
-    @RequestMapping(value = "admin/student/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public ResponseEntity updateStudentDetails(@RequestBody StudentResource resource,
-                                               @PathVariable String id) {
-        ResponseEntity validation = validateStudentResource(resource);
-        if (validation != null)
-            return validation;
-        if (studentService.getStudentByUniversityId(id) == null)
-            return new ResponseEntity<>(new MessageResource("Student with id: " + id + " does not exist."), HttpStatus.NOT_FOUND);
-        resource.setUniversityId(id);
-        Student student = studentService.updateStudentDetails(resource.getObject());
-        if (student != null)
-            return new ResponseEntity<>(new CreatedStudentResource(student), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
+            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "admin/student/{id}/pin/reset", method = RequestMethod.GET)
@@ -264,22 +277,11 @@ public class AdminController {
             return new ResponseEntity<>(new MessageResource("Student does not exist"), HttpStatus.NOT_FOUND);
         String pin = studentService.resetStudentPin(id);
         if (pin == null)
-            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
         else {
             student.setPin(pin);
             return new ResponseEntity<>(new CreatedStudentResource(student), HttpStatus.OK);
         }
-    }
-
-    @RequestMapping(value = "admin/student/{universityId}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public ResponseEntity deleteStudent(@PathVariable String universityId) {
-        if (studentService.getStudentByUniversityId(universityId) == null)
-            return new ResponseEntity<>(new MessageResource("Student does not exist"), HttpStatus.NOT_FOUND);
-        if (studentService.removeStudent(universityId))
-            return new ResponseEntity<>(HttpStatus.OK);
-        else
-            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "admin/module", method = RequestMethod.POST)
@@ -341,7 +343,7 @@ public class AdminController {
         if (moduleService.removeModule(moduleCode))
             return new ResponseEntity<>(HttpStatus.OK);
         else
-            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.ACCEPTED);
+            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "admin/module/{code}/class", method = RequestMethod.GET)
@@ -433,7 +435,7 @@ public class AdminController {
         if (scheduledClassService.removeClass(uuid))
             return new ResponseEntity<>(HttpStatus.OK);
         else
-            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.ACCEPTED);
+            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "admin/ip", method = RequestMethod.GET)
@@ -463,7 +465,7 @@ public class AdminController {
         if (ipRangeService.delete(uuid))
             return new ResponseEntity(HttpStatus.OK);
         else
-            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.ACCEPTED);
+            return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.FORBIDDEN);
     }
 
     private ResponseEntity validateUserCreateResource(UserResource resource) {
@@ -497,6 +499,8 @@ public class AdminController {
     private ResponseEntity validateStudentResource(StudentResource resource) {
         if (resource.getUniversityId() == null || resource.getUniversityId().isEmpty())
             return new ResponseEntity(new MessageResource("Missing university id!"), HttpStatus.FORBIDDEN);
+        if (resource.getUniversityId().length() > 9)
+            return new ResponseEntity(new MessageResource("Student id too long!"), HttpStatus.FORBIDDEN);
         if (resource.getName() == null || resource.getName().isEmpty())
             return new ResponseEntity(new MessageResource("Missing name!"), HttpStatus.FORBIDDEN);
         if (resource.getSurname() == null || resource.getSurname().isEmpty())

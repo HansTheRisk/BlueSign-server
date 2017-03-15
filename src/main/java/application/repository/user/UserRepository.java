@@ -60,7 +60,7 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
                 "SET lecturer_id = (SELECT id FROM user WHERE username = 'NONE') " +
                 "WHERE lecturer_id = (SELECT id FROM user WHERE uuid = ?)";
         if(executor.update(sql,
-                new Object[]{lecturerUuid}) ==1)
+                new Object[]{lecturerUuid}) >= 0)
             return true;
         else
             return false;

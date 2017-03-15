@@ -102,7 +102,7 @@ public class AttendanceRepository extends BaseJDBCRepository {
                         "INNER JOIN class ON attendance.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
                      "WHERE module.module_code = ?";
-        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
+        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) >= 0 ? true : false;
     }
 
     @Transactional(rollbackFor = DataAccessException.class)
@@ -111,7 +111,7 @@ public class AttendanceRepository extends BaseJDBCRepository {
                 "FROM attendance " +
                 "INNER JOIN class ON attendance.class_id = class.id " +
                 "WHERE class.uuid = ?";
-        return executor.update(sql, new Object[]{classUuid}) == 1 ? true : false;
+        return executor.update(sql, new Object[]{classUuid}) >= 0 ? true : false;
     }
 
 }

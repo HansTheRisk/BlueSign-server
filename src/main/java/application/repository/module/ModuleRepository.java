@@ -149,7 +149,7 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
                 "FROM module_student " +
                 "INNER JOIN student ON module_student.student_id = student.id " +
                 "WHERE student.university_id = ?";
-        return executor.update(sql, new Object[]{studentUniversityId}) == 1 ? true : false;
+        return executor.update(sql, new Object[]{studentUniversityId}) >= 0 ? true : false;
     }
 
     public boolean removeStudentsAllocationToModule(String moduleCode, String studentUniversityId) {
@@ -166,7 +166,7 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
                      "FROM module_student " +
                         "INNER JOIN module ON module_student.module_id = module.id " +
                      "WHERE module.module_code = ?";
-        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
+        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) >= 0 ? true : false;
     }
 
     public boolean removeModule(String moduleCode) {

@@ -252,7 +252,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                 "SET pin_salt = ? "+
                 "WHERE university_id = ? ";
         if(executor.update(sql,
-                new Object[]{pin, id}) ==1)
+                new Object[]{pin, id}) == 1)
             return pin;
         else
             return null;
@@ -269,7 +269,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                         student.getName(),
                         student.getSurname(),
                         student.getEmail(),
-                        student.getUniversityId()}) ==1)
+                        student.getUniversityId()}) == 1)
             return findByUniversityId(student.getUniversityId());
         else
             return null;
@@ -277,9 +277,9 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
 
     public boolean deactivateStudent(String studentUniversityId) {
         String sql = "UPDATE student "+
-                     "SET university_id = ?, expired = 0" +
-                     "WHERE university = ? ";
-        return executor.update(sql, new Object[]{("EXPIRED{"+studentUniversityId+"}"), studentUniversityId}) ==1 ? true : false;
+                     "SET university_id = ?, expired = 1 " +
+                     "WHERE university_id = ? ";
+        return executor.update(sql, new Object[]{("EXPIRED{"+studentUniversityId+"}"), studentUniversityId}) == 1 ? true : false;
     }
 
     /**

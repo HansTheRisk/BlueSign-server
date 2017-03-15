@@ -192,6 +192,12 @@ $(document).ready(function(){
                 postCall("admin/user/"+uuid+"/password", "json", requestData, passwordResetSuccess, userCreateFail);
             }
         }
+        else if(id=="delete") {
+            e.preventDefault();
+            var selectedUser = $('#usersPills .active');
+            var uuid = selectedUser.attr("user_uuid");
+            deleteCall('admin/user/'+uuid, "json", userDeleteSuccess, userCreateFail);
+        }
     })
 });
 
@@ -217,6 +223,10 @@ $(document).ready(function(){
         else if(id=="pinreset") {
             e.preventDefault();
             getCall("admin/student/"+selectedUser.attr("universityId")+"/pin/reset", "json", pinResetSuccess, userCreateFail);
+        }
+        else if(id=="delete") {
+            e.preventDefault();
+            deleteCall("admin/student/"+selectedUser.attr("universityId"), "json", studentDeleteSuccess, userCreateFail);
         }
     })
 });
@@ -358,7 +368,7 @@ $(document).ready(function(){
                 loadEditStudentModal();
             }
             else if(type == "removeStudent") {
-                loadEditStudentModal();
+                loadRemoveStudentModal();
             }
             else if(type == "resetPin") {
                 loadPinResetModal();
@@ -639,6 +649,18 @@ function loadEditStudentModal() {
      '</div>'));
 }
 
+function loadRemoveStudentModal() {
+    var modalBody = $('.modal-body');
+    modalBody.append($(
+    '<div id="studentForm">' +
+         '<div id="alert" class="alert alert-warning">' +
+            '<a href="#" class="close" data-dismiss="alert"></a>' +
+            '<div id ="alertText"></div>' +
+         '</div>' +
+         '<form><button id="delete" type="submit" class="btn btn-primary">Confirm</button></form>' +
+     '</div>'));
+}
+
 function loadPinResetModal() {
     var modalBody = $('.modal-body');
     modalBody.append($(
@@ -647,7 +669,7 @@ function loadPinResetModal() {
             '<a href="#" class="close" data-dismiss="alert"></a>' +
             '<div id ="alertText"></div>' +
          '</div>' +
-         '<form><button id="pinreset" type="submit" class="btn btn-primary">Confirm</button></form>' + +
+         '<form><button id="pinreset" type="submit" class="btn btn-primary">Confirm</button></form>' +
      '</div>'));
 }
 
@@ -757,8 +779,20 @@ function loadRemoveIpModal() {
             '<a href="#" class="close" data-dismiss="alert"></a>' +
             '<div id ="alertText"></div>' +
          '</div>' +
-         '<form><button id="delete" type="submit" class="btn btn-primary">Confirm</button></form>' + +
+         '<form><button id="delete" type="submit" class="btn btn-primary">Confirm</button></form>' +
      '</div>'));
+}
+
+function loadRemoveUserModal() {
+    var modalBody = $('.modal-body');
+    modalBody.append($(
+    '<div id="userForm">' +
+        '<div id="alert" class="alert alert-warning">' +
+           '<a href="#" class="close" data-dismiss="alert"></a>' +
+           '<div id ="alertText"></div>' +
+        '</div>' +
+        '<form><button id="delete" type="submit" class="btn btn-primary">Confirm</button></form>' +
+    '</div>'));
 }
 
 function userCreateSuccess(json) {
@@ -776,83 +810,81 @@ function userCreateFail(json) {
 }
 
 function userUpdateSuccess(json) {
-    var date = new Date();
-    $('#myModal .close').click();
-    $('#consoleText').append('</br>');
-    $('#consoleText').append(date.toLocaleString());
+    prepareConsole();
     $('#consoleText').append(': User with username: ' +json.username+ ' edited.');
     getCall("/admin/user", "json", loadUsers);
 }
 
+function userDeleteSuccess(json) {
+    prepareConsole();
+    $('#consoleText').append(": " + json.message);
+    getCall("/admin/user", "json", loadUsers);
+}
+
+function studentDeleteSuccess(json) {
+    prepareConsole();
+    $('#consoleText').append(": " + json.message);
+    getCall("/admin/student", "json", loadStudents);
+}
+
 function passwordResetSuccess(json) {
-    var date = new Date();
-    $('#myModal .close').click();
-    $('#consoleText').append('</br>');
-    $('#consoleText').append(date.toLocaleString());
+    prepareConsole();
     $('#consoleText').append(': Password reset for user with username: ' +json.username+ ' successful.');
     getCall("/admin/user", "json", loadUsers);
 }
 
 function studentCreateSuccess(json) {
-    var date = new Date();
-    $('#myModal .close').click();
-    $('#consoleText').append('</br>');
-    $('#consoleText').append(date.toLocaleString());
+    prepareConsole();
     $('#consoleText').append(': Student with university id: ' +json.universityId+ ' created. PIN: ' + json.pin);
     getCall("/admin/student", "json", loadStudents);
 }
 
 function studentUpdateSuccess(json) {
-    var date = new Date();
-    $('#myModal .close').click();
-    $('#consoleText').append('</br>');
-    $('#consoleText').append(date.toLocaleString());
+    prepareConsole();
     $('#consoleText').append(': Student with university id: ' +json.universityId+ ' updated.');
     getCall("/admin/student", "json", loadStudents);
 }
 
+function studentDeleteSuccess(json) {
+    prepareConsole();
+    $('#consoleText').append(": " + json.message);
+    getCall("/admin/student", "json", loadStudents);
+}
+
 function pinResetSuccess(json) {
-    var date = new Date();
-    $('#myModal .close').click();
-    $('#consoleText').append('</br>');
-    $('#consoleText').append(date.toLocaleString());
+    prepareConsole();
     $('#consoleText').append(': Pin reset for student with id: ' +json.universityId+ ' successful. PIN: '+ json.pin);
     getCall("/admin/student", "json", loadStudents);
 }
 
 function moduleCreateSuccess(json) {
-    var date = new Date();
-    $('#myModal .close').click();
-    $('#consoleText').append('</br>');
-    $('#consoleText').append(date.toLocaleString());
+    prepareConsole();
     $('#consoleText').append(': Module with code: ' +json.moduleCode+ ' created.');
     getCall("/admin/module", "json", loadModules);
 }
 function classCreateSuccess(json) {
-    var date = new Date();
-    $('#myModal .close').click();
-    $('#consoleText').append('</br>');
-    $('#consoleText').append(date.toLocaleString());
+    prepareConsole();
     $('#consoleText').append(': Class with uuid: ' +json.uuid+ ' created.');
     getCall("/admin/module/"+json.moduleCode+"/class", "json", loadClasses);
 }
 
 function ipCreateSuccess(json) {
-    var date = new Date();
-    $('#myModal .close').click();
-    $('#consoleText').append('</br>');
-    $('#consoleText').append(date.toLocaleString());
+    prepareConsole();
     $('#consoleText').append(': Ip range with uuid: ' +json.uuid+ ' created.');
     getCall("/admin/ip", "json", loadIps);
 }
 
 function ipRemoveSuccess(json) {
+    prepareConsole();
+    $('#consoleText').append(': Ip range removed.');
+    getCall("/admin/ip", "json", loadIps);
+}
+
+function prepareConsole() {
     var date = new Date();
     $('#myModal .close').click();
     $('#consoleText').append('</br>');
     $('#consoleText').append(date.toLocaleString());
-    $('#consoleText').append(': Ip range removed.');
-    getCall("/admin/ip", "json", loadIps);
 }
 
 function loadUsers(json) {

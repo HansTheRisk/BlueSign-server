@@ -224,7 +224,7 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
                      "FROM class " +
                         "INNER JOIN module ON class.module_id = module.id " +
                      "WHERE module.module_code = ?";
-        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) == 1 ? true : false;
+        return executor.update(sql, new Object[]{moduleCode.toUpperCase()}) >= 0 ? true : false;
     }
 
     public boolean removeClass(String classUuid) {
