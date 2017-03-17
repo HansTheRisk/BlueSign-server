@@ -22,7 +22,8 @@ $(document).ready(function(){
         else if(attribute == "#classes") {
             $('#classesPills').empty();
             $('#studentsAssignedToClassPills').empty();
-            $('#crateClassButton').removeAttr('data-target');
+            $('#createClassButton').removeAttr('data-target');
+            $('#createClassButton').attr('disabled', true);
             getCall("/admin/module", "json", loadModulesDropdown);
         }
         else if(attribute == "#ip") {
@@ -59,6 +60,8 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$(document).on("click", "#studentsPills li", function(e) {
         e.preventDefault();
+        $('#removeStudentButton').attr('disabled', false);
+        $('#removeStudentButton').attr('data-target', '#myModal');
         $("#studentsPills").children('li').removeClass('active');
         $(this).addClass('active');
 
@@ -81,6 +84,11 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$(document).on("click", "#modulesPills li", function(e) {
         e.preventDefault();
+        $('#removeModuleButton').attr('disabled', false);
+        $('#removeModuleButton').attr('data-target', '#myModal');
+        $('#addStudentToModuleButton').attr('disabled', false);
+        $('#addStudentToModuleButton').attr('data-target', '#myModal');
+
         $("#modulesPills").children('li').removeClass('active');
         $(this).addClass('active');
 
@@ -96,7 +104,17 @@ $(document).ready(function(){
         info.append('<p><table cellspacing="2"><tr><th></th><th></th></tr><tr><td>Lecturer: </td><td><div id="lecturerInfo"></td></tr></table><p>');
         info.append('<p><a class="btn btn-primary" callType="editModule" data-toggle="modal" data-target="#myModal" role="button">Edit</a></p>');
         getCall("admin/user/"+lecturerUuid, "json", loadLecturer);
-        getCall("admin/module/"+moduleCode+"/student", "json", loadModuleStudents)
+        getCall("admin/module/"+moduleCode+"/student", "json", loadModuleStudents);
+	})
+});
+
+$(document).ready(function(){
+	$(document).on("click", "#studentsAssignedToModulePills li", function(e) {
+        e.preventDefault();
+        $("#studentsAssignedToModulePills").children('li').removeClass('active');
+        $(this).addClass('active');
+        $('#removeStudentFromModuleButton').attr('disabled', false);
+        $('#removeStudentFromModuleButton').attr('data-target', '#myModal');
 	})
 });
 
@@ -105,7 +123,8 @@ $(document).ready(function(){
         e.preventDefault();
         $("#classesPills").children('li').removeClass('active');
         $(this).addClass('active');
-
+        $('#removeClassButton').attr('disabled', false);
+        $('#removeClassButton').attr('data-target', '#myModal');
         var classUuid = $(this).attr("class_uuid");
         getCall("admin/class/"+classUuid+"/student", "json", loadClassStudents);
 	})
@@ -116,6 +135,8 @@ $(document).ready(function(){
         e.preventDefault();
         $("#ipPills").children('li').removeClass('active');
         $(this).addClass('active');
+        $('#removeIpButton').attr('disabled', false);
+        $('#removeIpButton').attr('data-target', '#myModal');
 	})
 });
 
@@ -123,13 +144,14 @@ $(document).ready(function(){
     $(document).on("change", "#modulesDropDownList", function(e) {
         var valueSelected = this.value;
         if(valueSelected === 'null') {
-            $('#crateClassButton').attr('disabled', true);
-            $('#crateClassButton').removeAttr('data-target');
+            $('#classesPills').empty();
+            $('#createClassButton').attr('disabled', true);
+            $('#createClassButton').removeAttr('data-target');
         }
         else {
             getCall("/admin/module/"+valueSelected+"/class", "json", loadClasses);
-            $('#crateClassButton').attr('disabled', false);
-            $('#crateClassButton').attr('data-target', '#myModal');
+            $('#createClassButton').attr('disabled', false);
+            $('#createClassButton').attr('data-target', '#myModal');
         }
     })
 });
@@ -144,6 +166,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $(document).on("submit", "#userForm", function(e) {
+        $(this).find("button").attr('disabled', true);
         var id = $(this).find("button").attr("id");
         var username = $('#username').val();
         var name = $('#name').val();
@@ -159,6 +182,7 @@ $(document).ready(function(){
                         e.preventDefault();
                         $('#alertText').empty();
                         $('#alertText').append("Given passwords don't match!");
+                        $(this).find("button").attr('disabled', false);
             }
             else {
                 e.preventDefault();
@@ -185,6 +209,7 @@ $(document).ready(function(){
                         e.preventDefault();
                         $('#alertText').empty();
                         $('#alertText').append("Given passwords don't match!");
+                        $(this).find("button").attr('disabled', false);
             }
             else {
                 e.preventDefault();
@@ -203,6 +228,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $(document).on("submit", "#studentForm", function(e) {
+        $(this).find("button").attr('disabled', true);
         var selectedUser = $('#studentsPills .active');
         var id = $(this).find("button").attr("id");
         var universityId = $('#universityId').val();
@@ -233,6 +259,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $(document).on("submit", "#moduleForm", function(e) {
+        $(this).find("button").attr('disabled', true);
         var selectedModule = $('#modulesPills .active');
         var id = $(this).find("button").attr("id");
         var lecturerUuid = $('#lecturer option:selected').val();
@@ -252,6 +279,7 @@ $(document).ready(function(){
                     e.preventDefault();
                     $('#alertText').empty();
                     $('#alertText').append("A module must have students allocated!");
+                    $(this).find("button").attr('disabled', false);
             }
             else {
                     e.preventDefault();
@@ -261,19 +289,38 @@ $(document).ready(function(){
         }
         else if(id=="update") {
             e.preventDefault();
-            var requestData = JSON.stringify({ "universityId":selectedUser.attr("universityId"), "name":name, "surname":surname, "email":email});
-            putCall("admin/student/"+selectedUser.attr("universityId"), "json", requestData, studentUpdateSuccess, userCreateFail);
+            var requestData = JSON.stringify({ "title":title, "lecturerUuid":lecturerUuid});
+            putCall("admin/module/"+selectedModule.attr("moduleCode"), "json", requestData, moduleUpdateSuccess, userCreateFail);
+        }
+        else if(id=="delete") {
+            e.preventDefault();
+            deleteCall("admin/module/"+selectedModule.attr("moduleCode"), "json", moduleDeleteSuccess, userCreateFail);
+        }
+        else if(id=="addStudent") {
+            e.preventDefault();
+            var group = $('#groupSelect option:selected').val();
+            var student = $('#studentSelect option:selected').val();
+            var requestData = JSON.stringify({ "universityId":student});
+            putCall("admin/module/"+selectedModule.attr('moduleCode')+"/"+group+"/student", "json", requestData, addStudentToModuleSuccess, userCreateFail);
+        }
+        else if(id=="deleteStudent") {
+            e.preventDefault();
+            var moduleCode = $('#modulesPills .active').attr("moduleCode");
+            var selectedStudentId = $('#studentsAssignedToModulePills .active').attr("universityId");
+            deleteCall("admin/module/"+moduleCode+"/student/"+selectedStudentId, "json", removeStudentFromModuleSuccess, userCreateFail);
+
         }
     })
 });
 
 $(document).ready(function(){
     $(document).on("submit", "#classForm", function(e) {
+        $(this).find("button").attr('disabled', true);
         var id = $(this).find("button").attr("id");
         var weeks = parseInt($('#weeks').val());
         var days = weeks * 7;
         var startDate = new Date($('#startDate').val());
-        var endDate = new Date(startDate);
+        var endDate = new Date($('#startDate').val());
         var startTime = $('#startTime').val();
         var endTime = $('#endTime').val();
         var group = $('#group option:selected').val();
@@ -290,6 +337,7 @@ $(document).ready(function(){
                 e.preventDefault();
                 $('#alertText').empty();
                 $('#alertText').append("End time cannot be smaller than start time!");
+                $(this).find("button").attr('disabled', false);
             }
             else {
 
@@ -308,6 +356,7 @@ $(document).ready(function(){
                         e.preventDefault();
                         $('#alertText').empty();
                         $('#alertText').append("A class for a new group cannot be created without allocated students!");
+                        $(this).find("button").attr('disabled', false);
                     }
                     else {
                         e.preventDefault();
@@ -323,11 +372,17 @@ $(document).ready(function(){
             }
 
         }
+        else if(id=="delete") {
+            e.preventDefault();
+            var classUuid = $('#classesPills .active').attr("class_uuid");
+            deleteCall("admin/class/"+classUuid, "json", deleteClassSuccess, userCreateFail);
+        }
     })
 });
 
 $(document).ready(function(){
     $(document).on("submit", "#ipForm", function(e) {
+        $(this).find("button").attr('disabled', true);
         var id = $(this).find("button").attr("id");
         var selectedIp = $('#ipPills .active');
         var start = $('#rangeStart').val();
@@ -699,6 +754,78 @@ function loadAddModuleModal() {
      }, 500);
 }
 
+function loadAddStudentToModuleModal() {
+    var selectedModule = $('#modulesPills .active');
+    var moduleCode = selectedModule.attr("moduleCode");
+    var modalBody = $('.modal-body');
+    modalBody.append($(
+    '<div>' +
+         '<div id="alert" class="alert alert-warning">' +
+            '<a href="#" class="close" data-dismiss="alert"></a>' +
+            '<div id ="alertText"></div>' +
+         '</div>' +
+         '<form id="moduleForm">' +
+
+         '</form>' +
+     '</div>'));
+     getCall("/admin/module/"+moduleCode+"/studentAvailable", "json", loadStudentsForModuleAdd);
+     getCall("/admin/module/"+moduleCode+"/group", "json", loadModuleGroupsForModule);
+     setTimeout(function(){
+       $('#moduleForm').append('<button id="addStudent" type="submit" class="btn btn-primary">Submit</button>');
+     }, 750);
+}
+
+function loadRemoveStudentFromModuleModal() {
+    var modalBody = $('.modal-body');
+    modalBody.append($(
+    '<div id="moduleForm">' +
+         '<div id="alert" class="alert alert-warning">' +
+            '<a href="#" class="close" data-dismiss="alert"></a>' +
+            '<div id ="alertText"></div>' +
+         '</div>' +
+         '<p>Are you sure you want to remove this student from the module?</p>'+
+         '<form><button id="deleteStudent" type="submit" class="btn btn-primary">Confirm</button></form>' +
+     '</div>'));
+}
+
+function loadEditModuleModal() {
+    var selectedModule = $('#modulesPills .active');
+    var title = selectedModule.attr("title");
+    var lecturer = selectedModule.attr("lecturerUuid");
+    var modalBody = $('.modal-body');
+    modalBody.append($(
+    '<div>' +
+         '<div id="alert" class="alert alert-warning">' +
+            '<a href="#" class="close" data-dismiss="alert"></a>' +
+            '<div id ="alertText"></div>' +
+         '</div>' +
+         '<form id="moduleForm">' +
+             '<div class="form-group">' +
+                 '<label for="name">Title</label>' +
+                 '<input type="text" class="form-control" id="title" placeholder="Title" value="'+title+'" required></input>' +
+             '</div>' +
+         '</form>' +
+     '</div>'));
+     getCall("/admin/lecturer", "json", loadLecturersForModuleCreate);
+     setTimeout(function(){
+       $("#lecturer").val(lecturer);
+       $('#moduleForm').append('<button id="edit" type="submit" class="btn btn-primary">Submit</button>');
+     }, 500);
+}
+
+function loadRemoveModuleModal() {
+    var modalBody = $('.modal-body');
+    modalBody.append($(
+    '<div id="moduleForm">' +
+         '<div id="alert" class="alert alert-warning">' +
+            '<a href="#" class="close" data-dismiss="alert"></a>' +
+            '<div id ="alertText"></div>' +
+         '</div>' +
+         '<p>Are you sure you want to remove this module?</p>'+
+         '<form><button id="delete" type="submit" class="btn btn-primary">Confirm</button></form>' +
+     '</div>'));
+}
+
 function loadAddClassModal() {
     var today = new Date();
     var modalBody = $('.modal-body');
@@ -746,6 +873,19 @@ function loadAddClassModal() {
      setTimeout(function(){
        $('#classForm').append('<button id="submit" type="submit" class="btn btn-primary">Submit</button>');
      }, 500);
+}
+
+function loadRemoveClassModal() {
+    var modalBody = $('.modal-body');
+    modalBody.append($(
+    '<div id="classForm">' +
+         '<div id="alert" class="alert alert-warning">' +
+            '<a href="#" class="close" data-dismiss="alert"></a>' +
+            '<div id ="alertText"></div>' +
+         '</div>' +
+         '<p>Are you sure you want to remove this class?</p>'+
+         '<form><button id="delete" type="submit" class="btn btn-primary">Confirm</button></form>' +
+     '</div>'));
 }
 
 function loadAddIpModal() {
@@ -807,6 +947,7 @@ function userCreateSuccess(json) {
 function userCreateFail(json) {
     $('#alertText').empty();
     $('#alertText').append(json.responseJSON.message);
+    $(".modal-body").find("button").attr('disabled', false);
 }
 
 function userUpdateSuccess(json) {
@@ -819,12 +960,6 @@ function userDeleteSuccess(json) {
     prepareConsole();
     $('#consoleText').append(": " + json.message);
     getCall("/admin/user", "json", loadUsers);
-}
-
-function studentDeleteSuccess(json) {
-    prepareConsole();
-    $('#consoleText').append(": " + json.message);
-    getCall("/admin/student", "json", loadStudents);
 }
 
 function passwordResetSuccess(json) {
@@ -847,6 +982,8 @@ function studentUpdateSuccess(json) {
 
 function studentDeleteSuccess(json) {
     prepareConsole();
+    $('#removeStudentButton').attr('disabled', true);
+    $('#removeStudentButton').removeAttr('data-target');
     $('#consoleText').append(": " + json.message);
     getCall("/admin/student", "json", loadStudents);
 }
@@ -862,10 +999,69 @@ function moduleCreateSuccess(json) {
     $('#consoleText').append(': Module with code: ' +json.moduleCode+ ' created.');
     getCall("/admin/module", "json", loadModules);
 }
+
+function moduleUpdateSuccess(json) {
+    prepareConsole();
+    $('#consoleText').append(': Module with code: ' +json.moduleCode+ ' updated.');
+    getCall("/admin/module", "json", loadModules);
+}
+
+function moduleRemoveSuccess(json) {
+    prepareConsole();
+    $('#consoleText').append(": " + json.message);
+    $('#studentsAssignedToModulePills').empty();
+    getCall("/admin/module", "json", loadModules);
+    $('#removeModuleButton').attr('disabled', true);
+    $('#removeModuleButton').removeAttr('data-target');
+    $('#addStudentToModuleButton').attr('disabled', true);
+    $('#addStudentToModuleButton').removeAttr('data-target');
+    $('#removeStudentFromModuleButton').attr('disabled', true);
+    $('#removeStudentFromModuleButton').removeAttr('data-target');
+}
+
+function addStudentToModuleSuccess(json) {
+    var moduleCode = $('#modulesPills .active').attr("moduleCode");
+    prepareConsole();
+    $('#consoleText').append(": " + json.message);
+    getCall("admin/module/"+moduleCode+"/student", "json", loadModuleStudents);
+}
+
+function removeStudentFromModuleSuccess(json) {
+    var moduleCode = $('#modulesPills .active').attr("moduleCode");
+    prepareConsole();
+    $('#consoleText').append(": " + json.message);
+    getCall("admin/module/"+moduleCode+"/student", "json", loadModuleStudents);
+    $('#removeStudentFromModuleButton').attr('disabled', true);
+    $('#removeStudentFromModuleButton').removeAttr('data-target');
+}
+
+function moduleDeleteSuccess(json) {
+    prepareConsole();
+    $('#consoleText').append(": " + json.message);
+    $('#studentsAssignedToModulePills').empty();
+    $('#moduleInfo').empty();
+    $('#removeModuleButton').attr('disabled', true);
+    $('#removeModuleButton').removeAttr('data-target');
+    $('#addStudentToModuleButton').attr('disabled', true);
+    $('#removeStudentFromModuleButton').attr('disabled', true);
+    $('#removeStudentFromModuleButton').removeAttr('data-target');
+    getCall("/admin/module", "json", loadModules);
+}
+
 function classCreateSuccess(json) {
     prepareConsole();
     $('#consoleText').append(': Class with uuid: ' +json.uuid+ ' created.');
     getCall("/admin/module/"+json.moduleCode+"/class", "json", loadClasses);
+}
+
+function deleteClassSuccess(json) {
+    prepareConsole();
+    $('#consoleText').append(": " + json.message);
+    $('#removeClassButton').attr('disabled', true);
+    $('#removeClassButton').removeAttr('data-target');
+    $('#studentsAssignedToClassPills').empty();
+    var moduleCode = $('#modulesDropDownList option:selected').val();
+    getCall("/admin/module/"+moduleCode+"/class", "json", loadClasses);
 }
 
 function ipCreateSuccess(json) {
@@ -878,6 +1074,8 @@ function ipRemoveSuccess(json) {
     prepareConsole();
     $('#consoleText').append(': Ip range removed.');
     getCall("/admin/ip", "json", loadIps);
+    $('#removeIpButton').attr('disabled', true);
+    $('#removeIpButton').removeAttr('data-target');
 }
 
 function prepareConsole() {
@@ -935,6 +1133,28 @@ function loadLecturersForModuleCreate(json) {
                 var surname = JSON.stringify(json[i].surname).replace(/"/g, '');
 
                 lecturers.append('<option value="'+uuid+'">'+name+' '+surname+'</option>');
+            }
+}
+
+function loadModuleGroupsForModule(json) {
+            var form = $('<div class="form-group"><label for="group">Group : </label></div>').appendTo($('#moduleForm'));
+            var group = $('<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="groupSelect"></select>').appendTo(form);
+
+            for(var i = 0; i < json.length; i++) {
+                var moduleGroup = JSON.stringify(json[i].moduleGroup).replace(/"/g, '');
+                group.append('<option value="'+moduleGroup+'">'+moduleGroup+'</option>');
+            }
+}
+
+function loadStudentsForModuleAdd(json) {
+            var form = $('<div class="form-group"><label for="student">Student : </label></div>').appendTo($('#moduleForm'));
+            var student = $('<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="studentSelect"></select>').appendTo(form);
+
+            for(var i = 0; i < json.length; i++) {
+                var studentId = JSON.stringify(json[i].universityId).replace(/"/g, '');
+                var name = JSON.stringify(json[i].name).replace(/"/g, '');
+                var surname = JSON.stringify(json[i].surname).replace(/"/g, '');
+                student.append('<option value="'+studentId+'">'+studentId+' '+name+' '+surname+'</option>');
             }
 }
 

@@ -22,7 +22,7 @@ import java.util.Random;
 @Component
 public class StudentRepository extends BaseJDBCRepository implements IdentifiableRepository<Student> {
 
-    public List<Student> findStudentAvailableToAllocateToModule(String moduleCode) {
+    public List<Student> findStudentsAvailableToAllocateToModule(String moduleCode) {
         String sql = "SELECT student_id as studentId, university_id, name, surname, email, pin_salt " +
                 "FROM " +
                 "(SELECT student.id as student_id, university_id, name, surname, email, pin_salt " +
@@ -118,13 +118,13 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
         Timestamp timestampObj = new Timestamp(timestamp);
         String sql = "SELECT student_id as studentId, university_id, name, surname, email, pin_salt " +
                      "FROM " +
-                     "(SELECT student.id as student_id, university_id, name, surname, email, pin_salt " +
+                     "(SELECT DISTINCT student.id as student_id, university_id, name, surname, email, pin_salt " +
                       "FROM student " +
                         "INNER JOIN allocation ON student.id = allocation.student_id " +
                         "INNER JOIN class ON allocation.class_id = class.id " +
                       "WHERE class.uuid = ?" +
-                        "AND (TIMESTAMP(allocation.start) <= TIMESTAMP(DATE(?), TIME(class.start_date)) " +
-                        "AND (allocation.end IS NULL OR (TIMESTAMP(allocation.end) > TIMESTAMP(DATE(?), TIME(class.end_date)))))) allocated " +
+                        "AND (TIMESTAMP(allocation.start) < TIMESTAMP(DATE(?), TIME(class.end_date)) " +
+                        "AND (allocation.end IS NULL OR (TIMESTAMP(allocation.end) > TIMESTAMP(DATE(?), TIME(class.start_date)))))) allocated " +
                         "LEFT JOIN (SELECT student.id FROM student " +
                         "INNER JOIN attendance ON student.id = attendance.student_id " +
                         "INNER JOIN class ON attendance.class_id = class.id " +
@@ -297,7 +297,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
 
     public Student saveStudent(Student student) {
         String sql = "INSERT INTO student(university_id, name, surname, email, pin_salt, expired) " +
-                     "VALUES(?, ?, ?, ?, ?, 1)";
+                     "VALUES(?, ?, ?, ?, ?, 0)";
         if(executor.update(sql, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {

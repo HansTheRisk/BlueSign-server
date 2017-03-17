@@ -127,7 +127,7 @@ public class StudentService implements IdentifiableEntityService<Student>{
     }
 
     public List<Student> getStudentAvailableToAllocateToModule(String moduleCode) {
-        return repository.findStudentAvailableToAllocateToModule(moduleCode);
+        return repository.findStudentsAvailableToAllocateToModule(moduleCode);
     }
 
     /**

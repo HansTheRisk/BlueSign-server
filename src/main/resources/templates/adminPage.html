@@ -78,7 +78,7 @@
                         </div>
                         <p>
                             <a class="btn btn-primary" callType="addStudent" data-toggle="modal" data-target="#myModal" role="button">Add</a>
-                            <a class="btn btn-primary" callType="removeStudent" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                            <a class="btn btn-primary" id="removeStudentButton" callType="removeStudent" disabled="true" role="button">Remove</a>
                         </p>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                         </div>
                         <p>
                             <a class="btn btn-primary" callType="addModule" data-toggle="modal" data-target="#myModal" role="button">Add</a>
-                            <a class="btn btn-primary" callType="removeModule" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                            <a class="btn btn-primary" id="removeModuleButton" callType="removeModule" disabled="true" data-toggle="modal" role="button">Remove</a>
                         </p>
                     </div>
                 </div>
@@ -128,8 +128,8 @@
                         <div class="caption">
                             <ul id="studentsAssignedToModulePills" class="nav nav-pills nav-stacked"></ul>
                             <p>
-                                <a class="btn btn-primary" callType="addStudentToModule" data-toggle="modal" data-target="#myModal" role="button">Add</a>
-                                <a class="btn btn-primary" callType="removeStudentFromModule" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                                <a class="btn btn-primary" id="addStudentToModuleButton" callType="addStudentToModule" data-toggle="modal" disabled="true" role="button">Add</a>
+                                <a class="btn btn-primary" id="removeStudentFromModuleButton" callType="removeStudentFromModule" data-toggle="modal" disabled="true" role="button">Remove</a>
                             </p>
                         </div>
                     </div>
@@ -155,8 +155,8 @@
                             <ul id="classesPills" class="nav nav-pills nav-stacked"></ul>
                         </div>
                         <p>
-                            <a class="btn btn-primary" id="crateClassButton" disabled="true" callType="addClass" data-toggle="modal" role="button">Add</a>
-                            <a class="btn btn-primary" callType="removeClass" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                            <a class="btn btn-primary" id="createClassButton" disabled="true" callType="addClass" data-toggle="modal" role="button">Add</a>
+                            <a class="btn btn-primary" id="removeClassButton" disabled="true" callType="removeClass" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
                         </p>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
                         </div>
                         <p>
                             <a class="btn btn-primary" callType="addIp" data-toggle="modal" data-target="#myModal" role="button">Add</a>
-                            <a class="btn btn-primary" callType="removeIp" data-toggle="modal" data-target="#myModal" role="button">Remove</a>
+                            <a class="btn btn-primary" id="removeIpButton" callType="removeIp" data-toggle="modal" disabled="true" role="button">Remove</a>
                         </p>
                     </div>
                 </div>

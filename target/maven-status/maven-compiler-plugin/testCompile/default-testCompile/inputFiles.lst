@@ -1,2 +1,5 @@
+/home/Projects/blusign-server/src/test/java/integration/BaseIntegrationTest.java
+/home/Projects/blusign-server/src/test/java/integration/TestConfig.java
 /home/Projects/blusign-server/src/test/java/unit/util/date/DateUtilityTest.java
+/home/Projects/blusign-server/src/test/java/integration/test.java
 /home/Projects/blusign-server/src/test/java/unit/util/ip/IpUtilityTest.java

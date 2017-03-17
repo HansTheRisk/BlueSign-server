@@ -39,10 +39,16 @@
 }
 
 #studentsList {
- margin-left: 20px;
- height: 100px;
- overflow: auto;
- width: auto;
+    margin-left: 20px;
+    height: 100px;
+    overflow: auto;
+    width: auto;
+}
+
+#loginForm {
+    margin-left: 25%;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 td {

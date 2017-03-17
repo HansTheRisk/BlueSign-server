@@ -1,19 +1,50 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Login page</title>
+        <title>BluSign - Login</title>
         <meta charset="utf-8" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+        <script type="text/javascript" th:src="@{/js/admin.js}"></script>
+        <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.css" th:href="@{js/bootstrap-3.3.7-dist/css/bootstrap.css}" />
+        <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap-theme.css" th:href="@{js/bootstrap-3.3.7-dist/css/bootstrap-theme.css}" />
+        <link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}" />
+        <meta th:name="_csrf" th:content="${_csrf.token}"/>
+        <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 	</head>
     <body>
-        <h1>Login page</h1>
-        <p>Example user: user / password</p>
-        <p th:if="${loginError}" class="error">Wrong user or password</p>
-        <form th:action="@{/login}" method="post">
-            <label for="username">Username</label>:
-            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-            <label for="password">Password</label>:
-            <input type="password" id="password" name="password" /> <br />
-            <input type="submit" value="Log in" />
-        </form>
+        <div class="container-full">
+            <div class="row" style="background-color: #0000FF;">
+                <div class="col-md-12">
+                    <div id="banner">
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        Blusign Admin
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="login" class="row">
+                <div class="col-md-12">
+                    <div id="loginForm">
+                        <p th:if="${loginError}" class="error">Wrong user or password</p>
+                        <form th:action="@{/login}" method="post">
+                            <label for="username">Username</label>:
+                            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+                            <label for="password">Password</label>:
+                            <input type="password" id="password" name="password" /> <br />
+                            <input type="submit" value="Log in" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-full">
+            <div class="row">
+                <div class="col-md-12">
+                    <footer>Mateusz Sliwinski 2017</footer>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

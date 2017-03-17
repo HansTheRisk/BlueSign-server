@@ -16,6 +16,7 @@ import application.api.resource.user.UserResource;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.student.Student;
 import application.domain.user.User;
+import application.repository.module.ModuleGroup;
 import application.service.ipRange.IpRangeService;
 import application.service.module.ModuleService;
 import application.service.scheduledClass.ScheduledClassService;
@@ -119,7 +120,7 @@ public class AdminController {
 
     @RequestMapping(value = "admin/module/{moduleCode}/studentAvailable", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<StudentResource>> getStudentsAvailableToAddToModule(String moduleCode) {
+    public ResponseEntity<List<StudentResource>> getStudentsAvailableToAddToModule(@PathVariable String moduleCode) {
         List<StudentResource> students = new ArrayList<>();
         studentService.getStudentAvailableToAllocateToModule(moduleCode).forEach(student -> students.add(new StudentResource(student)));
         return new ResponseEntity<>(students, HttpStatus.OK);
@@ -133,22 +134,26 @@ public class AdminController {
         if (moduleService.getByModuleCode(moduleCode) == null)
             return new ResponseEntity(new MessageResource("Module with id: " + moduleCode + " does not exist."), HttpStatus.NOT_FOUND);
 
+        ResponseEntity validation = validateStudentResourceToAddToModule(resource);
+        if(validation != null)
+            return validation;
+
         List<String> studentIds = studentService.getStudentAvailableToAllocateToModule(moduleCode)
                 .stream().map(student -> student.getUniversityId()).collect(Collectors.toList());
 
         if (!studentIds.contains(resource.getUniversityId()))
              return new ResponseEntity<>(new MessageResource("Cannot allocate student with id: " + resource.getUniversityId()), HttpStatus.FORBIDDEN);
 
-        if (!moduleService.getModuleGroups(moduleCode).contains(group))
+        if (!moduleService.getModuleGroups(moduleCode).stream().map(code -> code.getGroup()).collect(Collectors.toList()).contains(group.toUpperCase()))
             return new ResponseEntity<>(new MessageResource("Unknown group!"), HttpStatus.NOT_FOUND);
 
         if (moduleService.addAStudentToModule(moduleCode, resource.getUniversityId(), group))
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(new MessageResource("Student with id: "+resource.getUniversityId()+" allocated to module " +moduleCode+" ."), HttpStatus.OK);
         else
             return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
     }
 
-    @RequestMapping(value = "admin/module/{moduleCode}/student", method = RequestMethod.PUT)
+    @RequestMapping(value = "admin/module/{moduleCode}/student/{studentUniversityId}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity removeStudentFromModule(@PathVariable String moduleCode,
                                                   @PathVariable String studentUniversityId) {
@@ -167,7 +172,7 @@ public class AdminController {
             return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
     }
 
-    @RequestMapping(value = "admin/module/{moduleCode}/groups", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/module/{moduleCode}/group", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity getModulegroups(@PathVariable String moduleCode) {
         if (moduleService.getByModuleCode(moduleCode) == null)
@@ -308,7 +313,7 @@ public class AdminController {
         return new ResponseEntity<>(new ModuleResource(moduleService.saveWithStudentsAllocated(resource.getObject(), students)), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "admin/module/{codeCode}", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/module/{codeCode}", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity editModule(@RequestBody ModuleResource resource,
                                      @PathVariable String moduleCode) {
@@ -341,7 +346,7 @@ public class AdminController {
         if (moduleService.getByModuleCode(moduleCode) == null)
             return new ResponseEntity(new MessageResource("Module not found!"), HttpStatus.NOT_FOUND);
         if (moduleService.removeModule(moduleCode))
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(new MessageResource("Module with code: "+moduleCode+" deleted."), HttpStatus.OK);
         else
             return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.FORBIDDEN);
     }
@@ -433,7 +438,7 @@ public class AdminController {
         if (scheduledClassService.findByUUID(uuid) == null)
             return new ResponseEntity(new MessageResource("Class not found!"), HttpStatus.NOT_FOUND);
         if (scheduledClassService.removeClass(uuid))
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(new MessageResource("Class with uuid: "+uuid+" deleted."), HttpStatus.OK);
         else
             return new ResponseEntity(new MessageResource("Something went wrong!"), HttpStatus.FORBIDDEN);
     }
@@ -510,6 +515,14 @@ public class AdminController {
         return null;
     }
 
+    private ResponseEntity validateStudentResourceToAddToModule(StudentResource resource) {
+        if (resource.getUniversityId() == null || resource.getUniversityId().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing university id!"), HttpStatus.FORBIDDEN);
+        if (resource.getUniversityId().length() > 9)
+            return new ResponseEntity(new MessageResource("Student id too long!"), HttpStatus.FORBIDDEN);
+        return null;
+    }
+
     private ResponseEntity validateModuleToCreateResource(ModuleToCreateResource resource) {
         if (resource.getModuleCode() == null || resource.getModuleCode().isEmpty())
             return new ResponseEntity(new MessageResource("Missing module code!"), HttpStatus.FORBIDDEN);
@@ -523,8 +536,6 @@ public class AdminController {
     }
 
     private ResponseEntity validateEditModuleResource(ModuleResource resource) {
-        if (resource.getModuleCode() == null || resource.getModuleCode().isEmpty())
-            return new ResponseEntity(new MessageResource("Missing module code!"), HttpStatus.FORBIDDEN);
         if (resource.getTitle() == null || resource.getTitle().isEmpty())
             return new ResponseEntity(new MessageResource("Missing title!"), HttpStatus.FORBIDDEN);
         if (resource.getLecturerUuid() == null || resource.getLecturerUuid().isEmpty())

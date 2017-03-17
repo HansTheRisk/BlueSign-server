@@ -187,7 +187,7 @@ public class MetricsService {
                     else
                         return false;
 
-                }).count();
+                }).map(allocation -> allocation.getStudentUniversityId()).collect(Collectors.toSet()).size();
 
                 double records = attendance.stream().filter(record -> (record.getClassUuid().equals(scheduledClass.getUuid())
                                                                     && DateUtils.isSameDay(record.getDate(), completedClass))).count();

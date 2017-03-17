@@ -97,7 +97,7 @@ public class AttendanceRepository extends BaseJDBCRepository {
 
     @Transactional(rollbackFor = DataAccessException.class)
     public boolean deleteAttendanceRecordsForModule(String moduleCode) {
-        String sql = "DELETE attendance" +
+        String sql = "DELETE attendance " +
                      "FROM attendance " +
                         "INNER JOIN class ON attendance.class_id = class.id " +
                         "INNER JOIN module ON class.module_id = module.id " +
@@ -107,7 +107,7 @@ public class AttendanceRepository extends BaseJDBCRepository {
 
     @Transactional(rollbackFor = DataAccessException.class)
     public boolean deleteAttendanceRecordsForAClass(String classUuid) {
-        String sql = "DELETE attendance" +
+        String sql = "DELETE attendance " +
                 "FROM attendance " +
                 "INNER JOIN class ON attendance.class_id = class.id " +
                 "WHERE class.uuid = ?";
