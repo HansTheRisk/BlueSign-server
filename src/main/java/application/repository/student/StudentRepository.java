@@ -277,9 +277,9 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
 
     public boolean deactivateStudent(String studentUniversityId) {
         String sql = "UPDATE student "+
-                     "SET university_id = ?, expired = 1 " +
+                     "SET university_id = CONCAT('EXPIRED', student.id, '{', student.university_id, '}'), expired = 1 " +
                      "WHERE university_id = ? ";
-        return executor.update(sql, new Object[]{("EXPIRED{"+studentUniversityId+"}"), studentUniversityId}) == 1 ? true : false;
+        return executor.update(sql, new Object[]{studentUniversityId}) == 1 ? true : false;
     }
 
     /**

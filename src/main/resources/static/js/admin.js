@@ -10,12 +10,18 @@ $(document).ready(function(){
         $("#ip").hide();
 
         if(attribute == "#users") {
+            $('#removeUserButton').attr('disabled', true);
+            $('#removeUserButton').removeAttr('data-target');
             getCall("/admin/user", "json", loadUsers);
         }
         else if(attribute == "#students") {
+            $('#removeStudentButton').attr('disabled', true);
+            $('#removeStudentButton').removeAttr('data-target');
             getCall("/admin/student", "json", loadStudents);
         }
         else if(attribute == "#modules") {
+            $('#removeModuleButton').attr('disabled', true);
+            $('#removeModuleButton').removeAttr('data-target');
             $('#studentsAssignedToModulePills').empty();
             getCall("/admin/module", "json", loadModules);
         }
@@ -24,10 +30,14 @@ $(document).ready(function(){
             $('#studentsAssignedToClassPills').empty();
             $('#createClassButton').removeAttr('data-target');
             $('#createClassButton').attr('disabled', true);
+            $('#removeClassButton').removeAttr('data-target');
+            $('#removeClassButton').attr('disabled', true);
             getCall("/admin/module", "json", loadModulesDropdown);
         }
         else if(attribute == "#ip") {
             getCall("/admin/ip", "json", loadIps);
+            $('#removeIpButton').removeAttr('data-target');
+            $('#removeIpButton').attr('disabled', true);
         }
         $(attribute).show();
     })
@@ -38,6 +48,8 @@ $(document).ready(function(){
         e.preventDefault();
         $("#usersPills").children('li').removeClass('active');
         $(this).addClass('active');
+        $('#removeUserButton').attr('disabled', false);
+        $('#removeUserButton').attr('data-target', '#myModal');
 
         var uuid = $(this).attr("user_uuid");
         var username = $(this).attr("username");
@@ -959,6 +971,8 @@ function userUpdateSuccess(json) {
 function userDeleteSuccess(json) {
     prepareConsole();
     $('#consoleText').append(": " + json.message);
+    $('#removeUserButton').attr('disabled', true);
+    $('#removeUserButton').removeAttr('data-target');
     getCall("/admin/user", "json", loadUsers);
 }
 
