@@ -249,11 +249,12 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
     }
 
     public String resetStudentPin(String id, String pin) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String sql = "UPDATE student "+
                 "SET pin_salt = ? "+
                 "WHERE university_id = ? ";
         if(executor.update(sql,
-                new Object[]{pin, id}) == 1)
+                new Object[]{encoder.encode(pin), id}) == 1)
             return pin;
         else
             return null;
