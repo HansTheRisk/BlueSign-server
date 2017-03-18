@@ -23,6 +23,7 @@ application/service/ipRange/IpRangeService.class
 application/domain/entity/IdentifiableEntity.class
 application/api/resource/date/DateResource.class
 application/repository/allocation/AllocationRepository$1.class
+application/repository/provisioning/ProvisioningRepository.class
 application/repository/module/ModuleGroup.class
 application/service/user/UserService.class
 application/api/resource/signIn/SignInResource.class
@@ -37,6 +38,7 @@ application/repository/BaseJdbcTemplate.class
 application/api/resource/module/ModuleGroupStudentsResource.class
 application/api/resource/module/ModuleResource.class
 application/domain/accessCode/AccessCode.class
+application/Initialiser.class
 application/api/resource/accessCode/AccessCodeForClassResource.class
 application/api/resource/NaturallyIdentifiableResource.class
 application/api/resource/BaseResource.class
@@ -74,6 +76,7 @@ application/api/resource/user/PasswordResource.class
 application/repository/allocation/AllocationRowMapper.class
 application/service/module/ModuleService.class
 application/api/resource/scheduledClass/ScheduledClassDatesResource.class
+application/service/provisioning/ProvisioningService.class
 application/repository/student/StudentRepository.class
 application/util/date/DateUtility.class
 application/repository/scheduledClass/ScheduledClassRowMapper.class

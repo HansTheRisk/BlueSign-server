@@ -1,5 +1,5 @@
 use ebdb;
-CREATE TABLE attendance
+CREATE TABLE IF NOT EXISTS attendance
 (
 student_id int NOT NULL,
 class_id int NOT NULL,

@@ -1,5 +1,5 @@
 use ebdb;
-CREATE TABLE access_code
+CREATE TABLE IF NOT EXISTS access_code
 (
 class_id int UNIQUE NOT NULL,
 code int UNIQUE NOT NULL,

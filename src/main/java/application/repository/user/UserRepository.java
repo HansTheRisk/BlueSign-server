@@ -6,6 +6,7 @@ import application.repository.NaturallyIdentifiableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
@@ -45,11 +46,12 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
     }
 
     public boolean resetUserPassword(String uuid, String password) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String sql = "UPDATE user "+
                      "SET psswd_salt = ? "+
                      "WHERE uuid = ? ";
         if(executor.update(sql,
-                new Object[]{password, uuid}) ==1)
+                new Object[]{encoder.encode(password), uuid}) ==1)
             return true;
         else
             return false;
@@ -94,6 +96,7 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
     public User saveUser(User user) {
         String sql = "INSERT INTO user(uuid, username, name, surname, psswd_salt, type, email) " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?)";
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if(executor.update(sql, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
@@ -101,7 +104,7 @@ public class UserRepository extends BaseJDBCRepository implements NaturallyIdent
                 ps.setString(2, user.getUsername());
                 ps.setString(3, user.getName());
                 ps.setString(4, user.getSurname());
-                ps.setString(5, user.getPassword());
+                ps.setString(5, encoder.encode(user.getPassword()));
                 ps.setString(6, user.getRole());
                 ps.setString(7, user.getEmail());
             }

@@ -1,5 +1,5 @@
 use ebdb;
-CREATE TABLE ip_range
+CREATE TABLE IF NOT EXISTS ip_range
 (
 id int UNIQUE NOT NULL AUTO_INCREMENT,
 uuid character(36) NOT NULL UNIQUE,

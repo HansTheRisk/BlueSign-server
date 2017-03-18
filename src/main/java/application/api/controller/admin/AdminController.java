@@ -476,15 +476,27 @@ public class AdminController {
     private ResponseEntity validateUserCreateResource(UserResource resource) {
         if (resource.getUsername() == null || resource.getUsername().isEmpty())
             return new ResponseEntity(new MessageResource("Missing username!"), HttpStatus.FORBIDDEN);
+        if (resource.getUsername().length() > 25)
+            return new ResponseEntity(new MessageResource("Username too long!"), HttpStatus.FORBIDDEN);
         if (resource.getName() == null || resource.getName().isEmpty())
             return new ResponseEntity(new MessageResource("Missing name!"), HttpStatus.FORBIDDEN);
+        if (resource.getName().length() > 25)
+            return new ResponseEntity(new MessageResource("Name too long!"), HttpStatus.FORBIDDEN);
         if (resource.getSurname() == null || resource.getSurname().isEmpty())
             return new ResponseEntity(new MessageResource("Missing surname!"), HttpStatus.FORBIDDEN);
+        if (resource.getSurname().length() > 25)
+            return new ResponseEntity(new MessageResource("Surname too long!"), HttpStatus.FORBIDDEN);
+        if (resource.getEmail() == null || resource.getEmail().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing email!"), HttpStatus.FORBIDDEN);
+        if (resource.getEmail().length() > 50)
+            return new ResponseEntity(new MessageResource("Email too long!"), HttpStatus.FORBIDDEN);
         if (resource.getObject().getPassword() == null || resource.getObject().getPassword().isEmpty())
             return new ResponseEntity(new MessageResource("Missing password!"), HttpStatus.FORBIDDEN);
+        if (resource.getObject().getPassword().length() > 25)
+            return new ResponseEntity(new MessageResource("Password too long!"), HttpStatus.FORBIDDEN);
 
         if (resource.getRole() == null || resource.getRole().isEmpty())
-            return new ResponseEntity(new MessageResource("Missing username!"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity(new MessageResource("Missing role!"), HttpStatus.FORBIDDEN);
         else if (!resource.getRole().equals("ROLE_ADMIN") && !resource.getRole().equals("ROLE_LECTURER")) {
             return new ResponseEntity(new MessageResource("Unrecognised role!"), HttpStatus.FORBIDDEN);
         }
@@ -494,10 +506,20 @@ public class AdminController {
     private ResponseEntity validateUserEditResource(UserResource resource) {
         if (resource.getUsername() == null || resource.getUsername().isEmpty())
             return new ResponseEntity(new MessageResource("Missing username!"), HttpStatus.FORBIDDEN);
+        if (resource.getUsername().length() > 25)
+            return new ResponseEntity(new MessageResource("Username too long!"), HttpStatus.FORBIDDEN);
         if (resource.getName() == null || resource.getName().isEmpty())
             return new ResponseEntity(new MessageResource("Missing name!"), HttpStatus.FORBIDDEN);
+        if (resource.getName().length() > 25)
+            return new ResponseEntity(new MessageResource("Name too long!"), HttpStatus.FORBIDDEN);
         if (resource.getSurname() == null || resource.getSurname().isEmpty())
             return new ResponseEntity(new MessageResource("Missing surname!"), HttpStatus.FORBIDDEN);
+        if (resource.getSurname().length() > 25)
+            return new ResponseEntity(new MessageResource("Surname too long!"), HttpStatus.FORBIDDEN);
+        if (resource.getEmail() == null || resource.getEmail().isEmpty())
+            return new ResponseEntity(new MessageResource("Missing email!"), HttpStatus.FORBIDDEN);
+        if (resource.getEmail().length() > 50)
+            return new ResponseEntity(new MessageResource("Email too long!"), HttpStatus.FORBIDDEN);
         return null;
     }
 
@@ -508,10 +530,16 @@ public class AdminController {
             return new ResponseEntity(new MessageResource("Student id too long!"), HttpStatus.FORBIDDEN);
         if (resource.getName() == null || resource.getName().isEmpty())
             return new ResponseEntity(new MessageResource("Missing name!"), HttpStatus.FORBIDDEN);
+        if (resource.getName().length() > 25)
+            return new ResponseEntity(new MessageResource("Name too long!"), HttpStatus.FORBIDDEN);
         if (resource.getSurname() == null || resource.getSurname().isEmpty())
             return new ResponseEntity(new MessageResource("Missing surname!"), HttpStatus.FORBIDDEN);
+        if (resource.getSurname().length() > 25)
+            return new ResponseEntity(new MessageResource("Surname too long!"), HttpStatus.FORBIDDEN);
         if (resource.getEmail() == null || resource.getEmail().isEmpty())
             return new ResponseEntity(new MessageResource("Missing email!"), HttpStatus.FORBIDDEN);
+        if (resource.getEmail().length() > 50)
+            return new ResponseEntity(new MessageResource("Email too long!"), HttpStatus.FORBIDDEN);
         return null;
     }
 
@@ -559,6 +587,8 @@ public class AdminController {
             return new ResponseEntity(new MessageResource("Invalid group name"), HttpStatus.FORBIDDEN);
         if (resource.getRoom() == null || resource.getRoom().isEmpty())
             return new ResponseEntity(new MessageResource("Missing room number!"), HttpStatus.FORBIDDEN);
+        if (resource.getRoom().length() > 6)
+            return new ResponseEntity(new MessageResource("Room number too long!"), HttpStatus.FORBIDDEN);
         return null;
     }
 

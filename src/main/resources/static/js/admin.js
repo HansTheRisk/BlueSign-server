@@ -979,7 +979,6 @@ function userDeleteSuccess(json) {
 function passwordResetSuccess(json) {
     prepareConsole();
     $('#consoleText').append(': Password reset for user with username: ' +json.username+ ' successful.');
-    getCall("/admin/user", "json", loadUsers);
 }
 
 function studentCreateSuccess(json) {

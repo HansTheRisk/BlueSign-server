@@ -5,6 +5,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -102,5 +103,4 @@ public class DateUtilityTest {
             Assert.assertTrue(DateUtils.isSameDay(dayResult, dates.get(days.indexOf(dayResult))));
         });
     }
-
 }

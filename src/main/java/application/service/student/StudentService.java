@@ -8,6 +8,7 @@ import application.service.IdentifiableEntityService;
 import application.service.allocation.AllocationService;
 import application.service.module.ModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -82,11 +83,12 @@ public class StudentService implements IdentifiableEntityService<Student>{
      * @return boolean
      */
     public boolean universityIdAndPinCombinationExist(String id, String pin) {
-        Student student = ((StudentRepository)repository).findByUniversityIdAndPin(id, pin);
-        if (student == null)
-            return false;
-        else
-            return true;
+        boolean response = false;
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        Student student = repository.findByUniversityId(id);
+        if (student != null)
+            response = encoder.matches(pin, student.getPin());
+        return response;
     }
 
     /**

@@ -8,6 +8,7 @@ import application.api.resource.module.ModuleResource;
 import application.api.resource.signIn.SignInResource;
 import application.domain.attendance.Attendance;
 import application.domain.scheduledClass.ScheduledClass;
+import application.domain.student.Student;
 import application.service.allocation.AllocationService;
 import application.service.attendance.AttendanceService;
 import application.service.ipRange.IpRangeService;
@@ -64,6 +65,7 @@ public class StudentController {
     @ResponseBody
     public ResponseEntity<BinaryResource> exists(@PathVariable String id,
                                                  @PathVariable String pin) {
+        Student student = studentService.getStudentByUniversityId(id);
         Boolean isIt = studentService.universityIdAndPinCombinationExist(id, pin);
             return new ResponseEntity<>(new BinaryResource<>(isIt), HttpStatus.OK);
     }
@@ -161,7 +163,7 @@ public class StudentController {
                 }
             }
             else {
-                return new ResponseEntity<MessageResource>(new MessageResource("User Not Found!"), HttpStatus.NOT_FOUND);
+                return new ResponseEntity<MessageResource>(new MessageResource("User Not Found or Incorrect Pin!"), HttpStatus.NOT_FOUND);
             }
         }
         else {

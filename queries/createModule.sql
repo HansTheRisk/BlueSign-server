@@ -1,5 +1,5 @@
 use ebdb;
-CREATE TABLE module
+CREATE TABLE IF NOT EXISTS module
 (
 id int NOT NULL AUTO_INCREMENT,
 title varchar(36),

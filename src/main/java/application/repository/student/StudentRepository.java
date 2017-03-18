@@ -7,6 +7,7 @@ import application.domain.user.User;
 import application.repository.BaseJDBCRepository;
 import application.repository.IdentifiableRepository;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
@@ -208,21 +209,21 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                      "WHERE module_code = ? AND group_name !=('none') AND allocation.end IS NULL)";
         return executor.query(sql, new Object[]{moduleCode.toUpperCase(), moduleCode.toUpperCase(), moduleCode.toUpperCase()}, new StudentModuleAttendanceCorrelationRowMapper());
     }
-
-    /**
-     * This method returns a student with the given university id
-     * and pin combination.
-     * @param universityId
-     * @param pin
-     * @return Student
-     */
-    public Student findByUniversityIdAndPin(String universityId, String pin) {
-        String sql = "SELECT id as studentId, university_id, name, surname, email, pin_salt " +
-                     "FROM student " +
-                     "WHERE university_id = ? AND pin_salt = ? AND expired = 0";
-        return executor.queryForObject(sql,
-                new Object[]{universityId, pin}, new StudentRowMapper());
-    }
+//TODO: Remove if necessary
+//    /**
+//     * This method returns a student with the given university id
+//     * and pin combination.
+//     * @param universityId
+//     * @param pin
+//     * @return Student
+//     */
+//    public Student findByUniversityIdAndPin(String universityId, String pin) {
+//        String sql = "SELECT id as studentId, university_id, name, surname, email, pin_salt " +
+//                     "FROM student " +
+//                     "WHERE university_id = ? AND pin_salt = ? AND expired = 0";
+//        return executor.queryForObject(sql,
+//                new Object[]{universityId, pin}, new StudentRowMapper());
+//    }
 
     /**
      * This method returns a student with the given university id.
@@ -298,6 +299,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
     public Student saveStudent(Student student) {
         String sql = "INSERT INTO student(university_id, name, surname, email, pin_salt, expired) " +
                      "VALUES(?, ?, ?, ?, ?, 0)";
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if(executor.update(sql, new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
@@ -305,7 +307,7 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                 ps.setString(2, student.getName());
                 ps.setString(3, student.getSurname());
                 ps.setString(4, student.getEmail());
-                ps.setString(5, student.getPin());
+                ps.setString(5, encoder.encode(student.getPin()));
             }
         }) == 1) {
             student.setId(findByUniversityId(student.getUniversityId()).getId());
