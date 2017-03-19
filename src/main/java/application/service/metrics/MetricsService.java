@@ -51,10 +51,14 @@ public class MetricsService {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
 
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(scheduledClass.getStartDate());
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
         if(now.getTimeInMillis() > scheduledClass.getEndDate().getTime())
-            return dateUtility.listDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+            return dateUtility.listDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), dayOfWeek);
         else
-            return dateUtility.listDays(scheduledClass.getStartDate(), now.getTime(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+            return dateUtility.listDays(scheduledClass.getStartDate(), now.getTime(), dayOfWeek);
     }
 
     /**
@@ -263,10 +267,14 @@ public class MetricsService {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
 
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(scheduledClass.getStartDate());
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
         if(now.getTimeInMillis() > scheduledClass.getEndDate().getTime())
-            return dateUtility.countDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+            return dateUtility.countDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), dayOfWeek);
         else
-            return dateUtility.countDays(scheduledClass.getStartDate(), now.getTime(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+            return dateUtility.countDays(scheduledClass.getStartDate(), now.getTime(), dayOfWeek);
     }
 
     /**
@@ -280,10 +288,14 @@ public class MetricsService {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
 
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(scheduledClass.getStartDate());
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
         if(now.getTimeInMillis() > scheduledClass.getEndDate().getTime())
-            return dateUtility.listDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+            return dateUtility.listDays(scheduledClass.getStartDate(), scheduledClass.getEndDate(), dayOfWeek);
         else
-            return dateUtility.listDays(scheduledClass.getStartDate(), now.getTime(), DayOfWeek.of(scheduledClass.getStartDate().getDay()));
+            return dateUtility.listDays(scheduledClass.getStartDate(), now.getTime(), dayOfWeek);
     }
 
 }

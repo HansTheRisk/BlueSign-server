@@ -22,7 +22,7 @@ public class DateUtility {
      * @param day
      * @return int
      */
-    public int countDays(Date startDate, Date endDate, DayOfWeek day) {
+    public int countDays(Date startDate, Date endDate, int day) {
         int count = 0;
 
         if(startDate.getTime() > endDate.getTime()) {
@@ -35,7 +35,7 @@ public class DateUtility {
             end.setTime(endDate);
 
             while (start.getTimeInMillis() < end.getTimeInMillis()) {
-                if (start.get(Calendar.DAY_OF_WEEK) == convertDayOfWeekToCalendarDay(day))
+                if (start.get(Calendar.DAY_OF_WEEK) == day)
                     count++;
                 start.add(Calendar.DAY_OF_MONTH, 1);
             }
@@ -55,7 +55,7 @@ public class DateUtility {
      * @param day
      * @return List of dates
      */
-    public List<Date> listDays(Date startDate, Date endDate, DayOfWeek day) {
+    public List<Date> listDays(Date startDate, Date endDate, int day) {
 
         if(startDate.getTime() > endDate.getTime())
             return new ArrayList<>();
@@ -67,7 +67,7 @@ public class DateUtility {
         end.setTime(endDate);
 
         while (start.getTimeInMillis() < end.getTimeInMillis()) {
-            if (start.get(Calendar.DAY_OF_WEEK) == convertDayOfWeekToCalendarDay(day))
+            if (start.get(Calendar.DAY_OF_WEEK) == day)
                 dates.add(start.getTime());
             start.add(Calendar.DAY_OF_MONTH, 1);
         }

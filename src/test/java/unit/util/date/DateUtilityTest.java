@@ -24,9 +24,8 @@ public class DateUtilityTest {
 
         Calendar endDate = Calendar.getInstance();
         endDate.set(2017, 00, 22, 12, 00);
-        DayOfWeek day = DayOfWeek.TUESDAY;
 
-        long days = utility.countDays(startDate.getTime(), endDate.getTime(), day);
+        long days = utility.countDays(startDate.getTime(), endDate.getTime(), Calendar.TUESDAY);
         Assert.assertEquals(3, days);
 
     }
@@ -40,9 +39,8 @@ public class DateUtilityTest {
 
         Calendar endDate = Calendar.getInstance();
         endDate.set(2017, 00, 22, 11, 00);
-        DayOfWeek day = DayOfWeek.TUESDAY;
 
-        long days = utility.countDays(startDate.getTime(), endDate.getTime(), day);
+        long days = utility.countDays(startDate.getTime(), endDate.getTime(), Calendar.TUESDAY);
         Assert.assertEquals(2, days);
 
     }
@@ -56,9 +54,8 @@ public class DateUtilityTest {
 
         Calendar endDate = Calendar.getInstance();
         endDate.set(2017, 00, 22, 15, 00);
-        DayOfWeek day = DayOfWeek.TUESDAY;
 
-        long days = utility.countDays(startDate.getTime(), endDate.getTime(), day);
+        long days = utility.countDays(startDate.getTime(), endDate.getTime(), Calendar.TUESDAY);
         Assert.assertEquals(3, days);
 
     }
@@ -72,9 +69,8 @@ public class DateUtilityTest {
 
         Calendar startDate = Calendar.getInstance();
         startDate.set(2017, 00, 22, 11, 00);
-        DayOfWeek day = DayOfWeek.TUESDAY;
 
-        long days = utility.countDays(startDate.getTime(), endDate.getTime(), day);
+        long days = utility.countDays(startDate.getTime(), endDate.getTime(), Calendar.TUESDAY);
         Assert.assertEquals(0, days);
 
     }
@@ -88,7 +84,6 @@ public class DateUtilityTest {
 
         Calendar endDate = Calendar.getInstance();
         endDate.set(2017, 00, 22, 00, 00, 00);
-        DayOfWeek day = DayOfWeek.TUESDAY;
 
         List<Date> dates = new ArrayList<>();
         int dayNum = 03;
@@ -98,7 +93,7 @@ public class DateUtilityTest {
             dates.add(date.getTime());
             dayNum += 7;
         }
-        List<Date> days = utility.listDays(startDate.getTime(), endDate.getTime(), day);
+        List<Date> days = utility.listDays(startDate.getTime(), endDate.getTime(), Calendar.TUESDAY);
         days.forEach(dayResult -> {
             Assert.assertTrue(DateUtils.isSameDay(dayResult, dates.get(days.indexOf(dayResult))));
         });
