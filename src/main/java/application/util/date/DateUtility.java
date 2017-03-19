@@ -72,7 +72,7 @@ public class DateUtility {
             start.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        if ((end.getTime().getHours() + end.getTime().getMinutes()) < (start.getTime().getHours() + start.getTime().getMinutes()))
+        if ((end.get(Calendar.HOUR_OF_DAY)) < (start.get(Calendar.HOUR_OF_DAY)) || (((end.get(Calendar.HOUR_OF_DAY)) == (start.get(Calendar.HOUR_OF_DAY)) && end.get(Calendar.MINUTE) < start.get(Calendar.MINUTE))))
             dates.remove(dates.size()-1);
 
         return dates;
