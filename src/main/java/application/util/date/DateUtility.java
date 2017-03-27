@@ -40,8 +40,8 @@ public class DateUtility {
                 start.add(Calendar.DAY_OF_MONTH, 1);
             }
 
-            if ((end.get(Calendar.HOUR_OF_DAY)) < (start.get(Calendar.HOUR_OF_DAY)) || (((end.get(Calendar.HOUR_OF_DAY)) == (start.get(Calendar.HOUR_OF_DAY)) && end.get(Calendar.MINUTE) < start.get(Calendar.MINUTE))))
-                count--;
+//            if ((end.get(Calendar.HOUR_OF_DAY)) < (start.get(Calendar.HOUR_OF_DAY)) || (((end.get(Calendar.HOUR_OF_DAY)) == (start.get(Calendar.HOUR_OF_DAY)) && end.get(Calendar.MINUTE) < start.get(Calendar.MINUTE))))
+//                count--;
             return count;
         }
 
@@ -72,44 +72,9 @@ public class DateUtility {
             start.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        if ((end.get(Calendar.HOUR_OF_DAY)) < (start.get(Calendar.HOUR_OF_DAY)) || (((end.get(Calendar.HOUR_OF_DAY)) == (start.get(Calendar.HOUR_OF_DAY)) && end.get(Calendar.MINUTE) < start.get(Calendar.MINUTE))))
-            dates.remove(dates.size()-1);
+//        if ((end.get(Calendar.HOUR_OF_DAY)) < (start.get(Calendar.HOUR_OF_DAY)) || (((end.get(Calendar.HOUR_OF_DAY)) == (start.get(Calendar.HOUR_OF_DAY)) && end.get(Calendar.MINUTE) < start.get(Calendar.MINUTE))))
+//            dates.remove(dates.size()-1);
 
         return dates;
     }
-
-    /**
-     * This private method converts a day in DayOfWeek format
-     * into a day in Calendar format.
-     * @param day
-     * @return int
-     */
-    private int convertDayOfWeekToCalendarDay(DayOfWeek day) {
-        int response = -1;
-        switch (day) {
-            case MONDAY:
-                response =  2;
-                break;
-            case TUESDAY:
-                response = 3;
-                break;
-            case WEDNESDAY:
-                response = 4;
-                break;
-            case THURSDAY:
-                response = 5;
-                break;
-            case FRIDAY:
-                response = 6;
-                break;
-            case SATURDAY:
-                response = 7;
-                break;
-            case SUNDAY:
-                response = 1;
-                break;
-        }
-        return response;
-    }
-
 }

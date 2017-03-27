@@ -95,7 +95,6 @@ application/repository/user/UserRepository$1.class
 application/repository/accessCode/AccessCodeForClassRowMapper.class
 application/api/resource/binary/BinaryResource.class
 application/domain/student/StudentAttendanceCorrelation.class
-application/util/date/DateUtility$1.class
 application/repository/IdentifiableRowMapper.class
 application/repository/allocation/AllocationRepository.class
 application/repository/student/StudentRowMapper.class
