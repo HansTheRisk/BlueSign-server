@@ -70,20 +70,20 @@ public class StudentController {
             return new ResponseEntity<>(new BinaryResource<>(isIt), HttpStatus.OK);
     }
 
-    /**
-     * This endpoint returns a list of modules
-     * of a student.
-     * @param id
-     * @return List of ModuleResources
-     */
-    @RequestMapping(value="/student/{id}/modules", method= RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<List<ModuleResource>> getModules(@PathVariable String id) {
-        List<ModuleResource> modules = new ArrayList<>();
-        moduleService.getModulesForStudent(id).forEach(module ->
-                modules.add(new ModuleResource(module)));
-        return new ResponseEntity<>(modules, HttpStatus.OK);
-    }
+//    /**
+//     * This endpoint returns a list of modules
+//     * of a student.
+//     * @param id
+//     * @return List of ModuleResources
+//     */
+//    @RequestMapping(value="/student/{id}/modules", method= RequestMethod.GET)
+//    @ResponseBody
+//    public ResponseEntity<List<ModuleResource>> getModules(@PathVariable String id) {
+//        List<ModuleResource> modules = new ArrayList<>();
+//        moduleService.getModulesForStudent(id).forEach(module ->
+//                modules.add(new ModuleResource(module)));
+//        return new ResponseEntity<>(modules, HttpStatus.OK);
+//    }
 
     /**
      * This endpoint returns a list of sign-ins
@@ -91,10 +91,13 @@ public class StudentController {
      * @param id
      * @return List of AttendanceResources
      */
-    @RequestMapping(value="/student/{id}/history", method= RequestMethod.GET)
+    @RequestMapping(value="/student/{id}/{pin}/history", method= RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<AttendanceResource>> getHistory(@PathVariable String id) {
+    public ResponseEntity getHistory(@PathVariable String id,
+                                                               @PathVariable String pin) {
         List<AttendanceResource> resources = new ArrayList<>();
+        if(!studentService.universityIdAndPinCombinationExist(id, pin))
+            return new ResponseEntity(new MessageResource("Invalid combination or student does not exist!"), HttpStatus.NOT_FOUND);
         attendanceService.getAttendanceRecordsForStudent(id).forEach(attendance -> resources.add(new AttendanceResource(attendance)));
         return new ResponseEntity<List<AttendanceResource>>(resources, HttpStatus.OK);
     }
@@ -105,10 +108,13 @@ public class StudentController {
      * @param id
      * @return List of IndividualCumulativeModuleAttendanceResource
      */
-    @RequestMapping(value="/student/{id}/mobileMetrics", method= RequestMethod.GET)
+    @RequestMapping(value="/student/{id}/{pin}/mobileMetrics", method= RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<IndividualCumulativeModuleAttendanceResource>> getMobileMetrics(@PathVariable String id) {
+    public ResponseEntity<List<IndividualCumulativeModuleAttendanceResource>> getMobileMetrics(@PathVariable String id,
+                                                                                               @PathVariable String pin) {
         List<IndividualCumulativeModuleAttendanceResource> resources = new ArrayList<>();
+        if(!studentService.universityIdAndPinCombinationExist(id, pin))
+            return new ResponseEntity(new MessageResource("Invalid combination or student does not exist!"), HttpStatus.NOT_FOUND);
         metricsService.getMobileCumulativeModuleMetricsForStudent(id).forEach(metrics -> resources.add(new IndividualCumulativeModuleAttendanceResource(metrics)));
         return new ResponseEntity<List<IndividualCumulativeModuleAttendanceResource>>(resources, HttpStatus.OK);
     }
@@ -138,7 +144,11 @@ public class StudentController {
 
         ScheduledClass scheduledClass = scheduledClassService.getClassByAuthenticationCode(signInResource.getCode());
         Date now = new Date(System.currentTimeMillis());
-        String address = request.getHeader("X-FORWARDED-FOR").split("\\s*,\\s*")[0];
+        String address = request.getHeader("X-FORWARDED-FOR");
+        if(address == null)
+            address = request.getRemoteAddr();
+        else
+            address = address.split("\\s*,\\s*")[0];
 
         if(ipRangeService.checkIfIpInRange(address)) {
             if (studentService.universityIdAndPinCombinationExist(id, pin)) {
