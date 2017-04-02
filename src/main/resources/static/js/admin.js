@@ -821,7 +821,7 @@ function loadEditModuleModal() {
      getCall("/admin/lecturer", "json", loadLecturersForModuleCreate);
      setTimeout(function(){
        $("#lecturer").val(lecturer);
-       $('#moduleForm').append('<button id="edit" type="submit" class="btn btn-primary">Submit</button>');
+       $('#moduleForm').append('<button id="update" type="submit" class="btn btn-primary">Submit</button>');
      }, 500);
 }
 

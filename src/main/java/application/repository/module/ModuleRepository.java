@@ -134,7 +134,7 @@ public class ModuleRepository extends BaseJDBCRepository implements Identifiable
     public Module updateModuleDetails(Module module) {
         String sql = "UPDATE module "+
                 "SET title = ?, " +
-                "lecturer_id = (SELECT id FROM user WHERE uuid = ?), " +
+                "lecturer_id = (SELECT id FROM user WHERE uuid = ?) " +
                 "WHERE module_code = ? ";
         if(executor.update(sql,
                 new Object[]{module.getTitle(),

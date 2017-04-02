@@ -313,7 +313,7 @@ public class AdminController {
         return new ResponseEntity<>(new ModuleResource(moduleService.saveWithStudentsAllocated(resource.getObject(), students)), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "admin/module/{codeCode}", method = RequestMethod.PUT)
+    @RequestMapping(value = "admin/module/{moduleCode}", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity editModule(@RequestBody ModuleResource resource,
                                      @PathVariable String moduleCode) {
@@ -322,12 +322,12 @@ public class AdminController {
         if (validation != null)
             return validation;
 
-        if (moduleService.getByModuleCode(resource.getModuleCode()) == null)
+        if (moduleService.getByModuleCode(moduleCode) == null)
             return new ResponseEntity(new MessageResource("Module with id: " + resource.getModuleCode() + " does not exist"), HttpStatus.NOT_FOUND);
 
         if (userService.findByUUID(resource.getLecturerUuid()) == null)
             return new ResponseEntity(new MessageResource("Provided lecturer does not exist"), HttpStatus.NOT_FOUND);
-
+        resource.setModuleCode(moduleCode);
         return new ResponseEntity<>(new ModuleResource(moduleService.updateModuleDetails(resource.getObject())), HttpStatus.OK);
     }
 

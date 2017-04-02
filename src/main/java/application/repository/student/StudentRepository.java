@@ -50,7 +50,8 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                 "FROM student " +
                     "INNER JOIN allocation ON allocation.student_id = student.id " +
                     "INNER JOIN class ON class.id = allocation.class_id " +
-                "WHERE class.uuid = ? AND allocation.end IS NULL";
+                "WHERE class.uuid = ? AND (allocation.end IS NULL OR allocation.end > class.end_date) " +
+                "AND (allocation.start < class.end_date) ";
         return executor.query(sql, new Object[]{uuid}, new StudentRowMapper());
     }
 
