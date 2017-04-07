@@ -279,7 +279,7 @@ $(document).ready(function(){
         var title = $('#title').val();
         var studentIds = [];
 
-        $(this).find('input[type="checkbox"]').each(function(index){
+        $(this).find('#studentsList input[type="checkbox"]').each(function(index){
             if($(this).is(':checked')) {
                 studentIds.push($(this).attr("value"));
             }
@@ -330,7 +330,7 @@ $(document).ready(function(){
         $(this).find("button").attr('disabled', true);
         var id = $(this).find("button").attr("id");
         var weeks = parseInt($('#weeks').val());
-        var days = weeks * 7;
+        var days = (weeks -1) * 7;
         var startDate = new Date($('#startDate').val());
         var endDate = new Date($('#startDate').val());
         var startTime = $('#startTime').val();
@@ -359,7 +359,7 @@ $(document).ready(function(){
                 endDate.setMinutes(15);
 
                 if (locked == "false") {
-                    $(this).find('input[type="checkbox"]').each(function(index){
+                    $(this).find('#studentsList input[type="checkbox"]').each(function(index){
                         if($(this).is(':checked')) {
                             studentIds.push($(this).attr("value"));
                         }
@@ -468,6 +468,12 @@ $(document).ready(function(){
                 loadRemoveIpModal();
             }
 	});
+});
+
+$(document).ready(function(){
+    $(document).on("change", "#selectAll", function(e) {
+        $("#studentsList input:checkbox").click();
+    })
 });
 
 $(document).ready(function(){
@@ -851,7 +857,7 @@ function loadAddClassModal() {
          '<form id="classForm">' +
              '<div class="form-group">' +
                  '<label for="startDate">Start date</label>' +
-                 '</br><input id="startDate" type="date" value="'+today.toISOString().substr(0, 10)+'" required/></input>' +
+                 '</br><input id="startDate" type="date" min="'+today.toISOString().substr(0, 10)+'" value="'+today.toISOString().substr(0, 10)+'" required/></input>' +
              '</div>' +
              '<div class="form-group">' +
                  '<label>Time</label>' +
@@ -862,7 +868,7 @@ function loadAddClassModal() {
               '</div>' +
              '<div class="form-group">' +
                  '<label for="role">Num of weeks : </label>' +
-                 '</br><input type="number" min="0" max="10" step="1" value="0" name="weeks" id="weeks" required>' +
+                 '</br><input type="number" min="1" max="10" step="1" value="1" name="weeks" id="weeks" required>' +
              '</div>' +
               '<div class="form-group">' +
                   '<label for="group">Group : </label>' +
@@ -1009,6 +1015,9 @@ function pinResetSuccess(json) {
 
 function moduleCreateSuccess(json) {
     prepareConsole();
+    $('#studentsAssignedToModulePills').empty();
+    $('#addStudentToModuleButton').attr('disabled', true);
+    $('#addStudentToModuleButton').removeAttr('data-target');
     $('#consoleText').append(': Module with code: ' +json.moduleCode+ ' created.');
     getCall("/admin/module", "json", loadModules);
 }
@@ -1016,6 +1025,9 @@ function moduleCreateSuccess(json) {
 function moduleUpdateSuccess(json) {
     prepareConsole();
     $('#consoleText').append(': Module with code: ' +json.moduleCode+ ' updated.');
+    $('#studentsAssignedToModulePills').empty();
+    $('#addStudentToModuleButton').attr('disabled', true);
+    $('#addStudentToModuleButton').removeAttr('data-target');
     getCall("/admin/module", "json", loadModules);
 }
 
@@ -1152,6 +1164,17 @@ function loadLecturersForModuleCreate(json) {
 function loadModuleGroupsForModule(json) {
             var form = $('<div class="form-group"><label for="group">Group : </label></div>').appendTo($('#moduleForm'));
             var group = $('<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="groupSelect"></select>').appendTo(form);
+            var none_exists = false;
+
+            $.each(json, function(i, v) {
+                    if (JSON.stringify(v.moduleGroup).replace(/"/g, '') == "NONE") {
+                        none_exists = true;
+                    }
+            })
+
+            if(json.length == 0 || !none_exists) {
+                group.append('<option value="MODULE_ONLY">MODULE ONLY</option>');
+            }
 
             for(var i = 0; i < json.length; i++) {
                 var moduleGroup = JSON.stringify(json[i].moduleGroup).replace(/"/g, '');
@@ -1173,6 +1196,7 @@ function loadStudentsForModuleAdd(json) {
 
 function loadStudentsForModuleCreate(json) {
             var form = $('<div class="form-group"><label for="students">Students</label></div>').appendTo($('#moduleForm'));
+            $('<label class="checkbox" id="selectAll" style="margin-left:20px;"><input class="check" type="checkbox">Select all</label>').appendTo(form);
             var students = $('<div id="studentsList"></div>').appendTo(form);
             for(var i = 0; i < json.length; i++) {
                 var studentId = JSON.stringify(json[i].universityId).replace(/"/g, '');
@@ -1186,6 +1210,7 @@ function loadStudentsForModuleCreate(json) {
 function loadStudentsForClassCreate(json) {
             var form = $('#studentFormGroup');
             form.empty();
+            $('<label class="checkbox" id="selectAll" style="margin-left:20px;"><input class="check" type="checkbox">Select all</label>').appendTo(form);
             var students = $('<div id="studentsList"></div>').appendTo(form);
             var locked = json.locked;
             for(var i = 0; i < json.students.length; i++) {
@@ -1195,10 +1220,15 @@ function loadStudentsForClassCreate(json) {
 
                 students.append('<label class="checkbox" style="margin-left:20px;"><input class="check" type="checkbox" value="'+studentId+'">'+studentId+' '+name+' '+surname+'</label>');
             }
-            if(locked == true)
+            if(locked == true) {
                 $('#studentsList .check').attr('disabled', 'disabled');
-            else
+                $('#selectAll .check').attr('disabled', 'disabled');
+            }
+            else {
                 $('#studentsList .check').removeAttr('disabled');
+                $('#selectAll .check').removeAttr('disabled');
+            }
+
             students.attr("locked", locked);
 }
 

@@ -106,8 +106,8 @@ public class StudentRepository extends BaseJDBCRepository implements Identifiabl
                         "INNER JOIN module ON class.module_id = module.id " +
                      "WHERE class.uuid = ? " +
                      "AND DATE(attendance.date) = DATE(?) " +
-                     "AND timediff(attendance.date, class.start_date) > '00:20:00'";
-        return executor.query(sql, new Object[]{classUuid, timestampObj}, new StudentAttendanceCorrelationRowMapper());
+                     "AND timediff(attendance.date, TIMESTAMP(DATE(?), TIME(class.start_date))) > '00:20:00'";
+        return executor.query(sql, new Object[]{classUuid, timestampObj, timestampObj}, new StudentAttendanceCorrelationRowMapper());
     }
 
     /**

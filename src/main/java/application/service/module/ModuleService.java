@@ -79,13 +79,20 @@ public class ModuleService implements IdentifiableEntityService<Module> {
     }
 
     @Transactional(rollbackFor = DataAccessException.class)
-    public boolean addAStudentToModule(String moduleCode, String studentId, String groupName) {
+    public boolean addAStudentToModuleAndAGroup(String moduleCode, String studentId, String groupName) {
         boolean value = true;
         value = value && repository.insertModuleAllocations(moduleCode, Arrays.asList(studentId));
         List<Allocation> allocations = scheduledClassRepository.findClassesOfModuleGroup(moduleCode, groupName)
                 .stream()
                 .map(sclass -> new Allocation(studentId, sclass.getUuid())).collect(Collectors.toList());
         value = value && allocationRepository.insertAllocations(allocations);
+        return value;
+    }
+
+    @Transactional(rollbackFor = DataAccessException.class)
+    public boolean addAStudentToModule(String moduleCode, String studentId) {
+        boolean value = true;
+        value = value && repository.insertModuleAllocations(moduleCode, Arrays.asList(studentId));
         return value;
     }
 

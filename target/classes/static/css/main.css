@@ -51,6 +51,13 @@
     margin-bottom: 5%;
 }
 
+#logout {
+    float: right;
+    display: inline;
+    font-size: 80%;
+    color: #0000FF;
+}
+
 td {
     padding:0 15px 0 15px;
 }

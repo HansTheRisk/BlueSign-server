@@ -13,6 +13,7 @@ import application.api.resource.student.CreatedStudentResource;
 import application.api.resource.student.StudentResource;
 import application.api.resource.user.PasswordResource;
 import application.api.resource.user.UserResource;
+import application.domain.ipRange.IpRange;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.student.Student;
 import application.domain.user.User;
@@ -36,6 +37,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -131,12 +134,19 @@ public class AdminController {
     public ResponseEntity addAStudentToModule(@PathVariable String moduleCode,
                                               @PathVariable String group,
                                               @RequestBody StudentResource resource) {
+
+        List<String> moduleGroups = new ArrayList<>();
+        ResponseEntity validation;
+
         if (moduleService.getByModuleCode(moduleCode) == null)
             return new ResponseEntity(new MessageResource("Module with id: " + moduleCode + " does not exist."), HttpStatus.NOT_FOUND);
 
-        ResponseEntity validation = validateStudentResourceToAddToModule(resource);
+        validation = validateStudentResourceToAddToModule(resource);
+
         if(validation != null)
             return validation;
+
+        moduleGroups = moduleService.getModuleGroups(moduleCode).stream().map(code -> code.getGroup()).collect(Collectors.toList());
 
         List<String> studentIds = studentService.getStudentAvailableToAllocateToModule(moduleCode)
                 .stream().map(student -> student.getUniversityId()).collect(Collectors.toList());
@@ -144,13 +154,32 @@ public class AdminController {
         if (!studentIds.contains(resource.getUniversityId()))
              return new ResponseEntity<>(new MessageResource("Cannot allocate student with id: " + resource.getUniversityId()), HttpStatus.FORBIDDEN);
 
-        if (!moduleService.getModuleGroups(moduleCode).stream().map(code -> code.getGroup()).collect(Collectors.toList()).contains(group.toUpperCase()))
-            return new ResponseEntity<>(new MessageResource("Unknown group!"), HttpStatus.NOT_FOUND);
+        if(moduleGroups.contains("NONE")) {
+            if (!moduleGroups.contains(group.toUpperCase()))
+                return new ResponseEntity<>(new MessageResource("Unknown group!"), HttpStatus.NOT_FOUND);
+            if (moduleService.addAStudentToModuleAndAGroup(moduleCode, resource.getUniversityId(), group))
+                return new ResponseEntity<>(new MessageResource("Student with id: "+resource.getUniversityId()+" allocated to module " +moduleCode+" ."), HttpStatus.OK);
+            else
+                return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
+        }
+        else {
+            moduleGroups.add("MODULE_ONLY");
+            if (!moduleGroups.contains(group.toUpperCase()))
+                return new ResponseEntity<>(new MessageResource("Unknown group!"), HttpStatus.NOT_FOUND);
+            if(group.equals("MODULE_ONLY")) {
+                if (moduleService.addAStudentToModule(moduleCode, resource.getUniversityId()))
+                    return new ResponseEntity<>(new MessageResource("Student with id: "+resource.getUniversityId()+" allocated to module " +moduleCode+" ."), HttpStatus.OK);
+                else
+                    return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
+            }
+            else {
+                if (moduleService.addAStudentToModuleAndAGroup(moduleCode, resource.getUniversityId(), group))
+                    return new ResponseEntity<>(new MessageResource("Student with id: "+resource.getUniversityId()+" allocated to module " +moduleCode+" ."), HttpStatus.OK);
+                else
+                    return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
+            }
 
-        if (moduleService.addAStudentToModule(moduleCode, resource.getUniversityId(), group))
-            return new ResponseEntity<>(new MessageResource("Student with id: "+resource.getUniversityId()+" allocated to module " +moduleCode+" ."), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(new MessageResource("Something went wrong, please try again."), HttpStatus.FORBIDDEN);
+        }
     }
 
     @RequestMapping(value = "admin/module/{moduleCode}/student/{studentUniversityId}", method = RequestMethod.DELETE)
@@ -459,7 +488,18 @@ public class AdminController {
         if (validation != null)
             return validation;
 
-        return new ResponseEntity(new IpRangeResource(ipRangeService.save(resource.getObject())), HttpStatus.CREATED);
+        List<IpRange> ranges = ipRangeService.getAllIpRanges();
+        boolean found = false;
+        for(IpRange range:ranges) {
+            if(range.getIpStart().equals(resource.getRangeStart()) && range.getIpEnd().equals(resource.getRangeEnd())) {
+                found = true;
+                break;
+            }
+        }
+        if(!found)
+            return new ResponseEntity(new IpRangeResource(ipRangeService.save(resource.getObject())), HttpStatus.CREATED);
+        else
+            return new ResponseEntity(new MessageResource("Ip range: " + resource.getRangeStart() +" - "+ resource.getRangeEnd() + " already exists."), HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "admin/ip/{uuid}", method = RequestMethod.DELETE)
@@ -554,8 +594,12 @@ public class AdminController {
     private ResponseEntity validateModuleToCreateResource(ModuleToCreateResource resource) {
         if (resource.getModuleCode() == null || resource.getModuleCode().isEmpty())
             return new ResponseEntity(new MessageResource("Missing module code!"), HttpStatus.FORBIDDEN);
+        if (resource.getModuleCode().length() > 6)
+            return new ResponseEntity(new MessageResource("Module code too long!"), HttpStatus.FORBIDDEN);
         if (resource.getTitle() == null || resource.getTitle().isEmpty())
             return new ResponseEntity(new MessageResource("Missing title!"), HttpStatus.FORBIDDEN);
+        if (resource.getTitle().length() > 36)
+            return new ResponseEntity(new MessageResource("Title too long!"), HttpStatus.FORBIDDEN);
         if (resource.getLecturerUuid() == null || resource.getLecturerUuid().isEmpty())
             return new ResponseEntity(new MessageResource("Missing lecturer!"), HttpStatus.FORBIDDEN);
         if (resource.getStudentIds() == null || resource.getStudentIds().isEmpty())
@@ -566,6 +610,8 @@ public class AdminController {
     private ResponseEntity validateEditModuleResource(ModuleResource resource) {
         if (resource.getTitle() == null || resource.getTitle().isEmpty())
             return new ResponseEntity(new MessageResource("Missing title!"), HttpStatus.FORBIDDEN);
+        if (resource.getTitle().length() > 36)
+            return new ResponseEntity(new MessageResource("Title too long!"), HttpStatus.FORBIDDEN);
         if (resource.getLecturerUuid() == null || resource.getLecturerUuid().isEmpty())
             return new ResponseEntity(new MessageResource("Missing lecturer!"), HttpStatus.FORBIDDEN);
         return null;
@@ -573,13 +619,22 @@ public class AdminController {
 
     private ResponseEntity validateClassToCreateResource(ScheduledClassToCreateResource resource) {
         List<String> groups = new ArrayList(Arrays.asList("NONE", "A", "B", "C", "D"));
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+
         if (resource.getModuleCode() == null || resource.getModuleCode().isEmpty())
             return new ResponseEntity(new MessageResource("Missing module code!"), HttpStatus.FORBIDDEN);
         if (resource.getStartDate() == null)
             return new ResponseEntity(new MessageResource("No start date provided"), HttpStatus.FORBIDDEN);
         if (resource.getEndDate() == null)
             return new ResponseEntity(new MessageResource("No end date provided"), HttpStatus.FORBIDDEN);
-        if (resource.getStartDateTimestamp() > resource.getEndDateTimestamp())
+
+        start.setTime(new Date(resource.getStartDateTimestamp()));
+        end.setTime(new Date(resource.getEndDateTimestamp()));
+
+        if (resource.getStartDateTimestamp() > resource.getEndDateTimestamp()
+                || resource.getStartDateTimestamp() == resource.getEndDateTimestamp()
+                || end.get(Calendar.HOUR_OF_DAY) <= start.get(Calendar.HOUR_OF_DAY))
             return new ResponseEntity(new MessageResource("Invalid start or end date!"), HttpStatus.FORBIDDEN);
         if (resource.getGroup() == null || resource.getGroup().isEmpty())
             return new ResponseEntity(new MessageResource("Missing group name!"), HttpStatus.FORBIDDEN);
