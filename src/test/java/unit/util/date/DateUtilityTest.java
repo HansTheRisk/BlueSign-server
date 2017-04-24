@@ -3,11 +3,8 @@ package unit.util.date;
 import application.util.date.DateUtility;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
