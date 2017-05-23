@@ -17,7 +17,6 @@ import application.domain.ipRange.IpRange;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.student.Student;
 import application.domain.user.User;
-import application.repository.module.ModuleGroup;
 import application.service.ipRange.IpRangeService;
 import application.service.module.ModuleService;
 import application.service.scheduledClass.ScheduledClassService;

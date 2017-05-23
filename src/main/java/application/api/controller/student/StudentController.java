@@ -65,25 +65,10 @@ public class StudentController {
     @ResponseBody
     public ResponseEntity<BinaryResource> exists(@PathVariable String id,
                                                  @PathVariable String pin) {
-        Student student = studentService.getStudentByUniversityId(id);
         Boolean isIt = studentService.universityIdAndPinCombinationExist(id, pin);
             return new ResponseEntity<>(new BinaryResource<>(isIt), HttpStatus.OK);
     }
 
-//    /**
-//     * This endpoint returns a list of modules
-//     * of a student.
-//     * @param id
-//     * @return List of ModuleResources
-//     */
-//    @RequestMapping(value="/student/{id}/modules", method= RequestMethod.GET)
-//    @ResponseBody
-//    public ResponseEntity<List<ModuleResource>> getModules(@PathVariable String id) {
-//        List<ModuleResource> modules = new ArrayList<>();
-//        moduleService.getModulesForStudent(id).forEach(module ->
-//                modules.add(new ModuleResource(module)));
-//        return new ResponseEntity<>(modules, HttpStatus.OK);
-//    }
 
     /**
      * This endpoint returns a list of sign-ins
@@ -94,7 +79,7 @@ public class StudentController {
     @RequestMapping(value="/student/{id}/{pin}/history", method= RequestMethod.GET)
     @ResponseBody
     public ResponseEntity getHistory(@PathVariable String id,
-                                                               @PathVariable String pin) {
+                                     @PathVariable String pin) {
         List<AttendanceResource> resources = new ArrayList<>();
         if(!studentService.universityIdAndPinCombinationExist(id, pin))
             return new ResponseEntity(new MessageResource("Invalid combination or student does not exist!"), HttpStatus.NOT_FOUND);
