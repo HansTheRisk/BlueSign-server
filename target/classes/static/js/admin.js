@@ -22,6 +22,8 @@ $(document).ready(function(){
         else if(attribute == "#modules") {
             $('#removeModuleButton').attr('disabled', true);
             $('#removeModuleButton').removeAttr('data-target');
+            $('#addStudentToModuleButton').attr('disabled', true);
+            $('#addStudentToModuleButton').removeAttr('data-target');
             $('#studentsAssignedToModulePills').empty();
             getCall("/admin/module", "json", loadModules);
         }

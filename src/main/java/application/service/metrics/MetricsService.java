@@ -162,12 +162,16 @@ public class MetricsService {
      */
     private TotalAverageModuleAttendance calculateAverageModuleAttendanceMetrics(String moduleCode, List<ScheduledClass> classes, List<Attendance> attendance, List<Allocation> allocations) {
         List<Double> classesAvgPercentages = new ArrayList<Double>();
+        final int[] numOfClasses = {0};
         final int[] classesToDate = {0};
 
         classes.forEach(scheduledClass -> {
             List<Double> completedClassesAttendancePercentages = new ArrayList<Double>();
             List<Date> completedClasses = calculateClassesDates(scheduledClass);
             classesToDate[0] += completedClasses.size();
+
+            if(completedClasses.size() != 0)
+                numOfClasses[0]++;
 
             completedClasses.forEach(completedClass -> {
 
@@ -203,7 +207,7 @@ public class MetricsService {
                                                                            .sum()) / completedClassesAttendancePercentages.size());
         });
 
-        return new TotalAverageModuleAttendance(moduleCode, classesAvgPercentages.stream().mapToDouble(perc -> perc.doubleValue()).sum(), classes.size(), classesToDate[0]);
+        return new TotalAverageModuleAttendance(moduleCode, classesAvgPercentages.stream().mapToDouble(perc -> perc.doubleValue()).sum(), numOfClasses[0], classesToDate[0]);
     }
 
     private Date addTimeToDate(Date date, int hours, int minutes, int seconds) {

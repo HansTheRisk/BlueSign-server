@@ -175,7 +175,7 @@ function loadModuleAttendanceModal(json) {
 
 function loadModuleAttendance(json) {
     $('#moduleDetailsJumbo').append('<h4>Classes running / completed to date: '+ json.totalClassesCompletedToDate + '</h4>');
-    $('#moduleDetailsJumbo').append('<h4>Average class attendance percentage: '+ calculatePercentage(json.totaledClassAttendanceAveragePercentages, json.totalClassesCompletedToDate) + '%</h4>');
+    $('#moduleDetailsJumbo').append('<h4>Average class attendance percentage: '+ calculatePercentage(json.totaledClassAttendanceAveragePercentages, json.numberOfClasses) + '%</h4>');
     $('#moduleDetailsJumbo').append('<p><a class="btn btn-primary" callType="module_attendance" link="lecturer/module/'+json.moduleCode+'/attendanceList" data-toggle="modal" data-target="#myModal" role="button">Attendance list</a></p>');
 }
 
