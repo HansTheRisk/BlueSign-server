@@ -159,11 +159,13 @@ $(document).ready(function(){
         var valueSelected = this.value;
         if(valueSelected === 'null') {
             $('#classesPills').empty();
+            $('#studentsAssignedToClassPills').empty();
             $('#createClassButton').attr('disabled', true);
             $('#createClassButton').removeAttr('data-target');
         }
         else {
             getCall("/admin/module/"+valueSelected+"/class", "json", loadClasses);
+            $('#studentsAssignedToClassPills').empty();
             $('#createClassButton').attr('disabled', false);
             $('#createClassButton').attr('data-target', '#myModal');
         }

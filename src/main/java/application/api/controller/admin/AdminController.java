@@ -373,6 +373,11 @@ public class AdminController {
     public ResponseEntity deleteModule(@PathVariable String moduleCode) {
         if (moduleService.getByModuleCode(moduleCode) == null)
             return new ResponseEntity(new MessageResource("Module not found!"), HttpStatus.NOT_FOUND);
+        if (scheduledClassService.getCurrentlyRunningClasses().stream()
+                                                             .filter(sclass -> sclass.getModuleCode()
+                                                             .toUpperCase()
+                                                             .matches(moduleCode.toUpperCase())).count() > 0)
+            return new ResponseEntity(new MessageResource("Cannot remove a module with a running class!"), HttpStatus.FORBIDDEN);
         if (moduleService.removeModule(moduleCode))
             return new ResponseEntity<>(new MessageResource("Module with code: "+moduleCode+" deleted."), HttpStatus.OK);
         else
@@ -465,6 +470,8 @@ public class AdminController {
     public ResponseEntity deleteClass(@PathVariable String uuid) {
         if (scheduledClassService.findByUUID(uuid) == null)
             return new ResponseEntity(new MessageResource("Class not found!"), HttpStatus.NOT_FOUND);
+        if(scheduledClassService.getCurrentlyRunningClasses().stream().filter(sclass -> sclass.getUuid().matches(uuid)).count() > 0)
+            return new ResponseEntity(new MessageResource("Cannot remove a running class!"), HttpStatus.NOT_FOUND);
         if (scheduledClassService.removeClass(uuid))
             return new ResponseEntity<>(new MessageResource("Class with uuid: "+uuid+" deleted."), HttpStatus.OK);
         else
