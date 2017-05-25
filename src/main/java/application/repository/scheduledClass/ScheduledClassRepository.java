@@ -149,6 +149,29 @@ public class ScheduledClassRepository extends BaseJDBCRepository implements Natu
         return executor.query(sql, new ScheduledClassRowMapper());
     }
 
+    public ScheduledClass findIfClassIsRunning(String uuid) {
+        String sql = "SELECT class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
+                "(SELECT COUNT(*) " +
+                "FROM class INNER JOIN allocation " +
+                "ON class.id = allocation.class_id " +
+                "WHERE class.id = cl_id AND allocation.end IS NULL) as allocated " +
+                "FROM class " +
+                "INNER JOIN module " +
+                "ON class.module_id = module.id " +
+                "WHERE " +
+                "DATE(start_date) <= DATE(NOW()) " +
+                "AND " +
+                "DATE(end_date) >= DATE(NOW()) " +
+                "AND " +
+                "DAYOFWEEK(start_date) = DAYOFWEEK(NOW()) " +
+                "AND " +
+                "TIME(start_date) <= TIME(NOW()) " +
+                "AND " +
+                "TIME(end_date) > TIME(NOW()) " +
+                "AND class.uuid = ? ";
+        return executor.queryForObject(sql, new Object[]{uuid}, new ScheduledClassRowMapper());
+    }
+
     /**
      * This method returns attendance for a completed class
      * identified by the class UUID and the date of completion.

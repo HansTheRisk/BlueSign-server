@@ -17,6 +17,7 @@ import application.domain.ipRange.IpRange;
 import application.domain.scheduledClass.ScheduledClass;
 import application.domain.student.Student;
 import application.domain.user.User;
+import application.service.accessCode.AccessCodeService;
 import application.service.ipRange.IpRangeService;
 import application.service.module.ModuleService;
 import application.service.scheduledClass.ScheduledClassService;
@@ -61,6 +62,9 @@ public class AdminController {
 
     @Autowired
     private IpRangeService ipRangeService;
+
+    @Autowired
+    private AccessCodeService accessCodeService;
 
     @RequestMapping("/admin")
     public String admin() {
@@ -373,10 +377,7 @@ public class AdminController {
     public ResponseEntity deleteModule(@PathVariable String moduleCode) {
         if (moduleService.getByModuleCode(moduleCode) == null)
             return new ResponseEntity(new MessageResource("Module not found!"), HttpStatus.NOT_FOUND);
-        if (scheduledClassService.getCurrentlyRunningClasses().stream()
-                                                             .filter(sclass -> sclass.getModuleCode()
-                                                             .toUpperCase()
-                                                             .matches(moduleCode.toUpperCase())).count() > 0)
+        if (accessCodeService.getAccessCodeForModule(moduleCode) != null)
             return new ResponseEntity(new MessageResource("Cannot remove a module with a running class!"), HttpStatus.FORBIDDEN);
         if (moduleService.removeModule(moduleCode))
             return new ResponseEntity<>(new MessageResource("Module with code: "+moduleCode+" deleted."), HttpStatus.OK);
@@ -470,7 +471,7 @@ public class AdminController {
     public ResponseEntity deleteClass(@PathVariable String uuid) {
         if (scheduledClassService.findByUUID(uuid) == null)
             return new ResponseEntity(new MessageResource("Class not found!"), HttpStatus.NOT_FOUND);
-        if(scheduledClassService.getCurrentlyRunningClasses().stream().filter(sclass -> sclass.getUuid().matches(uuid)).count() > 0)
+        if (accessCodeService.getAccessCodeForClass(uuid) != null)
             return new ResponseEntity(new MessageResource("Cannot remove a running class!"), HttpStatus.NOT_FOUND);
         if (scheduledClassService.removeClass(uuid))
             return new ResponseEntity<>(new MessageResource("Class with uuid: "+uuid+" deleted."), HttpStatus.OK);

@@ -28,6 +28,14 @@ public class AccessCodeService {
         return repository.getClassAccessCodeForLecturer(lecturerUuid);
     }
 
+    public AccessCodeForClass getAccessCodeForClass(String uuid) {
+        return repository.getClassAccessCodeForClass(uuid);
+    }
+
+    public AccessCodeForClass getAccessCodeForModule(String moduleCode) {
+        return repository.getClassAccessCodeForModule(moduleCode);
+    }
+
     /**
      * Deletes all the access codes from the table
      */

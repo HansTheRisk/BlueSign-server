@@ -88,6 +88,13 @@ public class ScheduledClassService implements NaturallyIdentifiableService<Sched
         return repository.findClassesOfModuleGroup(moduleCode, group);
     }
 
+    public boolean checkIfClassIsRunning(String classUuid) {
+        if(repository.findIfClassIsRunning(classUuid) != null)
+            return true;
+        else
+            return false;
+    }
+
     @Transactional(rollbackFor = DataAccessException.class)
     public boolean removeClass(String classUuid) {
         boolean value = true;

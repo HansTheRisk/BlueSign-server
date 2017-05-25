@@ -23,6 +23,32 @@ public class AccessCodeRepository extends BaseJDBCRepository {
         executor.execute("TRUNCATE TABLE access_code");
     }
 
+    public AccessCodeForClass getClassAccessCodeForClass(String classUuid) {
+        String sql = "SELECT class_id, code, class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
+                "(SELECT COUNT(*) "+
+                "FROM class INNER JOIN allocation "+
+                "ON class.id = allocation.class_id " +
+                "WHERE class.id = cl_id) as allocated " +
+                "FROM access_code " +
+                "INNER JOIN class ON access_code.class_id = class.id " +
+                "INNER JOIN module ON class.module_id = module.id " +
+                "WHERE class.uuid = ?";
+        return executor.queryForObject(sql, new Object[]{classUuid}, new AccessCodeForClassRowMapper());
+    }
+
+    public AccessCodeForClass getClassAccessCodeForModule(String moduleCode) {
+        String sql = "SELECT class_id, code, class.id AS cl_id, class.uuid, module.id AS module_id, module.module_code, start_date, end_date, room, group_name, " +
+                "(SELECT COUNT(*) "+
+                "FROM class INNER JOIN allocation "+
+                "ON class.id = allocation.class_id " +
+                "WHERE class.id = cl_id) as allocated " +
+                "FROM access_code " +
+                "INNER JOIN class ON access_code.class_id = class.id " +
+                "INNER JOIN module ON class.module_id = module.id " +
+                "WHERE module.module_code = ?";
+        return executor.queryForObject(sql, new Object[]{moduleCode.toUpperCase()}, new AccessCodeForClassRowMapper());
+    }
+
     /**
      * This method retrieves an access code for a running class
      * for the given lecturer.

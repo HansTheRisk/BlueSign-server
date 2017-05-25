@@ -137,7 +137,7 @@ public class StudentController {
 
         if(ipRangeService.checkIfIpInRange(address)) {
             if (studentService.universityIdAndPinCombinationExist(id, pin)) {
-                if (scheduledClass != null) {
+                if (scheduledClass != null && scheduledClassService.checkIfClassIsRunning(scheduledClass.getUuid())) {
                     if (allocationService.checkIfAllocationExists(id, scheduledClass.getUuid())) {
                         if (!attendanceService.checkIfAttendanceExists(id, scheduledClass.getUuid(), now)) {
                             if (attendanceService.insertAttendance(new Attendance(id, scheduledClass.getUuid(), now)))

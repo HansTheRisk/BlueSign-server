@@ -2,7 +2,6 @@ package application.util.date;
 
 import org.springframework.stereotype.Component;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,9 +38,6 @@ public class DateUtility {
                     count++;
                 start.add(Calendar.DAY_OF_MONTH, 1);
             }
-
-//            if ((end.get(Calendar.HOUR_OF_DAY)) < (start.get(Calendar.HOUR_OF_DAY)) || (((end.get(Calendar.HOUR_OF_DAY)) == (start.get(Calendar.HOUR_OF_DAY)) && end.get(Calendar.MINUTE) < start.get(Calendar.MINUTE))))
-//                count--;
             return count;
         }
 
@@ -71,10 +67,6 @@ public class DateUtility {
                 dates.add(start.getTime());
             start.add(Calendar.DAY_OF_MONTH, 1);
         }
-
-//        if ((end.get(Calendar.HOUR_OF_DAY)) < (start.get(Calendar.HOUR_OF_DAY)) || (((end.get(Calendar.HOUR_OF_DAY)) == (start.get(Calendar.HOUR_OF_DAY)) && end.get(Calendar.MINUTE) < start.get(Calendar.MINUTE))))
-//            dates.remove(dates.size()-1);
-
         return dates;
     }
 }
